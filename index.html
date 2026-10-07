@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Penny · Personal Finance Agent</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            :root {
+                --bg: #f6f5f1;
+                --panel: #ffffff;
+                --ink: #1d1d1b;
+                --muted: #6f6d66;
+                --line: #e7e4dc;
+                --accent: #1f6f5c;
+                --accent-soft: #e3f0ec;
+                --warn: #b5562b;
+                --warn-soft: #fbece4;
+                --ok: #2f7d4f;
+                --tool: #f4f2ec;
+                --bar: #ebe8e0;
+            }
+            @media (prefers-color-scheme: dark) {
+                :root {
+                    --bg: #151614;
+                    --panel: #1e1f1c;
+                    --ink: #ecebe6;
+                    --muted: #a19f97;
+                    --line: #2f302c;
+                    --accent: #5cc3a6;
+                    --accent-soft: #1d3530;
+                    --warn: #ee9a70;
+                    --warn-soft: #3a261d;
+                    --ok: #7ccf9a;
+                    --tool: #262724;
+                    --bar: #2f302c;
+                }
+            }
+            * { box-sizing: border-box; margin: 0; padding: 0; }
+            body {
+                font-family: Inter, system-ui, sans-serif;
+                background: var(--bg);
+                color: var(--ink);
+                font-size: 14px;
+                line-height: 1.45;
+            }
+            header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 1rem;
+                flex-wrap: wrap;
+                padding: 1rem 1.5rem;
+                border-bottom: 1px solid var(--line);
+                background: var(--panel);
+            }
+            .brand { display: flex; align-items: baseline; gap: 0.75rem; flex-wrap: wrap; }
+            .brand h1 { font-size: 1.35rem; letter-spacing: -0.02em; }
+            .brand h1 span { color: var(--accent); }
+            .brand p { color: var(--muted); }
+            .sim {
+                display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
+                background: var(--bg); border: 1px solid var(--line);
+                border-radius: 999px; padding: 0.3rem 0.4rem 0.3rem 0.9rem;
+            }
+            .sim .date { font-weight: 600; font-variant-numeric: tabular-nums; }
+            .sim .label { color: var(--muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+            button {
+                font: inherit; cursor: pointer; border: 1px solid var(--line);
+                background: var(--panel); color: var(--ink);
+                border-radius: 999px; padding: 0.35rem 0.85rem;
+            }
+            button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+            button:disabled { opacity: 0.4; cursor: default; }
+            main {
+                display: grid;
+                grid-template-columns: minmax(300px, 400px) 1fr;
+                gap: 1.25rem;
+                padding: 1.25rem 1.5rem;
+                max-width: 1400px;
+                margin: 0 auto;
+                height: calc(100vh - 70px);
+            }
+            #dash { overflow-y: auto; display: flex; flex-direction: column; gap: 1rem; padding-bottom: 1rem; }
+            .card {
+                background: var(--panel); border: 1px solid var(--line);
+                border-radius: 14px; padding: 1rem 1.1rem;
+            }
+            .card h2 {
+                font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em;
+                color: var(--muted); font-weight: 600; margin-bottom: 0.6rem;
+            }
+            .big { font-size: 1.7rem; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+            .row { display: flex; justify-content: space-between; gap: 0.5rem; padding: 0.22rem 0; font-variant-numeric: tabular-nums; }
+            .row .k { color: var(--muted); }
+            .row.strong .k, .row.strong .v { color: var(--ink); font-weight: 600; }
+            .hint { color: var(--muted); font-size: 0.78rem; margin-top: 0.4rem; }
+            .meter { height: 10px; background: var(--bar); border-radius: 99px; overflow: hidden; margin: 0.5rem 0 0.35rem; }
+            .meter > div { height: 100%; background: var(--accent); border-radius: 99px; }
+            .meter.over > div { background: var(--warn); }
+            .cat { margin: 0.55rem 0; }
+            .cat .top { display: flex; justify-content: space-between; font-size: 0.85rem; font-variant-numeric: tabular-nums; }
+            .cat .top .amt { color: var(--muted); }
+            .cat .meter { height: 6px; margin: 0.25rem 0 0; }
+            .cat.over .top .name::after { content: " · over"; color: var(--warn); font-weight: 600; }
+            .pill { display: inline-block; font-size: 0.72rem; padding: 0.05rem 0.5rem; border-radius: 99px; background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+            .pill.up { background: var(--warn-soft); color: var(--warn); }
+            .flag { background: var(--warn-soft); color: var(--warn); border-radius: 10px; padding: 0.5rem 0.7rem; margin-top: 0.5rem; font-size: 0.82rem; }
+
+            #chat {
+                background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+                display: flex; flex-direction: column; min-height: 0;
+            }
+            #messages { flex: 1; overflow-y: auto; padding: 1.25rem 1.4rem; display: flex; flex-direction: column; gap: 1rem; }
+            .welcome h2 { font-size: 1.2rem; letter-spacing: -0.01em; margin-bottom: 0.4rem; }
+            .welcome p { color: var(--muted); max-width: 60ch; margin-bottom: 0.9rem; }
+            .chips { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+            .chip {
+                border-radius: 999px; border: 1px solid var(--line); background: var(--bg);
+                padding: 0.4rem 0.8rem; font-size: 0.82rem; text-align: left;
+            }
+            .chip:hover { border-color: var(--accent); color: var(--accent); }
+            .group-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin: 0.8rem 0 0.35rem; }
+            .msg { max-width: 82%; }
+            .msg.user { align-self: flex-end; background: var(--accent); color: #fff; padding: 0.6rem 0.9rem; border-radius: 16px 16px 4px 16px; }
+            .msg.bot { align-self: flex-start; }
+            .msg.bot .content { background: var(--bg); padding: 0.7rem 0.95rem; border-radius: 16px 16px 16px 4px; }
+            .msg.bot .content p + p, .msg.bot .content ul { margin-top: 0.45rem; }
+            .msg.bot .content ul { padding-left: 1.2rem; }
+            .msg.loading .content { color: var(--muted); }
+            .msg.note { align-self: center; color: var(--muted); font-size: 0.8rem; text-align: center; max-width: 90%; }
+            details.tool {
+                font-size: 0.78rem; background: var(--tool); border-radius: 10px;
+                margin-bottom: 0.4rem; border-left: 3px solid var(--accent);
+            }
+            details.tool summary { cursor: pointer; padding: 0.4rem 0.7rem; font-family: ui-monospace, monospace; color: var(--muted); }
+            details.tool summary b { color: var(--accent); font-weight: 600; }
+            details.tool.err { border-left-color: var(--warn); }
+            details.tool pre { padding: 0 0.7rem 0.6rem; white-space: pre-wrap; word-break: break-word; max-height: 280px; overflow-y: auto; font-size: 0.74rem; }
+            #input-area { display: flex; gap: 0.6rem; padding: 0.9rem 1rem; border-top: 1px solid var(--line); }
+            #user-input {
+                flex: 1; font: inherit; color: var(--ink); background: var(--bg);
+                border: 1px solid var(--line); border-radius: 999px; padding: 0.6rem 1rem; outline: none;
+            }
+            #user-input:focus { border-color: var(--accent); }
+
+            @media (max-width: 900px) {
+                main { grid-template-columns: 1fr; height: auto; padding: 1rem; }
+                #chat { height: 80vh; order: -1; }
+                #dash { overflow: visible; }
+                .msg { max-width: 95%; }
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="brand">
+                <h1>Penny<span>.</span></h1>
+                <p>A finance agent that reads your bank statements and Splitwise, then reasons about your money.</p>
+            </div>
+            <div class="sim" title="Penny runs on a simulated calendar so you can watch the month play out.">
+                <span class="label">Simulated today</span>
+                <span class="date" id="sim-date">…</span>
+                <button id="next-day" class="primary">Next day →</button>
+                <button id="reset">Reset</button>
+            </div>
+        </header>
+
+        <main>
+            <section id="dash">
+                <div class="card">
+                    <h2>Money across accounts</h2>
+                    <div id="accounts"></div>
+                </div>
+                <div class="card">
+                    <h2 id="month-title">This month</h2>
+                    <div id="month"></div>
+                </div>
+                <div class="card">
+                    <h2>Flexible budget by category</h2>
+                    <div id="categories"></div>
+                    <p class="hint">When one category goes over, the room left in every other category shrinks so the month still fits the cap.</p>
+                </div>
+                <div class="card">
+                    <h2>Shared expenses (Splitwise × bank)</h2>
+                    <div id="shared"></div>
+                </div>
+                <div class="card">
+                    <h2>Bills this month</h2>
+                    <div id="bills"></div>
+                </div>
+            </section>
+
+            <section id="chat">
+                <div id="messages">
+                    <div class="welcome" id="welcome">
+                        <h2>Hi, I'm Penny 👋</h2>
+                        <p>
+                            This demo uses <b>Maya</b>, a fictional NYC grad student: two bank accounts (Chase for
+                            spending, Bank of America for salary and rent), roommates and friends on Splitwise, and a
+                            $1,800 monthly cap that includes rent. Ask me anything about her money. Every number comes
+                            from a tool call, shown above each answer. You can also tell me about new spending; it
+                            only changes your own session.
+                        </p>
+                        <div class="group-label">Where things stand</div>
+                        <div class="chips">
+                            <button class="chip">How much money do I have across my accounts?</button>
+                            <button class="chip">Where am I overspending this month?</button>
+                            <button class="chip">What bills are still coming up?</button>
+                        </div>
+                        <div class="group-label">Shared expenses</div>
+                        <div class="chips">
+                            <button class="chip">Who still owes me money?</button>
+                            <button class="chip">I paid $90 for dinner with Sam and Priya tonight. Split it.</button>
+                        </div>
+                        <div class="group-label">Decisions</div>
+                        <div class="chips">
+                            <button class="chip">I'm going out for drinks tonight. How much should I spend?</button>
+                            <button class="chip">I just spent $30 at Zara.</button>
+                            <button class="chip">Why did you change my recommendation?</button>
+                            <button class="chip">Can I afford a $60 dinner this weekend?</button>
+                        </div>
+                        <div class="group-label">Patterns</div>
+                        <div class="chips">
+                            <button class="chip">How much did I spend on dining this month compared with last month?</button>
+                            <button class="chip">How many small purchases have I made this month, and what do they add up to?</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="input-area">
+                    <input type="text" id="user-input" placeholder="Ask Penny about Maya's money…" autocomplete="off" />
+                    <button id="send-btn" class="primary">Send</button>
+                </div>
+            </section>
+        </main>
+
+        <script>
+            const $ = (id) => document.getElementById(id);
+            const messages = $("messages");
+            const userInput = $("user-input");
+            const sendBtn = $("send-btn");
+            let sessionId = null;
+            try { sessionId = sessionStorage.getItem("penny-session"); } catch (e) {}
+
+            const usd = (n) => (n < 0 ? "−$" : "$") + Math.abs(n).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+            const fmtDate = (iso) => new Date(iso + "T12:00:00").toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric", year: "numeric" });
+            const row = (k, v, cls = "") => `<div class="row ${cls}"><span class="k">${k}</span><span class="v">${v}</span></div>`;
+
+            function saveSession(id) {
+                sessionId = id;
+                try { sessionStorage.setItem("penny-session", id); } catch (e) {}
+            }
+
+            // Tiny markdown: paragraphs, bullet lists, **bold**.
+            function md(text) {
+                const lines = esc(text || "").split("\n");
+                let html = "", inList = false;
+                for (const raw of lines) {
+                    const line = raw.replace(/\*\*(.+?)\*\*/g, "<b>$1</b>");
+                    const item = line.match(/^\s*[-*•]\s+(.*)/);
+                    if (item) { if (!inList) { html += "<ul>"; inList = true; } html += `<li>${item[1]}</li>`; continue; }
+                    if (inList) { html += "</ul>"; inList = false; }
+                    if (line.trim()) html += `<p>${line}</p>`;
+                }
+                return html + (inList ? "</ul>" : "");
+            }
+
+            async function refresh() {
+                const res = await fetch("/state" + (sessionId ? "?session_id=" + sessionId : ""));
+                const s = await res.json();
+                saveSession(s.session_id);
+                $("sim-date").textContent = fmtDate(s.today);
+                $("next-day").disabled = s.today >= s.last_day;
+
+                const p = s.position;
+                $("accounts").innerHTML =
+                    p.accounts.map((a) => row(`${a.name} <span class="pill">${a.role}</span>`, usd(a.balance))).join("") +
+                    row("Total cash", usd(p.cash_total), "strong") +
+                    row("+ Owed to you", usd(p.owed_to_you)) +
+                    row("− You owe", usd(p.you_owe)) +
+                    row("Net position", usd(p.net_position), "strong") +
+                    `<p class="hint">Spendable cash <b>${usd(p.spendable_cash)}</b>: cash minus bills still due and what you owe. Money owed to you isn't counted until it arrives.</p>`;
+
+                const b = s.budget;
+                const pct = Math.min(100, (b.spent_so_far / b.monthly_cap) * 100);
+                $("month-title").textContent = b.month;
+                $("month").innerHTML =
+                    `<div class="big">${usd(b.spent_so_far)} <span style="font-size:0.9rem;color:var(--muted);font-weight:500">of ${usd(b.monthly_cap)}</span></div>` +
+                    `<div class="meter ${b.over_cap_by > 0 ? "over" : ""}"><div style="width:${pct}%"></div></div>` +
+                    row("Flexible money left", `<b>${usd(b.flexible_left)}</b>`) +
+                    row("Bills still due", usd(b.bills_still_expected)) +
+                    row("Days left", b.days_left_including_today) +
+                    (b.over_cap_by > 0 ? `<div class="flag">Over the monthly cap by ${usd(b.over_cap_by)}.</div>` : "");
+
+                $("categories").innerHTML = b.categories
+                    .filter((c) => c.target > 0 || c.spent > 0)
+                    .sort((x, y) => y.target - x.target)
+                    .map((c) => {
+                        const over = c.over_by > 0;
+                        const w = c.target ? Math.min(100, (c.spent / c.target) * 100) : 100;
+                        const left = over ? `${usd(c.over_by)} over` : `${usd(c.adjusted_room_left)} left`;
+                        return `<div class="cat ${over ? "over" : ""}"><div class="top"><span class="name">${c.category}</span>` +
+                            `<span class="amt">${usd(c.spent)} / ${usd(c.target)} · ${left}</span></div>` +
+                            `<div class="meter ${over ? "over" : ""}"><div style="width:${w}%"></div></div></div>`;
+                    }).join("");
+
+                const sh = s.shared;
+                $("shared").innerHTML =
+                    row("Owed to you", usd(sh.total_owed_to_you), "strong") +
+                    row("You owe", usd(sh.total_you_owe)) +
+                    sh.people.map((x) => row(`${x.person} <span class="pill ${x.balance < 0 ? "up" : ""}">${x.direction}</span>`,
+                        `${usd(Math.abs(x.balance))}${x.days_open >= 14 ? ` · ${x.days_open}d` : ""}`)).join("") +
+                    sh.mismatches.map((m) => `<div class="flag">⚠ ${esc(m.detail)}</div>`).join("");
+
+                $("bills").innerHTML = b.obligations.map((o) => row(
+                    `${o.status === "paid" ? "✓" : "○"} ${o.name}`,
+                    `${o.estimated ? "~" : ""}${usd(o.amount)} <span class="pill ${o.status === "paid" ? "" : "up"}">${o.status === "paid" ? "paid " + o.paid_on.slice(5) : "due " + o.due_day}</span>`
+                )).join("");
+            }
+
+            function addMessage(cls, html) {
+                const div = document.createElement("div");
+                div.className = "msg " + cls;
+                div.innerHTML = html;
+                messages.appendChild(div);
+                messages.scrollTop = messages.scrollHeight;
+                return div;
+            }
+
+            function toolCard(call) {
+                let pretty = call.result, isErr = false;
+                try { const j = JSON.parse(call.result); isErr = !!j.error; pretty = JSON.stringify(j, null, 2); } catch (e) {}
+                const args = Object.entries(call.args || {}).map(([k, v]) => `${k}=${JSON.stringify(v)}`).join(", ");
+                const d = document.createElement("details");
+                d.className = "tool" + (isErr ? " err" : "");
+                d.innerHTML = `<summary>🔧 <b>${esc(call.name)}</b>(${esc(args)})${isErr ? " · error" : ""}</summary><pre>${esc(pretty)}</pre>`;
+                return d;
+            }
+
+            async function send(textArg) {
+                const text = (textArg ?? userInput.value).trim();
+                if (!text) return;
+                $("welcome").style.display = "none";
+                userInput.value = "";
+                sendBtn.disabled = true;
+                addMessage("user", esc(text));
+                const bot = addMessage("bot loading", '<div class="content">Penny is checking the numbers…</div>');
+
+                try {
+                    const res = await fetch("/chat", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ message: text, session_id: sessionId }),
+                    });
+                    const data = await res.json();
+                    saveSession(data.session_id);
+                    const content = bot.querySelector(".content");
+                    for (const call of data.tool_calls || []) bot.insertBefore(toolCard(call), content);
+                    content.innerHTML = md(data.response);
+                } catch (e) {
+                    bot.querySelector(".content").textContent = "Error: " + e.message;
+                }
+                bot.classList.remove("loading");
+                messages.scrollTop = messages.scrollHeight;
+                sendBtn.disabled = false;
+                userInput.focus();
+                refresh();
+            }
+
+            $("next-day").addEventListener("click", async () => {
+                $("next-day").disabled = true;
+                const r = await (await fetch("/next-day?session_id=" + sessionId, { method: "POST" })).json();
+                const items = r.new_transactions.map((t) => `${t.merchant} ${usd(t.amount)}`).join(", ");
+                $("welcome").style.display = "none";
+                addMessage("note", `📅 It's now ${fmtDate(r.today)}. ${items ? "New in the bank: " + esc(items) + "." : "No new bank activity."}`);
+                await refresh();
+            });
+
+            $("reset").addEventListener("click", async () => {
+                await fetch("/clear?session_id=" + sessionId, { method: "POST" });
+                try { sessionStorage.removeItem("penny-session"); } catch (e) {}
+                sessionId = null;
+                messages.querySelectorAll(".msg").forEach((m) => m.remove());
+                $("welcome").style.display = "";
+                await refresh();
+            });
+
+            document.querySelectorAll(".chip").forEach((c) => c.addEventListener("click", () => send(c.textContent)));
+            sendBtn.addEventListener("click", () => send());
+            userInput.addEventListener("keydown", (e) => { if (e.key === "Enter") send(); });
+            refresh();
+            userInput.focus();
+        </script>
+    </body>
+</html>

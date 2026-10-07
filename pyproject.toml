@@ -1,0 +1,17 @@
+[project]
+name = "penny-ai"
+version = "0.1.0"
+description = "Penny: a personal finance agent that reasons over bank statements and Splitwise with tool calls (FastAPI + LiteLLM + Gemini)"
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi>=0.109.0",
+    "uvicorn>=0.27.0",
+    "litellm>=1.50",
+    "google-cloud-aiplatform>=1.40.0",
+]
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

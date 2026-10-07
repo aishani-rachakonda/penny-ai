@@ -1,0 +1,53 @@
+Date,Description,Category,Cost,Currency,Maya,Sam,Priya,Jordan,Alex
+2026-03-10,Household supplies,Household,52.18,USD,34.78,-17.39,-17.39,0.00,0.00
+2026-03-14,ConEd electricity,Utilities,82.54,USD,-27.52,55.03,-27.51,0.00,0.00
+2026-03-16,Spectrum internet,Utilities,65.00,USD,-21.67,43.33,-21.66,0.00,0.00
+2026-03-21,Birthday dinner at Tomo,Dining out,142.80,USD,95.20,0.00,0.00,-47.60,-47.60
+2026-04-04,Priya paid Maya,Payment,17.39,USD,-17.39,0.00,17.39,0.00,0.00
+2026-04-04,Jordan paid Maya,Payment,47.60,USD,-47.60,0.00,0.00,47.60,0.00
+2026-04-06,Alex paid Maya,Payment,47.60,USD,-47.60,0.00,0.00,0.00,47.60
+2026-04-07,Maya paid Sam,Payment,31.80,USD,31.80,-31.80,0.00,0.00,0.00
+2026-04-10,Household supplies,Household,44.51,USD,29.67,-14.84,-14.83,0.00,0.00
+2026-04-14,ConEd electricity,Utilities,97.96,USD,-32.66,65.31,-32.65,0.00,0.00
+2026-04-16,Spectrum internet,Utilities,65.00,USD,-21.67,43.33,-21.66,0.00,0.00
+2026-04-18,Dinner at The Grand Tier,Dining out,118.35,USD,88.76,0.00,-29.58,-29.59,-29.59
+2026-05-04,Priya paid Maya,Payment,44.41,USD,-44.41,0.00,44.41,0.00,0.00
+2026-05-05,Jordan paid Maya,Payment,29.59,USD,-29.59,0.00,0.00,29.59,0.00
+2026-05-06,Maya paid Sam,Payment,39.49,USD,39.49,-39.49,0.00,0.00,0.00
+2026-05-06,Alex paid Maya,Payment,29.59,USD,-29.59,0.00,0.00,0.00,29.59
+2026-05-10,Household supplies,Household,41.76,USD,27.84,-13.92,-13.92,0.00,0.00
+2026-05-14,ConEd electricity,Utilities,100.47,USD,-33.49,66.98,-33.49,0.00,0.00
+2026-05-16,Spectrum internet,Utilities,65.00,USD,-21.67,43.33,-21.66,0.00,0.00
+2026-05-30,Dim sum,Dining out,96.40,USD,48.20,0.00,0.00,0.00,-48.20
+2026-06-04,Priya paid Maya,Payment,13.92,USD,-13.92,0.00,13.92,0.00,0.00
+2026-06-07,Maya paid Sam,Payment,41.24,USD,41.24,-41.24,0.00,0.00,0.00
+2026-06-07,Alex paid Maya,Payment,48.20,USD,-48.20,0.00,0.00,0.00,48.20
+2026-06-10,Household supplies,Household,45.82,USD,30.54,-15.27,-15.27,0.00,0.00
+2026-06-14,ConEd electricity,Utilities,88.41,USD,-29.47,58.94,-29.47,0.00,0.00
+2026-06-16,Spectrum internet,Utilities,65.00,USD,-21.67,43.33,-21.66,0.00,0.00
+2026-06-27,Rooftop drinks,Dining out,84.00,USD,42.00,0.00,0.00,-42.00,0.00
+2026-07-04,Maya paid Sam,Payment,35.87,USD,35.87,-35.87,0.00,0.00,0.00
+2026-07-04,Priya paid Maya,Payment,15.27,USD,-15.27,0.00,15.27,0.00,0.00
+2026-07-05,Jordan paid Maya,Payment,42.00,USD,-42.00,0.00,0.00,42.00,0.00
+2026-07-10,Household supplies,Household,42.28,USD,28.18,-14.09,-14.09,0.00,0.00
+2026-07-14,ConEd electricity,Utilities,149.89,USD,-49.97,99.93,-49.96,0.00,0.00
+2026-07-16,Spectrum internet,Utilities,65.00,USD,-21.67,43.33,-21.66,0.00,0.00
+2026-07-25,Patiala Grill dinner,Dining out,126.90,USD,84.60,0.00,0.00,-42.30,-42.30
+2026-08-04,Priya paid Maya,Payment,14.09,USD,-14.09,0.00,14.09,0.00,0.00
+2026-08-05,Maya paid Sam,Payment,57.55,USD,57.55,-57.55,0.00,0.00,0.00
+2026-08-05,Alex paid Maya,Payment,42.30,USD,-42.30,0.00,0.00,0.00,42.30
+2026-08-06,Jordan paid Maya,Payment,42.30,USD,-42.30,0.00,0.00,42.30,0.00
+2026-08-10,Household supplies,Household,46.81,USD,31.20,-15.60,-15.60,0.00,0.00
+2026-08-14,ConEd electricity,Utilities,147.49,USD,-49.17,98.33,-49.16,0.00,0.00
+2026-08-16,Spectrum internet,Utilities,65.00,USD,-21.67,43.33,-21.66,0.00,0.00
+2026-08-29,Tomo sushi night,Dining out,144.00,USD,96.00,0.00,0.00,-48.00,-48.00
+2026-09-04,Maya paid Sam,Payment,55.24,USD,55.24,-55.24,0.00,0.00,0.00
+2026-09-04,Alex paid Maya,Payment,48.00,USD,-48.00,0.00,0.00,0.00,48.00
+2026-09-06,Movie tickets,Entertainment,52.47,USD,-17.49,-17.49,34.98,0.00,0.00
+2026-09-06,Priya paid Maya,Payment,15.60,USD,-15.60,0.00,15.60,0.00,0.00
+2026-09-10,Household supplies,Household,54.76,USD,36.50,-18.25,-18.25,0.00,0.00
+2026-09-12,Brunch at Jacob's Pickles,Dining out,108.60,USD,72.40,0.00,-36.20,0.00,-36.20
+2026-09-14,ConEd electricity,Utilities,82.91,USD,-27.64,55.27,-27.63,0.00,0.00
+2026-09-14,Priya paid Maya,Payment,36.20,USD,-36.20,0.00,36.20,0.00,0.00
+2026-09-16,Spectrum internet,Utilities,65.00,USD,-21.67,43.33,-21.66,0.00,0.00
+2026-09-17,Maya paid Sam,Payment,31.06,USD,31.06,-31.06,0.00,0.00,0.00
