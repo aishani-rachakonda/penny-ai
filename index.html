@@ -109,6 +109,20 @@
             .cat.over .top .name::after { content: " · over"; color: var(--warn); font-weight: 600; }
             .pill { display: inline-block; font-size: 0.72rem; padding: 0.05rem 0.5rem; border-radius: 99px; background: var(--accent-soft); color: var(--accent); font-weight: 600; }
             .pill.up { background: var(--warn-soft); color: var(--warn); }
+            .src { display: inline-block; font-size: 0.68rem; padding: 0.02rem 0.45rem; border-radius: 99px; font-weight: 600; white-space: nowrap; }
+            .src.user { background: var(--accent-soft); color: var(--accent); }
+            .src.det { background: #ece6fb; color: #5b3fb0; }
+            .src.sync { background: var(--tool); color: var(--muted); }
+            @media (prefers-color-scheme: dark) { .src.det { background: #2c2445; color: #b9a5f5; } }
+            .count { background: var(--warn); color: #fff; border-radius: 99px; padding: 0 0.45rem; margin-left: 0.3rem; font-size: 0.68rem; }
+            .count:empty { display: none; }
+            .notif { padding: 0.45rem 0; border-top: 1px solid var(--line); font-size: 0.84rem; }
+            .notif:first-child { border-top: none; }
+            .notif .t { font-weight: 600; }
+            .notif .d { color: var(--muted); font-size: 0.78rem; }
+            .notif.warn .t::before { content: "⚠ "; color: var(--warn); }
+            .notif.new { background: var(--accent-soft); border-radius: 8px; padding-left: 0.5rem; }
+            .muted { color: var(--muted); }
             .flag { background: var(--warn-soft); color: var(--warn); border-radius: 10px; padding: 0.5rem 0.7rem; margin-top: 0.5rem; font-size: 0.82rem; }
 
             #chat {
@@ -160,7 +174,7 @@
         <header>
             <div class="brand">
                 <h1>Penny<span>.</span></h1>
-                <p>A finance agent that reads your bank statements and Splitwise, then reasons about your money.</p>
+                <p>A finance agent connected to your bank accounts and Splitwise that reasons about your money and plans with you.</p>
             </div>
             <div class="sim" title="Penny runs on a simulated calendar so you can watch the month play out.">
                 <span class="label">Simulated today</span>
@@ -172,6 +186,10 @@
 
         <main>
             <section id="dash">
+                <div class="card">
+                    <h2>Coming up & alerts <span class="count" id="notif-count"></span></h2>
+                    <div id="notifications"></div>
+                </div>
                 <div class="card">
                     <h2>Money across accounts</h2>
                     <div id="accounts"></div>
@@ -192,6 +210,21 @@
                 <div class="card">
                     <h2>Bills this month</h2>
                     <div id="bills"></div>
+                    <p class="hint"><span class="src user">you told Penny</span> came from you; <span class="src det">detected</span> Penny found in your transactions.</p>
+                </div>
+                <div class="card">
+                    <h2>Recurring payments Penny detected</h2>
+                    <div id="recurring"></div>
+                    <p class="hint">Nobody entered these. Penny finds them after every sync: same merchant, a regular rhythm, at least 3 times.</p>
+                </div>
+                <div class="card">
+                    <h2>What Penny remembers</h2>
+                    <div id="memory"></div>
+                </div>
+                <div class="card">
+                    <h2>Connected sources</h2>
+                    <div id="connections"></div>
+                    <p class="hint">Sandbox connections: simulated Plaid and Splitwise APIs that return the same data formats as the real ones, revealed day by day.</p>
                 </div>
             </section>
 
@@ -200,11 +233,11 @@
                     <div class="welcome" id="welcome">
                         <h2>Hi, I'm Penny 👋</h2>
                         <p>
-                            This demo uses <b>Maya</b>, a fictional NYC grad student: two bank accounts (Chase for
-                            spending, Bank of America for salary and rent), roommates and friends on Splitwise, and a
-                            $1,800 monthly cap that includes rent. Ask me anything about her money. Every number comes
-                            from a tool call, shown above each answer. You can also tell me about new spending; it
-                            only changes your own session.
+                            This demo is <b>Maya</b>, a fictional NYC grad student. Her Chase and Bank of America accounts
+                            arrive through a Plaid sandbox, her shared expenses through a Splitwise sandbox, and her
+                            subscriptions are detected from the transactions. She told Penny her rent ($1,250, due the
+                            1st–10th) and her $1,800 monthly cap. Every number comes from a tool call, shown above each
+                            answer. Anything you change only affects your session; <b>Next day</b> syncs the next day's data.
                         </p>
                         <div class="group-label">Where things stand</div>
                         <div class="chips">
@@ -223,6 +256,13 @@
                             <button class="chip">I just spent $30 at Zara.</button>
                             <button class="chip">Why did you change my recommendation?</button>
                             <button class="chip">Can I afford a $60 dinner this weekend?</button>
+                        </div>
+                        <div class="group-label">Planning & bills</div>
+                        <div class="chips">
+                            <button class="chip">What subscriptions am I paying for?</button>
+                            <button class="chip">Let's plan October.</button>
+                            <button class="chip">Remove the Coffee category and count it as Dining.</button>
+                            <button class="chip">Remember that I'm saving for a trip to Italy in December.</button>
                         </div>
                         <div class="group-label">Patterns</div>
                         <div class="chips">
@@ -279,7 +319,9 @@
 
                 const p = s.position;
                 $("accounts").innerHTML =
-                    p.accounts.map((a) => row(`${a.name} <span class="pill">${a.role}</span>`, usd(a.balance))).join("") +
+                    p.accounts.map((a) => row(`${a.institution} <span class="muted">...${a.mask}</span>`, usd(a.balance)) +
+                        (a.pending || a.told_penny ? `<div class="hint" style="margin:0 0 0.3rem">Bank says ${usd(a.bank_balance)}` +
+                            (a.pending ? ` · ${usd(a.pending)} pending` : "") + (a.told_penny ? ` · ${usd(a.told_penny)} you told Penny` : "") + `</div>` : "")).join("") +
                     row("Total cash", usd(p.cash_total), "strong") +
                     row("+ Owed to you", usd(p.owed_to_you)) +
                     row("− You owe", usd(p.you_owe)) +
@@ -288,7 +330,7 @@
 
                 const b = s.budget;
                 const pct = Math.min(100, (b.spent_so_far / b.monthly_cap) * 100);
-                $("month-title").textContent = b.month;
+                $("month-title").textContent = b.month + (b.plan.startsWith("carried") ? " · plan carried forward" : "");
                 $("month").innerHTML =
                     `<div class="big">${usd(b.spent_so_far)} <span style="font-size:0.9rem;color:var(--muted);font-weight:500">of ${usd(b.monthly_cap)}</span></div>` +
                     `<div class="meter ${b.over_cap_by > 0 ? "over" : ""}"><div style="width:${pct}%"></div></div>` +
@@ -304,7 +346,7 @@
                         const over = c.over_by > 0;
                         const w = c.target ? Math.min(100, (c.spent / c.target) * 100) : 100;
                         const left = over ? `${usd(c.over_by)} over` : `${usd(c.adjusted_room_left)} left`;
-                        return `<div class="cat ${over ? "over" : ""}"><div class="top"><span class="name">${c.category}</span>` +
+                        return `<div class="cat ${over ? "over" : ""}"><div class="top"><span class="name">${esc(c.category)}${c.target_set_by === "you" ? ' <span class="src user">yours</span>' : ""}</span>` +
                             `<span class="amt">${usd(c.spent)} / ${usd(c.target)} · ${left}</span></div>` +
                             `<div class="meter ${over ? "over" : ""}"><div style="width:${w}%"></div></div></div>`;
                     }).join("");
@@ -313,14 +355,39 @@
                 $("shared").innerHTML =
                     row("Owed to you", usd(sh.total_owed_to_you), "strong") +
                     row("You owe", usd(sh.total_you_owe)) +
-                    sh.people.map((x) => row(`${x.person} <span class="pill ${x.balance < 0 ? "up" : ""}">${x.direction}</span>`,
+                    sh.people.map((x) => row(`${esc(x.person)} <span class="pill ${x.balance < 0 ? "up" : ""}">${x.direction}</span>`,
                         `${usd(Math.abs(x.balance))}${x.days_open >= 14 ? ` · ${x.days_open}d` : ""}`)).join("") +
                     sh.mismatches.map((m) => `<div class="flag">⚠ ${esc(m.detail)}</div>`).join("");
 
-                $("bills").innerHTML = b.obligations.map((o) => row(
-                    `${o.status === "paid" ? "✓" : "○"} ${o.name}`,
-                    `${o.estimated ? "~" : ""}${usd(o.amount)} <span class="pill ${o.status === "paid" ? "" : "up"}">${o.status === "paid" ? "paid " + o.paid_on.slice(5) : "due " + o.due_day}</span>`
+                const srcBadge = (src) => src.startsWith("detected by") ? '<span class="src det">detected</span>'
+                    : src.startsWith("detected,") ? '<span class="src det">detected · confirmed</span>' : '<span class="src user">you told Penny</span>';
+                $("bills").innerHTML = b.bills.map((o) => row(
+                    `${o.status === "paid" ? "✓" : "○"} ${esc(o.name)} ${srcBadge(o.source)}`,
+                    `${o.estimated ? "~" : ""}${usd(o.amount)} <span class="pill ${o.status === "paid" ? "" : "up"}">${o.status === "paid" ? "paid " + o.paid_on.slice(5) : "due " + o.due}</span>`
                 )).join("");
+
+                $("recurring").innerHTML = s.recurring.map((r) => {
+                    const amt = r.variable ? `~${usd(r.typical_cents / 100)}` : usd(r.last_cents / 100);
+                    const tags = [r.kind, r.cadence, r.status === "stopped" ? "stopped" : r.next_due ? "next " + r.next_due.slice(5) : ""]
+                        .filter(Boolean).join(" · ");
+                    const pc = r.price_change ? ` <span class="pill up">↑ was ${usd(r.price_change.from)}</span>` : "";
+                    return `<div class="row"><span class="k">${r.direction === "in" ? "↓ " : ""}${esc(r.label)}${pc}<br><span class="hint">${tags} · seen ${r.occurrences}× · ${Math.round(r.confidence * 100)}% sure</span></span><span class="v">${amt}</span></div>`;
+                }).join("");
+
+                $("memory").innerHTML = s.memory.length
+                    ? s.memory.map((m) => `<div class="notif">${esc(m.text)}</div>`).join("")
+                    : '<p class="hint" style="margin:0">Nothing yet. Tell Penny a goal or preference ("I\'m saving for a trip in December") and it will remember.</p>';
+
+                $("connections").innerHTML = s.connections.map((c) => row(
+                    `${esc(c.institution)} <span class="src sync">${c.provider}</span><br><span class="hint">${esc(c.detail)}</span>`,
+                    `<span class="hint">synced ${c.last_synced ? c.last_synced.slice(5) : "never"}</span>`)).join("");
+
+                const seen = window.seenNotifs || new Set();
+                $("notifications").innerHTML = s.notifications.length ? s.notifications.map((n) =>
+                    `<div class="notif ${n.severity} ${window.seenNotifs && !seen.has(n.id) ? "new" : ""}"><div class="t">${esc(n.title)}</div><div class="d">${esc(n.detail)}</div></div>`).join("")
+                    : '<p class="hint" style="margin:0">Nothing needs your attention.</p>';
+                $("notif-count").textContent = s.notifications.length || "";
+                window.seenNotifs = new Set(s.notifications.map((n) => n.id));
             }
 
             function addMessage(cls, html) {
@@ -375,9 +442,21 @@
             $("next-day").addEventListener("click", async () => {
                 $("next-day").disabled = true;
                 const r = await (await fetch("/next-day?session_id=" + sessionId, { method: "POST" })).json();
-                const items = r.new_transactions.map((t) => `${t.merchant} ${usd(t.amount)}`).join(", ");
                 $("welcome").style.display = "none";
-                addMessage("note", `📅 It's now ${fmtDate(r.today)}. ${items ? "New in the bank: " + esc(items) + "." : "No new bank activity."}`);
+                let note = `📅 It's now ${fmtDate(r.today)}.`;
+                if (r.sync) {
+                    const parts = r.sync.sources.filter((x) => x.added || x.modified || x.removed).map((x) => {
+                        const bits = [];
+                        if (x.added) bits.push(`${x.added} new`);
+                        if (x.modified) bits.push(`${x.modified} ${x.provider === "plaid" ? "posted" : "updated"}`);
+                        if (x.removed) bits.push(`${x.removed} removed`);
+                        const items = x.new.slice(0, 3).map((t) => t.merchant ? `${t.merchant} ${usd(t.amount)}${t.pending ? " (pending)" : ""}` : t.description).join(", ");
+                        return `${x.institution}: ${bits.join(", ")}${items ? " — " + items : ""}`;
+                    });
+                    note += parts.length ? ` Sync: ${parts.join(" · ")}.` : " Sync: nothing new from Plaid or Splitwise.";
+                    if (r.new_notifications && r.new_notifications.length) note += ` 🔔 ${r.new_notifications.map((n) => n.title).join("; ")}.`;
+                }
+                addMessage("note", esc(note));
                 await refresh();
             });
 

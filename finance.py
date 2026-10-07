@@ -14,7 +14,7 @@ import statistics
 from collections import defaultdict
 from datetime import date, timedelta
 
-from db import FIXED_CATEGORIES, SPENDING_CATEGORIES, today
+from db import categories, today
 
 def dollars(c: int | float) -> float:
     return round(c / 100, 2)
@@ -78,7 +78,7 @@ def historical_category_averages(conn, as_of: date, months: int = 6) -> dict[str
     for _ in range(months):
         m = prev_month_start(m)
         start, end = month_bounds(m)
-        if conn.execute("SELECT 1 FROM accounts WHERE opening_date <= ?", (start.isoformat(),)).fetchone():
+        if conn.execute("SELECT 1 FROM transactions WHERE date <= ?", (start.isoformat(),)).fetchone():
             per_month.append(spending_by_category(conn, start, end))
     cats = {c for month in per_month for c in month}
     return {c: round(statistics.mean(month.get(c, 0) for month in per_month)) for c in cats}
@@ -183,69 +183,43 @@ def shared_balances(conn, as_of: date | None = None) -> dict:
             "net": round(owed - owe, 2), "mismatches": flags}
 
 
-# --- Obligations and the monthly budget ------------------------------------------
-
-
-def estimate_shared_obligation(conn, match: str, as_of: date, months: int = 3) -> int:
-    """Average of the user's share of a recurring shared bill over recent months."""
-    start = as_of.replace(day=1)
-    for _ in range(months):
-        start = prev_month_start(start)
-    rows = conn.execute(
-        """SELECT s.owed_cents FROM shared_expenses x JOIN shared_shares s ON s.expense_id = x.expense_id
-           WHERE s.person = 'me' AND x.description LIKE ? AND x.date >= ? AND x.date < ?""",
-        (f"%{match}%", start.isoformat(), as_of.replace(day=1).isoformat())).fetchall()
-    return round(sum(r[0] for r in rows) / len(rows)) if rows else 0
-
-
-def obligations_status(conn, as_of: date) -> list[dict]:
-    start, _ = month_bounds(as_of)
-    s, d = start.isoformat(), as_of.isoformat()
-    out = []
-    for name, category, expected, variable, source, match, due_day in conn.execute(
-            "SELECT name, category, amount_cents, variable, source, match, due_day FROM obligations"):
-        if source == "bank":
-            row = conn.execute("SELECT SUM(-amount_cents), MAX(date) FROM transactions WHERE kind = 'purchase' "
-                               "AND description LIKE ? AND date BETWEEN ? AND ?", (f"%{match}%", s, d)).fetchone()
-        else:
-            row = conn.execute(
-                """SELECT SUM(s.owed_cents), MAX(x.date) FROM shared_expenses x
-                   JOIN shared_shares s ON s.expense_id = x.expense_id AND s.person = 'me'
-                   WHERE x.description LIKE ? AND x.date BETWEEN ? AND ?""", (f"%{match}%", s, d)).fetchone()
-        paid = row[0] is not None
-        out.append({"name": name, "category": category, "status": "paid" if paid else "upcoming",
-                    "amount": dollars(row[0] if paid else expected), "expected": dollars(expected),
-                    "estimated": bool(variable) and not paid, "due_day": due_day,
-                    "paid_on": row[1] if paid else None})
-    return out
+# --- The monthly budget ------------------------------------------------------------
 
 
 def budget_status(conn, as_of: date | None = None, extra: dict[str, int] | None = None) -> dict:
     """The month's plan versus reality, with flexible budgets re-balanced.
 
     How re-balancing works: the cap minus fixed costs (bills paid so far plus bills
-    still expected) is the flexible pool. Whatever is left of that pool is shared
-    out across categories in proportion to each one's remaining room. So when one
-    category goes over its target, or a bill comes in higher than estimated, every
-    other category's remaining room shrinks by the same percentage.
+    still expected, from the plan and from detection) is the flexible pool.
+    Whatever is left of that pool is shared out across categories in proportion
+    to each one's remaining room. So when one category goes over its target, or a
+    bill comes in higher than estimated, every other category's remaining room
+    shrinks by the same percentage.
 
     `extra` adds hypothetical spending ({category: cents}) for what-if questions.
     """
+    import planning
+
     as_of = as_of or today(conn)
     start, end = month_bounds(as_of)
-    cap = conn.execute("SELECT value FROM budget WHERE key = 'monthly_cap_cents'").fetchone()[0]
-    targets = dict(conn.execute("SELECT category, target_cents FROM budget_categories"))
+    month = planning.ensure_plan(conn, planning.month_key(as_of))
+    cap, plan_source = conn.execute("SELECT monthly_cap_cents, source FROM plans WHERE month = ?", (month,)).fetchone()
+    target_rows = conn.execute("SELECT category, target_cents, source FROM plan_categories WHERE month = ?",
+                               (month,)).fetchall()
+    targets = {c: t for c, t, _ in target_rows}
+    target_source = {c: s for c, _, s in target_rows}
+    bill_cats = set(categories(conn, "bill"))
     spent = spending_by_category(conn, start, as_of)
     for c, v in (extra or {}).items():
         spent[c] = spent.get(c, 0) + v
 
-    obligations = obligations_status(conn, as_of)
-    obligations_planned = sum(round(o["expected"] * 100) for o in obligations)
-    upcoming = sum(round(o["amount"] * 100) for o in obligations if o["status"] == "upcoming")
-    fixed_spent = sum(v for c, v in spent.items() if c in FIXED_CATEGORIES)
+    bills = planning.bills_for_month(conn, as_of)
+    bills_planned = sum(round(b["expected"] * 100) for b in bills)
+    upcoming = sum(round(b["amount"] * 100) for b in bills if b["status"] == "upcoming")
+    fixed_spent = sum(v for c, v in spent.items() if c in bill_cats)
     fixed_committed = fixed_spent + upcoming
 
-    flex_cats = sorted(set(targets) | {c for c in spent if c not in FIXED_CATEGORIES and spent[c]})
+    flex_cats = sorted(set(targets) | {c for c in spent if c not in bill_cats and spent[c]})
     pool = cap - fixed_committed
     flex_spent = sum(spent.get(c, 0) for c in flex_cats)
     available = max(0, pool - flex_spent)
@@ -253,19 +227,21 @@ def budget_status(conn, as_of: date | None = None, extra: dict[str, int] | None 
     total_room = sum(room.values())
     factor = min(1.0, available / total_room) if total_room else 0.0
 
-    categories = []
+    cats = []
     for c in flex_cats:
         t, sp = targets.get(c, 0), spent.get(c, 0)
-        categories.append({
+        cats.append({
             "category": c, "target": dollars(t), "spent": dollars(sp),
+            "target_set_by": {"user": "you", "penny": "Penny (from your history)"}.get(target_source.get(c), "no target"),
             "over_by": dollars(max(0, sp - t)), "room_left": dollars(room[c]),
             "adjusted_room_left": dollars(room[c] * factor),
         })
 
-    over = [x for x in categories if x["over_by"] > 0]
+    over = [x for x in cats if x["over_by"] > 0]
     total_spent = sum(spent.values())
     return {
         "month": start.strftime("%B %Y"), "as_of": as_of.isoformat(),
+        "plan": "carried forward from last month" if plan_source == "carried_forward" else "set with you",
         "days_left_including_today": (end - as_of).days + 1,
         "monthly_cap": dollars(cap),
         "spent_so_far": dollars(total_spent),
@@ -277,33 +253,42 @@ def budget_status(conn, as_of: date | None = None, extra: dict[str, int] | None 
         "over_cap_by": dollars(max(0, flex_spent - pool)),
         "rebalance": {
             "categories_over_target": [{"category": x["category"], "over_by": x["over_by"]} for x in over],
-            "bills_vs_plan": dollars(fixed_committed - obligations_planned),
+            "bills_vs_plan": dollars(fixed_committed - bills_planned),
             "remaining_room_scaled_to": f"{factor:.0%}",
         },
-        "categories": categories,
-        "obligations": obligations,
+        "categories": cats,
+        "bills": bills,
     }
 
 
 # --- Position: what exists vs what is actually spendable -------------------------
 
 
-def balances(conn, as_of: date) -> list[dict]:
-    rows = conn.execute(
-        """SELECT a.account_id, a.name, a.role,
-                  a.opening_cents + COALESCE(SUM(t.amount_cents), 0)
-           FROM accounts a LEFT JOIN transactions t ON t.account_id = a.account_id AND t.date <= ?
-           GROUP BY a.account_id ORDER BY a.account_id DESC""", (as_of.isoformat(),)).fetchall()
-    return [{"account": r[0], "name": r[1], "role": r[2], "balance": dollars(r[3])} for r in rows]
+def balances(conn) -> list[dict]:
+    """Balances as the bank reported them at the last sync, adjusted for purchases the user told Penny about."""
+    out = []
+    for account, name, mask, current, available, as_of, institution in conn.execute(
+            """SELECT a.account_id, a.name, a.mask, a.balance_current_cents, a.balance_available_cents, a.balance_as_of,
+                      c.institution FROM accounts a JOIN connections c USING (connection_id) ORDER BY a.account_id DESC"""):
+        manual = conn.execute("SELECT COALESCE(SUM(amount_cents), 0) FROM transactions WHERE account_id = ? "
+                              "AND source = 'manual'", (account,)).fetchone()[0]
+        pending = current - available
+        out.append({"account": account, "name": name, "institution": institution, "mask": mask,
+                    "bank_balance": dollars(current), "pending": dollars(-pending) if pending else 0.0,
+                    "told_penny": dollars(manual), "balance": dollars(available + manual),
+                    "as_of": as_of, "source": f"Plaid sync ({institution})"})
+    return out
 
 
 def financial_position(conn, as_of: date | None = None) -> dict:
+    import planning
+
     as_of = as_of or today(conn)
-    accts = balances(conn, as_of)
+    accts = balances(conn)
     cash = round(sum(a["balance"] for a in accts), 2)
     shared = shared_balances(conn, as_of)
-    upcoming = [o for o in obligations_status(conn, as_of) if o["status"] == "upcoming"]
-    reserved = round(sum(o["amount"] for o in upcoming), 2)
+    upcoming = [b for b in planning.bills_for_month(conn, as_of) if b["status"] == "upcoming"]
+    reserved = round(sum(b["amount"] for b in upcoming), 2)
     return {
         "as_of": as_of.isoformat(),
         "accounts": accts,
@@ -312,11 +297,12 @@ def financial_position(conn, as_of: date | None = None) -> dict:
         "you_owe": shared["total_you_owe"],
         "net_position": round(cash + shared["total_owed_to_you"] - shared["total_you_owe"], 2),
         "reserved_for_bills_this_month": reserved,
-        "upcoming_bills": [{"name": o["name"], "amount": o["amount"], "due_day": o["due_day"],
-                            "estimated": o["estimated"]} for o in upcoming],
+        "upcoming_bills": [{"name": b["name"], "amount": b["amount"], "due": b["due"], "estimated": b["estimated"],
+                            "source": b["source"]} for b in upcoming],
         "spendable_cash": round(cash - reserved - shared["total_you_owe"], 2),
-        "note": "net_position counts money owed to you; spendable_cash does not (it isn't yours to spend until it "
-                "arrives) and it sets aside upcoming bills and what you owe others.",
+        "note": "Balances are what the bank reported at the last sync, minus pending charges and minus purchases "
+                "you told Penny about that the bank hasn't shown yet. net_position counts money owed to you; "
+                "spendable_cash does not, and it sets aside upcoming bills and what you owe others.",
     }
 
 
@@ -470,19 +456,3 @@ def evaluate_purchase(conn, amount_cents: int, category: str) -> dict:
         "spendable_cash_after": round(position["spendable_cash"] - amount, 2),
         "other_categories_squeezed": squeezed,
     }
-
-
-# --- Simulation clock -------------------------------------------------------------
-
-
-def advance_day(conn) -> dict:
-    current = today(conn)
-    last = date.fromisoformat(conn.execute("SELECT value FROM meta WHERE key = 'last_day'").fetchone()[0])
-    if current >= last:
-        return {"today": current.isoformat(), "new_transactions": [], "message": "This is the last day of data."}
-    nxt = current + timedelta(days=1)
-    conn.execute("UPDATE meta SET value = ? WHERE key = 'today'", (nxt.isoformat(),))
-    rows = conn.execute("SELECT account_id, merchant, amount_cents FROM transactions WHERE date = ? AND source = 'statement'",
-                        (nxt.isoformat(),)).fetchall()
-    return {"today": nxt.isoformat(),
-            "new_transactions": [{"account": a, "merchant": m, "amount": dollars(c)} for a, m, c in rows]}

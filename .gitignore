@@ -17,3 +17,6 @@ private/
 # Local tooling
 .claude/
 .pytest_cache/
+
+# Generated at startup: an inspectable copy of the seed database
+penny.db

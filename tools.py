@@ -3,6 +3,9 @@
 Every tool takes the session's database connection first, then the model's
 arguments. Tools validate their inputs and return errors as JSON the model can
 act on (what was wrong and what the valid options are) instead of raising.
+
+Results say where facts came from (synced from Plaid or Splitwise, detected by
+Penny, or provided by the user) so the agent can tell the user how it knows.
 """
 
 import difflib
@@ -11,7 +14,11 @@ from datetime import date, timedelta
 
 import db
 import finance
+import planning
+import recurring
 from finance import dollars
+from ingest import clients, pipeline
+from sandbox.providers import ProviderError
 
 
 class ToolError(Exception):
@@ -21,25 +28,31 @@ class ToolError(Exception):
 # --- Argument helpers --------------------------------------------------------------
 
 
-def _category(name: str | None, allow_none: bool = False) -> str | None:
+def _category(conn, name: str | None, allow_none: bool = False, create: bool = False) -> str | None:
     if name is None and allow_none:
         return None
-    lookup = {c.lower(): c for c in db.SPENDING_CATEGORIES}
+    known = db.categories(conn)
+    lookup = {c.lower(): c for c in known}
     key = (name or "").strip().lower()
     if key in lookup:
         return lookup[key]
-    close = difflib.get_close_matches(key, lookup, n=3, cutoff=0.5)
+    close = difflib.get_close_matches(key, lookup, n=3, cutoff=0.6)
+    if create and not close and key:
+        new = name.strip().title()
+        conn.execute("INSERT INTO categories VALUES (?, 'flexible', 'user')", (new,))
+        return new
     hint = f" Did you mean: {', '.join(lookup[c] for c in close)}?" if close else ""
-    raise ToolError(f"Unknown category '{name}'.{hint} Valid categories: {', '.join(db.SPENDING_CATEGORIES)}.")
+    extra = " To make a new category, pass create_category=true." if create is False and not close else ""
+    raise ToolError(f"Unknown category '{name}'.{hint} Categories: {', '.join(known)}.{extra}")
 
 
 def _account(conn, name: str) -> str:
-    accounts = [r[0] for r in conn.execute("SELECT account_id FROM accounts")]
+    rows = conn.execute("SELECT a.account_id, c.institution, a.mask FROM accounts a JOIN connections c USING (connection_id)").fetchall()
     key = (name or "").strip().lower()
-    for a in accounts:
-        if key == a or key in a or a in key.replace("bank of america", "boa"):
-            return a
-    raise ToolError(f"Unknown account '{name}'. Available accounts: {', '.join(accounts)}.")
+    for account, institution, mask in rows:
+        if key in (account, institution.lower(), mask) or key in institution.lower() or account in key:
+            return account
+    raise ToolError(f"Unknown account '{name}'. Accounts: " + ", ".join(f"{a} ({i} ...{m})" for a, i, m in rows) + ".")
 
 
 def _date(value: str | None, default: date, conn) -> date:
@@ -55,20 +68,35 @@ def _date(value: str | None, default: date, conn) -> date:
     return d
 
 
+def _month(conn, value: str | None) -> str:
+    current = planning.month_key(db.today(conn))
+    if not value:
+        return current
+    try:
+        month = date.fromisoformat(value[:7] + "-01").strftime("%Y-%m")
+    except ValueError:
+        raise ToolError(f"Month '{value}' isn't in YYYY-MM format, e.g. '2026-10'.")
+    if month < current:
+        raise ToolError(f"{month} is in the past; plans can be set for {current} or later.")
+    return month
+
+
 def _amount(value) -> int:
     try:
         c = round(float(value) * 100)
     except (TypeError, ValueError):
         raise ToolError(f"Amount '{value}' isn't a number. Pass dollars as a number, e.g. 30 or 12.50.")
     if c <= 0:
-        raise ToolError("Amount must be a positive number of dollars; use 'direction' to say which way it moved.")
+        raise ToolError("Amount must be a positive number of dollars.")
     return c
 
 
-def _people(conn) -> list[str]:
-    rows = conn.execute("SELECT person FROM shared_shares UNION SELECT paid_by FROM shared_expenses "
-                        "UNION SELECT person FROM transactions WHERE person IS NOT NULL").fetchall()
-    return sorted({r[0] for r in rows} - {"me"})
+def _person(conn, name: str) -> tuple[str, int]:
+    people = conn.execute("SELECT name, splitwise_user_id FROM people ORDER BY name").fetchall()
+    for n, uid in people:
+        if name.strip().lower() in (n.lower(), n.lower().split()[0]):
+            return n, uid
+    raise ToolError(f"'{name}' isn't one of your Splitwise friends. Friends: {', '.join(n for n, _ in people)}.")
 
 
 # --- Read tools --------------------------------------------------------------------
@@ -83,13 +111,13 @@ def query_transactions(conn, start_date=None, end_date=None, account=None, categ
     today = db.today(conn)
     start = _date(start_date, today.replace(day=1), conn)
     end = _date(end_date, today, conn)
-    sql = ["SELECT txn_id, date, account_id, merchant, category, amount_cents, kind, person FROM transactions "
-           "WHERE date BETWEEN ? AND ?"]
+    sql = ["SELECT txn_id, date, account_id, merchant, category, amount_cents, kind, person, pending, source, "
+           "category_source FROM transactions WHERE date BETWEEN ? AND ?"]
     params: list = [start.isoformat(), end.isoformat()]
     if account:
         sql.append("AND account_id = ?"); params.append(_account(conn, account))
     if category:
-        sql.append("AND category = ?"); params.append(_category(category))
+        sql.append("AND category = ?"); params.append(_category(conn, category))
     if merchant_contains:
         sql.append("AND (merchant LIKE ? OR description LIKE ?)"); params += [f"%{merchant_contains}%"] * 2
     if direction == "spent":
@@ -103,14 +131,16 @@ def query_transactions(conn, start_date=None, end_date=None, account=None, categ
     rows = conn.execute(" ".join(sql) + " ORDER BY date DESC, txn_id DESC", params).fetchall()
     limit = max(1, min(int(limit or 25), 100))
     return {
-        "count": len(rows),
-        "total": dollars(sum(r[5] for r in rows)),
-        "showing": min(limit, len(rows)),
+        "count": len(rows), "total": dollars(sum(r[5] for r in rows)), "showing": min(limit, len(rows)),
         "transactions": [{"id": r[0], "date": r[1], "account": r[2], "merchant": r[3], "category": r[4],
-                          "amount": dollars(r[5]), "type": r[6], **({"person": r[7]} if r[7] else {})}
+                          "amount": dollars(r[5]), "type": r[6], **({"person": r[7]} if r[7] else {}),
+                          **({"pending": True} if r[8] else {}),
+                          "source": "you told Penny" if r[9] == "manual" else "Plaid",
+                          "categorized_by": {"plaid": "Plaid", "penny_rule": "Penny's rules",
+                                             "user_rule": "your rule"}.get(r[10], r[10])}
                          for r in rows[:limit]],
-        "note": "Amounts are signed: negative is money out. Split purchases show the full charge here; "
-                "use summarize_spending for your share.",
+        "note": "Amounts are signed: negative is money out. Split purchases show the full charge; "
+                "summarize_spending counts only your share.",
     }
 
 
@@ -123,7 +153,7 @@ def summarize_spending(conn, start_date=None, end_date=None, group_by="category"
         raise ToolError(f"start_date {start} is after end_date {end}.")
     if group_by not in ("category", "merchant", "week", "day"):
         raise ToolError("group_by must be one of: category, merchant, week, day.")
-    cat = _category(category, allow_none=True)
+    cat = _category(conn, category, allow_none=True)
 
     def summarize(s: date, e: date) -> dict:
         items = [i for i in finance.spending_items(conn, s, e) if cat is None or i["category"] == cat]
@@ -140,9 +170,8 @@ def summarize_spending(conn, start_date=None, end_date=None, group_by="category"
                 "groups": {k: dollars(v) for k, v in sorted(groups.items(), key=lambda kv: -kv[1])}}
 
     result = {"current": summarize(start, end),
-              "note": "Your share only: split expenses count at your share, transfers and settle-ups are excluded."}
+              "note": "Your share only: split expenses count at your share; transfers and settle-ups are excluded."}
     if compare_to_previous_period:
-        # Same calendar span one month earlier (Sep 1-18 -> Aug 1-18), clipped to month length.
         def back(d: date) -> date:
             m = finance.prev_month_start(d)
             return m.replace(day=min(d.day, finance.month_bounds(m)[1].day))
@@ -161,38 +190,192 @@ def get_budget_status(conn) -> dict:
 def recommend_spending(conn, category, horizon="today") -> dict:
     if horizon not in ("today", "weekend", "rest_of_month"):
         raise ToolError("horizon must be 'today', 'weekend' or 'rest_of_month'.")
-    cat = _category(category)
-    if cat in db.FIXED_CATEGORIES:
-        raise ToolError(f"{cat} is a fixed bill, not a flexible category. Use get_budget_status to see bills.")
+    cat = _category(conn, category)
+    if cat in db.categories(conn, "bill"):
+        raise ToolError(f"{cat} is covered by fixed bills, not a flexible budget. Use get_budget_status to see bills.")
     return finance.recommend(conn, cat, horizon)
 
 
 def evaluate_purchase(conn, amount, category) -> dict:
-    return finance.evaluate_purchase(conn, _amount(amount), _category(category))
+    return finance.evaluate_purchase(conn, _amount(amount), _category(conn, category))
 
 
 def get_shared_balances(conn, person=None) -> dict:
     result = finance.shared_balances(conn)
     if person:
-        name = person.strip().title()
-        known = _people(conn)
-        if name not in known:
-            raise ToolError(f"No one named '{person}' in your shared expenses. People: {', '.join(known)}.")
+        name, _ = _person(conn, person)
         result["people"] = [p for p in result["people"] if p["person"] == name] or \
                            [{"person": name, "balance": 0.0, "direction": "settled up"}]
         result["mismatches"] = [m for m in result["mismatches"] if m["person"] == name]
+    result["source"] = "Splitwise (synced), cross-checked against Plaid bank transactions"
     return result
+
+
+def get_recurring_payments(conn, include_income=False) -> dict:
+    today = db.today(conn)
+    in_plan = {b["detected_match"]: b["name"] for b in planning.bills_for_month(conn, today) if b["in_plan"]}
+    out = []
+    for s in recurring.series(conn):
+        if s["direction"] == "in" and not include_income:
+            continue
+        out.append({
+            "name": s["label"], "kind": s["kind"], "cadence": s["cadence"],
+            "amount": s["last_cents"] / 100, "varies": bool(s["variable"]),
+            "range": [s["low_cents"] / 100, s["high_cents"] / 100] if s["variable"] else None,
+            "times_seen": s["occurrences"], "first_seen": s["first_date"], "last_charged": s["last_date"],
+            "next_expected": s["next_due"], "status": s["status"], "price_change": s["price_change"],
+            "confidence": s["confidence"],
+            "in_your_plan": in_plan.get(s["label"]) or (False if s["direction"] == "out" else None),
+            "dismissed": s["dismissed"],
+        })
+    return {"as_of": today.isoformat(), "recurring": out,
+            "how": "Detected by Penny from your synced transactions: same merchant, regular rhythm, at least 3 times. "
+                   "Nothing here was entered by you; use update_plan to confirm one into your plan or dismiss it."}
+
+
+def draft_monthly_plan(conn, month=None) -> dict:
+    return planning.draft_plan(conn, _month(conn, month))
 
 
 # --- Write tools -------------------------------------------------------------------
 
 
+def update_plan(conn, month=None, monthly_cap=None, bills_to_set=None, bills_to_remove=None,
+                detected_to_dismiss=None, category_targets=None, categories_to_remove=None) -> dict:
+    month = planning.ensure_plan(conn, _month(conn, month))
+    if not any([monthly_cap, bills_to_set, bills_to_remove, detected_to_dismiss, category_targets, categories_to_remove]):
+        raise ToolError("Nothing to change. Pass monthly_cap, bills_to_set, bills_to_remove, detected_to_dismiss, "
+                        "category_targets or categories_to_remove.")
+    today = db.today(conn).isoformat()
+    changes = []
+    if monthly_cap is not None:
+        conn.execute("UPDATE plans SET monthly_cap_cents = ?, source = 'user', updated_on = ? WHERE month = ?",
+                     (_amount(monthly_cap), today, month))
+        changes.append(f"Monthly cap set to ${float(monthly_cap):,.2f}.")
+
+    detected = {s["label"].lower(): s for s in recurring.series(conn)}
+    for b in bills_to_set or []:
+        if not isinstance(b, dict) or not b.get("name"):
+            raise ToolError("Each bill needs at least a 'name', e.g. {'name': 'Rent', 'amount': 1250, "
+                            "'due_day_start': 1, 'due_day_end': 10}.")
+        name = b["name"].strip()
+        existing = conn.execute("SELECT category, amount_cents, due_day_start, due_day_end, how_paid, match, source "
+                                "FROM plan_bills WHERE month = ? AND lower(name) = lower(?)", (month, name)).fetchone()
+        series = detected.get(name.lower()) or next((s for k, s in detected.items() if name.lower() in k), None)
+        if existing:
+            category, amount, lo, hi, how, match, source = existing
+        elif series:  # confirming a detected payment into the plan
+            name, category, how, source = series["label"], series["category"] or "Utilities", \
+                "bank" if series["origin"] == "bank" else "splitwise", "detected"
+            match = series["label"].replace(" (your share)", "")
+            amount = None if series["variable"] else series["last_cents"]
+            lo = hi = series["due_day_low"] or 1
+        else:
+            if b.get("due_day_start") is None:
+                raise ToolError(f"New bill '{name}' needs due_day_start (and amount, unless it varies).")
+            category, amount, lo, hi, how, match, source = "Utilities", None, b["due_day_start"], b["due_day_start"], \
+                "bank", name.split()[0], "user"
+        if "amount" in b:
+            amount = _amount(b["amount"]) if b["amount"] is not None else None
+        lo = int(b.get("due_day_start", lo)); hi = int(b.get("due_day_end", b.get("due_day_start", hi)))
+        if not (1 <= lo <= hi <= 31):
+            raise ToolError("Due days must satisfy 1 <= due_day_start <= due_day_end <= 31.")
+        if b.get("category"):
+            category = _category(conn, b["category"])
+        match = b.get("match", match)
+        conn.execute("INSERT OR REPLACE INTO plan_bills VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                     (month, name, category, amount, lo, hi, how, match, source))
+        changes.append(f"Bill '{name}': {'$' + format(amount / 100, ',.2f') if amount else 'varies'}, due "
+                       f"{lo}{'-' + str(hi) if hi != lo else ''}" + (" (confirmed from detection)." if series and not existing else "."))
+    for name in bills_to_remove or []:
+        n = conn.execute("DELETE FROM plan_bills WHERE month = ? AND lower(name) = lower(?)", (month, name)).rowcount
+        if not n:
+            names = [r[0] for r in conn.execute("SELECT name FROM plan_bills WHERE month = ?", (month,))]
+            raise ToolError(f"No bill named '{name}' in the {month} plan. Bills: {', '.join(names)}.")
+        changes.append(f"Removed bill '{name}'.")
+    for name in detected_to_dismiss or []:
+        s = detected.get(name.lower()) or next((s for k, s in detected.items() if name.lower() in k), None)
+        if not s:
+            raise ToolError(f"No detected recurring payment called '{name}'. Detected: {', '.join(x['label'] for x in detected.values())}.")
+        conn.execute("INSERT OR REPLACE INTO recurring_verdicts VALUES (?, 'dismissed')", (s["series_key"],))
+        changes.append(f"'{s['label']}' won't be counted as a bill.")
+
+    for t in category_targets or []:
+        if not isinstance(t, dict) or "category" not in t or "amount" not in t:
+            raise ToolError("Each target needs 'category' and 'amount', e.g. {'category': 'Dining', 'amount': 80}.")
+        cat = _category(conn, t["category"], create=bool(t.get("create_category")))
+        if cat in db.categories(conn, "bill"):
+            raise ToolError(f"{cat} is covered by bills; set the bill instead of a target.")
+        conn.execute("INSERT OR REPLACE INTO plan_categories VALUES (?, ?, ?, 'user')", (month, cat, round(float(t["amount"]) * 100)))
+        changes.append(f"{cat} target set to ${float(t['amount']):,.2f}.")
+    for r in categories_to_remove or []:
+        r = {"category": r} if isinstance(r, str) else r
+        cat = _category(conn, r.get("category"))
+        conn.execute("DELETE FROM plan_categories WHERE month = ? AND category = ?", (month, cat))
+        if r.get("move_spending_to"):
+            dest = _category(conn, r["move_spending_to"], create=bool(r.get("create_category")))
+            merchants = [m for (m,) in conn.execute("SELECT DISTINCT merchant FROM transactions WHERE category = ?", (cat,))]
+            conn.executemany("INSERT OR REPLACE INTO merchant_rules VALUES (?, ?, 'user')", [(m.lower(), dest) for m in merchants])
+            conn.execute("UPDATE transactions SET category = ?, category_source = 'user_rule' WHERE category = ?", (dest, cat))
+            conn.execute("UPDATE shared_expenses SET category = ? WHERE category = ?", (dest, cat))
+            changes.append(f"Removed {cat}; its {len(merchants)} merchants now count as {dest}.")
+        else:
+            changes.append(f"Removed the {cat} target. Any spending there now counts as unplanned.")
+        if conn.execute("SELECT source FROM categories WHERE name = ?", (cat,)).fetchone()[0] == "user" and \
+                not conn.execute("SELECT 1 FROM transactions WHERE category = ?", (cat,)).fetchone():
+            conn.execute("DELETE FROM categories WHERE name = ?", (cat,))
+
+    conn.execute("UPDATE plans SET source = 'user', updated_on = ? WHERE month = ?", (today, month))
+    status = finance.budget_status(conn) if month == planning.month_key(db.today(conn)) else None
+    return {"month": month, "changes": changes, "totals": planning.plan_totals(conn, month),
+            "flexible_left_this_month": status["flexible_left"] if status else None,
+            "bills": [{"name": n, "amount": a / 100 if a else "varies", "due": f"{lo}-{hi}", "source": s}
+                      for n, a, lo, hi, s in conn.execute("SELECT name, amount_cents, due_day_start, due_day_end, source "
+                                                          "FROM plan_bills WHERE month = ?", (month,))],
+            "targets": {c: t / 100 for c, t in conn.execute("SELECT category, target_cents FROM plan_categories "
+                                                            "WHERE month = ? ORDER BY target_cents DESC", (month,))}}
+
+
+def recategorize_merchant(conn, merchant, category, create_category=False) -> dict:
+    merchants = [m for (m,) in conn.execute("SELECT DISTINCT merchant FROM transactions")]
+    exact = [m for m in merchants if m.lower() == merchant.strip().lower()]
+    matches = exact or [m for m in merchants if merchant.strip().lower() in m.lower()]
+    if not matches:
+        close = difflib.get_close_matches(merchant, merchants, n=4, cutoff=0.4)
+        raise ToolError(f"No transactions from '{merchant}'." + (f" Did you mean: {', '.join(close)}?" if close else ""))
+    cat = _category(conn, category, create=bool(create_category))
+    conn.executemany("INSERT OR REPLACE INTO merchant_rules VALUES (?, ?, 'user')", [(m.lower(), cat) for m in matches])
+    moved = conn.execute(f"UPDATE transactions SET category = ?, category_source = 'user_rule' WHERE merchant IN "
+                         f"({', '.join('?' * len(matches))})", [cat] + matches).rowcount
+    return {"merchants": matches, "now_category": cat, "transactions_moved": moved,
+            "note": "Saved as your rule: future transactions from these merchants will be categorized this way too."}
+
+
+def update_memory(conn, add_note=None, remove_note_id=None) -> dict:
+    if not add_note and remove_note_id is None:
+        raise ToolError("Pass add_note (text to remember) or remove_note_id.")
+    if add_note:
+        conn.execute("INSERT INTO memory_notes (text, created_on) VALUES (?, ?)", (add_note.strip(), db.today(conn).isoformat()))
+    if remove_note_id is not None:
+        if not conn.execute("DELETE FROM memory_notes WHERE note_id = ?", (int(remove_note_id),)).rowcount:
+            raise ToolError(f"No note with id {remove_note_id}.")
+    return {"notes": [{"id": i, "text": t, "since": d} for i, t, d in
+                      conn.execute("SELECT note_id, text, created_on FROM memory_notes ORDER BY note_id")]}
+
+
 def add_transaction(conn, account, amount, direction, description, category=None, person=None, to_account=None) -> dict:
+    """Manual entries: what the user did before the bank reports it. Payments with friends also go to Splitwise."""
     acct = _account(conn, account)
     cents = _amount(amount)
     today = db.today(conn).isoformat()
     if direction not in ("spent", "received", "transfer"):
         raise ToolError("direction must be 'spent', 'received' or 'transfer'.")
+
+    def insert(account_id, signed, desc, merchant, cat, kind, who=None):
+        return conn.execute(
+            "INSERT INTO transactions (account_id, date, pending, amount_cents, description, merchant, category, "
+            "category_source, kind, person, source) VALUES (?, ?, 1, ?, ?, ?, ?, 'user', ?, ?, 'manual')",
+            (account_id, today, signed, desc, merchant, cat, kind, who)).lastrowid
 
     if direction == "transfer":
         if not to_account:
@@ -200,39 +383,43 @@ def add_transaction(conn, account, amount, direction, description, category=None
         dest = _account(conn, to_account)
         if dest == acct:
             raise ToolError("A transfer needs two different accounts.")
-        out_id = db.add_bank_txn(conn, acct, today, -cents, f"Online Transfer to {dest} ({description})", "user")
-        in_id = db.add_bank_txn(conn, dest, today, cents, f"Online Transfer from {acct} ({description})", "user")
-        conn.execute("UPDATE transactions SET transfer_id = ? WHERE txn_id IN (?, ?)", (out_id, out_id, in_id))
-        return {"recorded": f"Transfer of ${dollars(cents):.2f} from {acct} to {dest} on {today}.",
-                "transaction_ids": [out_id, in_id], "balances": finance.balances(conn, db.today(conn))}
+        a = insert(acct, -cents, f"Transfer to {dest}: {description}", f"Transfer to {dest}", "Transfer", "transfer")
+        b = insert(dest, cents, f"Transfer from {acct}: {description}", f"Transfer from {acct}", "Transfer", "transfer")
+        conn.execute("UPDATE transactions SET transfer_id = ? WHERE txn_id IN (?, ?)", (a, a, b))
+        return {"recorded": f"Transfer of ${cents / 100:.2f} from {acct} to {dest}.", "balances": finance.balances(conn)}
 
-    if person:  # money to or from a person settles a shared balance
-        name = person.strip().title()
-        if direction == "received":
-            desc, frm, to, signed = f"Zelle Payment From {name} ({description})", name, "me", cents
-        else:
-            desc, frm, to, signed = f"Zelle Payment To {name} ({description})", "me", name, -cents
-        txn_id = db.add_bank_txn(conn, acct, today, signed, desc, "user")
-        conn.execute("UPDATE transactions SET person = ? WHERE txn_id = ?", (name, txn_id))
-        conn.execute("INSERT INTO settlements (date, from_person, to_person, amount_cents, txn_id) VALUES (?, ?, ?, ?, ?)",
-                     (today, frm, to, cents, txn_id))
-        balance = get_shared_balances(conn, name)["people"][0]
-        return {"recorded": f"${dollars(cents):.2f} {'from' if signed > 0 else 'to'} {name} on {acct}, logged as a "
-                            "shared-expense payment.", "transaction_id": txn_id, "balance_with_person_now": balance}
+    if person:  # paying or being paid back: record the money and settle up in Splitwise
+        name, uid = _person(conn, person)
+        me = int(conn.execute("SELECT external_id FROM connections WHERE provider = 'splitwise'").fetchone()[0])
+        frm, to = (uid, me) if direction == "received" else (me, uid)
+        txn = insert(acct, cents if direction == "received" else -cents,
+                     f"Zelle payment {'from' if direction == 'received' else 'to'} {name}",
+                     f"Zelle {'from' if direction == 'received' else 'to'} {name}", "Payments",
+                     "p2p_in" if direction == "received" else "p2p_out", name)
+        clients.splitwise(conn).create_expense(cost=f"{cents / 100:.2f}", description="Payment", payment=True,
+                                               users=[{"user_id": frm, "paid_share": cents / 100, "owed_share": 0},
+                                                      {"user_id": to, "paid_share": 0, "owed_share": cents / 100}])
+        pipeline.sync_all(conn, only="splitwise")
+        return {"recorded": f"${cents / 100:.2f} {'from' if direction == 'received' else 'to'} {name}, and the "
+                            "settle-up was sent to Splitwise.", "transaction_id": txn,
+                "balance_with_person_now": get_shared_balances(conn, name)["people"][0]}
 
     if direction == "received":
-        txn_id = db.add_bank_txn(conn, acct, today, cents, description, "user")
-        conn.execute("UPDATE transactions SET category = 'Income', kind = 'income' WHERE txn_id = ?", (txn_id,))
-        return {"recorded": f"${dollars(cents):.2f} received in {acct} on {today}.", "transaction_id": txn_id}
+        txn = insert(acct, cents, description, description, "Income", "income")
+        return {"recorded": f"${cents / 100:.2f} received in {acct}.", "transaction_id": txn}
 
-    txn_id = db.add_bank_txn(conn, acct, today, -cents, description, "user")
-    cat = _category(category) if category else db.categorize(description)[0]
-    conn.execute("UPDATE transactions SET category = ?, kind = 'purchase' WHERE txn_id = ?", (cat, txn_id))
+    cat = _category(conn, category) if category else None
+    if not cat:
+        rule = conn.execute("SELECT category FROM merchant_rules WHERE merchant = ?", (description.lower(),)).fetchone()
+        seen = conn.execute("SELECT category FROM transactions WHERE lower(merchant) = lower(?) ORDER BY date DESC LIMIT 1",
+                            (description,)).fetchone()
+        cat = (rule or seen or ("Other",))[0]
+    txn = insert(acct, -cents, description, description, cat, "purchase")
     status = finance.budget_status(conn)
     c = next((x for x in status["categories"] if x["category"] == cat), None)
-    return {"recorded": f"${dollars(cents):.2f} spent at {description} from {acct} on {today}, category {cat}.",
-            "transaction_id": txn_id,
-            "category_now": c, "month_spent_so_far": status["spent_so_far"],
+    return {"recorded": f"${cents / 100:.2f} at {description} from {acct}, category {cat}. It counts now and will be "
+                        "matched to the bank's transaction when it syncs.",
+            "transaction_id": txn, "category_now": c, "month_spent_so_far": status["spent_so_far"],
             "flexible_left_this_month": status["flexible_left"]}
 
 
@@ -246,177 +433,159 @@ def split_transaction(conn, transaction_id, people, my_share=None) -> dict:
         raise ToolError(f"Transaction {transaction_id} ({merchant}) isn't a purchase, so it can't be split.")
     if conn.execute("SELECT 1 FROM shared_expenses WHERE txn_id = ?", (transaction_id,)).fetchone():
         raise ToolError(f"Transaction {transaction_id} ({merchant}) is already split.")
-    names = sorted({p.strip().title() for p in (people or []) if p.strip() and p.strip().lower() not in ("me", "maya")})
-    if not names:
-        raise ToolError("Give at least one other person to split with, e.g. people=['Sam', 'Priya'].")
+    friends = [_person(conn, p) for p in people or [] if p.strip().lower() not in ("me", "i", db.user_name(conn).lower())]
+    if not friends:
+        raise ToolError("Give at least one friend to split with, e.g. people=['Sam', 'Priya'].")
 
     cost = -amount
     if my_share is not None:
         mine = round(float(my_share) * 100)
         if not 0 <= mine <= cost:
-            raise ToolError(f"my_share must be between 0 and the full charge (${dollars(cost):.2f}).")
-        others = cost - mine
-        base, extra = divmod(others, len(names))
-        shares = {"me": mine} | {n: base + (1 if i < extra else 0) for i, n in enumerate(names)}
+            raise ToolError(f"my_share must be between 0 and the full charge (${cost / 100:.2f}).")
+        base, extra = divmod(cost - mine, len(friends))
+        shares = [mine] + [base + (1 if i < extra else 0) for i in range(len(friends))]
     else:
-        base, extra = divmod(cost, len(names) + 1)
-        shares = {p: base + (1 if i < extra else 0) for i, p in enumerate(["me"] + names)}
-
-    cur = conn.execute("INSERT INTO shared_expenses (date, description, category, cost_cents, paid_by, txn_id) "
-                       "VALUES (?, ?, ?, ?, 'me', ?)", (d, merchant, category, cost, transaction_id))
-    conn.executemany("INSERT INTO shared_shares VALUES (?, ?, ?)", [(cur.lastrowid, p, c) for p, c in shares.items()])
-    return {"split": f"{merchant} (${dollars(cost):.2f}) on {d}",
-            "your_share": dollars(shares["me"]),
-            "owed_to_you": {n: dollars(shares[n]) for n in names},
-            "budget_effect": f"{category} now counts ${dollars(shares['me']):.2f} instead of ${dollars(cost):.2f}."}
-
-
-def update_budget(conn, monthly_cap=None, category_targets=None) -> dict:
-    if monthly_cap is None and not category_targets:
-        raise ToolError("Pass monthly_cap, category_targets, or both.")
-    if monthly_cap is not None:
-        conn.execute("UPDATE budget SET value = ? WHERE key = 'monthly_cap_cents'", (_amount(monthly_cap),))
-    for t in category_targets or []:
-        if not isinstance(t, dict) or "category" not in t or "amount" not in t:
-            raise ToolError("Each category target needs 'category' and 'amount', e.g. {'category': 'Dining', 'amount': 80}.")
-        cat = _category(t["category"])
-        if cat in db.FIXED_CATEGORIES:
-            raise ToolError(f"{cat} is covered by fixed bills, not a flexible target.")
-        cents = round(float(t["amount"]) * 100)
-        if cents < 0:
-            raise ToolError("Targets can't be negative.")
-        conn.execute("INSERT OR REPLACE INTO budget_categories VALUES (?, ?)", (cat, cents))
-    cap = conn.execute("SELECT value FROM budget WHERE key = 'monthly_cap_cents'").fetchone()[0]
-    targets = dict(conn.execute("SELECT category, target_cents FROM budget_categories"))
-    bills = conn.execute("SELECT SUM(amount_cents) FROM obligations").fetchone()[0]
-    gap = cap - bills - sum(targets.values())
-    return {"monthly_cap": dollars(cap), "planned_bills": dollars(bills),
-            "category_targets": {c: dollars(v) for c, v in sorted(targets.items())},
-            "unallocated": dollars(gap),
-            "note": "Targets plus bills exceed the cap; the budget will scale remaining room down to fit." if gap < 0
-                    else "Targets plus bills fit within the cap.",
-            "flexible_left_this_month": finance.budget_status(conn)["flexible_left"]}
+        base, extra = divmod(cost, len(friends) + 1)
+        shares = [base + (1 if i < extra else 0) for i in range(len(friends) + 1)]
+    me = int(conn.execute("SELECT external_id FROM connections WHERE provider = 'splitwise'").fetchone()[0])
+    users = [{"user_id": me, "paid_share": cost / 100, "owed_share": shares[0] / 100}] + \
+            [{"user_id": uid, "paid_share": 0, "owed_share": s / 100} for (_, uid), s in zip(friends, shares[1:])]
+    try:
+        resp = clients.splitwise(conn).create_expense(cost=f"{cost / 100:.2f}", description=merchant, users=users,
+                                                      category_name={"Dining": "Dining out"}.get(category, "General"))
+    except ProviderError as e:
+        raise ToolError(f"Splitwise rejected the expense: {e}")
+    pipeline.sync_all(conn, only="splitwise")
+    ext = str(resp["expenses"][0]["id"])
+    conn.execute("UPDATE shared_expenses SET txn_id = ?, link_source = 'user', category = ? WHERE external_id = ?",
+                 (transaction_id, category, ext))
+    return {"split": f"{merchant} (${cost / 100:.2f}) on {d}, added to Splitwise",
+            "your_share": shares[0] / 100,
+            "owed_to_you": {n: s / 100 for (n, _), s in zip(friends, shares[1:])},
+            "budget_effect": f"{category} now counts ${shares[0] / 100:.2f} instead of ${cost / 100:.2f}."}
 
 
 # --- What the model sees -----------------------------------------------------------
 
 _DATE = {"type": "string", "description": "YYYY-MM-DD. Defaults to the first of the current month (start) or today (end)."}
 _CATEGORY = {"type": "string", "description": "Spending category, e.g. 'Dining', 'Nightlife', 'Shopping', 'Groceries'."}
+_MONTH = {"type": "string", "description": "YYYY-MM. Defaults to the current month."}
+
+
+def _fn(name, description, properties=None, required=None):
+    return {"type": "function", "function": {"name": name, "description": description, "parameters": {
+        "type": "object", "properties": properties or {}, **({"required": required} if required else {})}}}
+
 
 TOOLS = [
-    {"type": "function", "function": {
-        "name": "get_financial_position",
-        "description": "Current balance of every bank account, total cash, money others owe the user, money the user "
-                       "owes, net position, bills still due this month, and spendable cash (cash minus upcoming bills "
-                       "and debts; money owed to the user is NOT counted until it arrives). Use for 'how much do I "
-                       "have' or 'what can I actually spend' questions.",
-        "parameters": {"type": "object", "properties": {}}}},
-    {"type": "function", "function": {
-        "name": "query_transactions",
-        "description": "Search raw bank transactions with filters. Returns matching rows with ids (needed for "
-                       "split_transaction), a count and a total. Use to find specific purchases or deposits.",
-        "parameters": {"type": "object", "properties": {
-            "start_date": _DATE, "end_date": _DATE,
-            "account": {"type": "string", "description": "Account id, e.g. 'chase' or 'boa'."},
-            "category": _CATEGORY,
-            "merchant_contains": {"type": "string", "description": "Text to match in the merchant or description, e.g. 'uber'."},
-            "min_amount": {"type": "number", "description": "Minimum absolute amount in dollars."},
-            "max_amount": {"type": "number", "description": "Maximum absolute amount in dollars."},
-            "direction": {"type": "string", "enum": ["spent", "received", "any"], "description": "Money out, in, or both."},
-            "limit": {"type": "integer", "description": "Max rows to return (default 25, max 100)."}}}}},
-    {"type": "function", "function": {
-        "name": "summarize_spending",
-        "description": "Total spending for a period grouped by category, merchant, week or day, counting only the "
-                       "user's share of split expenses and excluding transfers. Also counts small purchases under $15. "
-                       "Set compare_to_previous_period to compare with the same dates last month.",
-        "parameters": {"type": "object", "properties": {
-            "start_date": _DATE, "end_date": _DATE,
-            "group_by": {"type": "string", "enum": ["category", "merchant", "week", "day"]},
-            "category": {"type": "string", "description": "Only include this category (optional)."},
-            "compare_to_previous_period": {"type": "boolean", "description": "Also summarize the same dates one month earlier."}}}}},
-    {"type": "function", "function": {
-        "name": "get_budget_status",
-        "description": "This month's budget: the monthly cap, money spent so far, bills paid and still due, and for "
-                       "each flexible category its target, spending, how far over it is, and its room left after "
-                       "re-balancing (overspending in one category shrinks the room in all others). Use for 'where am "
-                       "I overspending', 'how much is left this month' and 'what bills are left'.",
-        "parameters": {"type": "object", "properties": {}}}},
-    {"type": "function", "function": {
-        "name": "recommend_spending",
-        "description": "Recommend how much the user should spend in one category today, this weekend, or for the rest "
-                       "of the month, given the re-balanced budget and how often they usually spend in that category. "
-                       "Returns the amount, what it would be if everything were on plan, their typical spend per "
-                       "occasion, step-by-step reasons, and what changed since the last recommendation for the same "
-                       "category (use that to answer 'why did you lower it?').",
-        "parameters": {"type": "object", "properties": {
-            "category": _CATEGORY,
-            "horizon": {"type": "string", "enum": ["today", "weekend", "rest_of_month"]}},
-            "required": ["category"]}}},
-    {"type": "function", "function": {
-        "name": "evaluate_purchase",
-        "description": "What-if check for a planned purchase without recording it: whether it fits the category, "
-                       "needs cuts elsewhere, or pushes the month over the cap, and which categories get squeezed. Use "
-                       "for 'can I afford X?'.",
-        "parameters": {"type": "object", "properties": {
-            "amount": {"type": "number", "description": "Planned amount in dollars."},
-            "category": _CATEGORY},
-            "required": ["amount", "category"]}}},
-    {"type": "function", "function": {
-        "name": "get_shared_balances",
-        "description": "Who owes the user and whom the user owes from shared expenses (Splitwise), with how long each "
-                       "balance has been open, cross-checked against bank deposits. 'mismatches' lists payments marked "
-                       "paid with no deposit, and deposits not recorded as payments.",
-        "parameters": {"type": "object", "properties": {
-            "person": {"type": "string", "description": "Only this person (optional)."}}}}},
-    {"type": "function", "function": {
-        "name": "update_budget",
-        "description": "Change the monthly spending cap and/or the monthly target for flexible categories. Returns the "
-                       "new plan and whether targets plus bills still fit under the cap.",
-        "parameters": {"type": "object", "properties": {
-            "monthly_cap": {"type": "number", "description": "New total monthly cap in dollars, bills included."},
-            "category_targets": {"type": "array", "description": "New targets, e.g. [{'category': 'Dining', 'amount': 80}].",
-                                 "items": {"type": "object", "properties": {
-                                     "category": {"type": "string"}, "amount": {"type": "number"}},
-                                     "required": ["category", "amount"]}}}}}},
-    {"type": "function", "function": {
-        "name": "add_transaction",
-        "description": "Record new money movement dated today: a purchase ('spent'), money in ('received'), or a "
-                       "transfer between the user's own accounts ('transfer'). Set person when paying or being paid back "
-                       "by someone, which also settles shared balances. Call this when the user says they spent, "
-                       "received or moved money.",
-        "parameters": {"type": "object", "properties": {
-            "account": {"type": "string", "description": "Account id: 'chase' (everyday spending) or 'boa' (salary)."},
-            "amount": {"type": "number", "description": "Positive amount in dollars."},
-            "direction": {"type": "string", "enum": ["spent", "received", "transfer"]},
-            "description": {"type": "string", "description": "Merchant or a short note, e.g. 'Zara' or 'dinner at Tomo'."},
-            "category": {"type": "string", "description": "Category for purchases; guessed from the description if omitted."},
-            "person": {"type": "string", "description": "The friend paid or paying back, if any."},
-            "to_account": {"type": "string", "description": "Destination account for transfers."}},
-            "required": ["account", "amount", "direction", "description"]}}},
-    {"type": "function", "function": {
-        "name": "split_transaction",
-        "description": "Split an existing purchase with other people, like adding it to Splitwise. Creates what each "
-                       "person owes the user, and the budget then counts only the user's share. Equal split unless "
-                       "my_share is given.",
-        "parameters": {"type": "object", "properties": {
-            "transaction_id": {"type": "integer", "description": "Id from query_transactions or add_transaction."},
-            "people": {"type": "array", "items": {"type": "string"}, "description": "Other people, e.g. ['Sam', 'Priya']."},
-            "my_share": {"type": "number", "description": "The user's own share in dollars (optional)."}},
-            "required": ["transaction_id", "people"]}}},
+    _fn("get_financial_position",
+        "Balance of every connected bank account (as last synced from the bank, minus pending charges and purchases "
+        "the user reported), total cash, money others owe the user, money the user owes, net position, bills still "
+        "due this month, and spendable cash (cash minus upcoming bills and debts; money owed to the user is NOT "
+        "counted until it arrives)."),
+    _fn("query_transactions",
+        "Search transactions with filters. Returns rows with ids (needed for split_transaction), whether each is "
+        "pending, where it came from, and how it was categorized.",
+        {"start_date": _DATE, "end_date": _DATE,
+         "account": {"type": "string", "description": "Account, e.g. 'chase' or 'boa'."},
+         "category": _CATEGORY,
+         "merchant_contains": {"type": "string", "description": "Text to match in the merchant or description, e.g. 'uber'."},
+         "min_amount": {"type": "number", "description": "Minimum absolute amount in dollars."},
+         "max_amount": {"type": "number", "description": "Maximum absolute amount in dollars."},
+         "direction": {"type": "string", "enum": ["spent", "received", "any"]},
+         "limit": {"type": "integer", "description": "Max rows (default 25, max 100)."}}),
+    _fn("summarize_spending",
+        "Total spending for a period grouped by category, merchant, week or day, counting only the user's share of "
+        "split expenses and excluding transfers. Also counts small purchases under $15. Set "
+        "compare_to_previous_period to compare with the same dates last month.",
+        {"start_date": _DATE, "end_date": _DATE,
+         "group_by": {"type": "string", "enum": ["category", "merchant", "week", "day"]},
+         "category": {"type": "string", "description": "Only include this category (optional)."},
+         "compare_to_previous_period": {"type": "boolean"}}),
+    _fn("get_budget_status",
+        "This month's plan versus reality: the cap, spending so far, every bill (with whether the user told Penny "
+        "about it or Penny detected it, and whether it's paid), and for each flexible category its target, spending, "
+        "how far over it is, and its room left after re-balancing (overspending in one category shrinks the others)."),
+    _fn("recommend_spending",
+        "Recommend how much to spend in one category today, this weekend, or for the rest of the month, from the "
+        "re-balanced budget and how often the user usually spends in it. Returns the amount, what it would be if "
+        "everything were on plan, the typical spend per occasion, reasons, and what changed since the last "
+        "recommendation for this category (use it to answer 'why did you lower it?').",
+        {"category": _CATEGORY, "horizon": {"type": "string", "enum": ["today", "weekend", "rest_of_month"]}},
+        ["category"]),
+    _fn("evaluate_purchase",
+        "What-if check for a planned purchase without recording it: fits the category, needs cuts elsewhere, or "
+        "pushes the month over the cap, and which categories get squeezed.",
+        {"amount": {"type": "number", "description": "Planned amount in dollars."}, "category": _CATEGORY},
+        ["amount", "category"]),
+    _fn("get_shared_balances",
+        "Who owes the user and whom the user owes, from Splitwise, with how long each balance has been open, "
+        "cross-checked against bank deposits. 'mismatches' lists payments marked paid with no deposit, and deposits "
+        "not recorded in Splitwise.",
+        {"person": {"type": "string", "description": "Only this person (optional)."}}),
+    _fn("get_recurring_payments",
+        "Subscriptions and bills Penny DETECTED in the transactions (nobody entered them): amount, cadence, next "
+        "expected date, price changes, ones that stopped, and whether each is in the user's plan.",
+        {"include_income": {"type": "boolean", "description": "Also list recurring income like paychecks."}}),
+    _fn("draft_monthly_plan",
+        "Start a planning conversation for a month: the current cap, bills the user told Penny about, detected "
+        "recurring payments not in the plan, price changes, stopped subscriptions, and suggested category targets "
+        "with last month's spending. Saves nothing; discuss it, then call update_plan.",
+        {"month": _MONTH}),
+    _fn("update_plan",
+        "Change a month's plan: the cap, bills (add, change, or confirm a detected payment by its name), remove "
+        "bills, dismiss a detected payment that isn't a real bill, set category targets (optionally creating a new "
+        "category), or remove categories (optionally moving their spending into another category).",
+        {"month": _MONTH,
+         "monthly_cap": {"type": "number", "description": "Total monthly cap in dollars, bills included."},
+         "bills_to_set": {"type": "array", "description": "Bills to add or change. To confirm a detected payment, "
+                                                          "pass just its name, e.g. {'name': 'Hulu'}.",
+                          "items": {"type": "object", "properties": {
+                              "name": {"type": "string"}, "amount": {"type": "number", "description": "Omit or null if it varies."},
+                              "due_day_start": {"type": "integer"}, "due_day_end": {"type": "integer"},
+                              "category": {"type": "string"}}, "required": ["name"]}},
+         "bills_to_remove": {"type": "array", "items": {"type": "string"}, "description": "Bill names to remove."},
+         "detected_to_dismiss": {"type": "array", "items": {"type": "string"},
+                                 "description": "Detected payments that shouldn't count as bills."},
+         "category_targets": {"type": "array", "items": {"type": "object", "properties": {
+             "category": {"type": "string"}, "amount": {"type": "number"},
+             "create_category": {"type": "boolean", "description": "True to create a new category with this name."}},
+             "required": ["category", "amount"]}},
+         "categories_to_remove": {"type": "array", "items": {"type": "object", "properties": {
+             "category": {"type": "string"},
+             "move_spending_to": {"type": "string", "description": "Category that absorbs its merchants (optional)."}},
+             "required": ["category"]}}}),
+    _fn("recategorize_merchant",
+        "Move a merchant's transactions to another category and remember it as the user's rule for the future, "
+        "e.g. 'Sephora is Personal Care'. Can create a new category.",
+        {"merchant": {"type": "string"}, "category": _CATEGORY,
+         "create_category": {"type": "boolean", "description": "True to create the category if it doesn't exist."}},
+        ["merchant", "category"]),
+    _fn("update_memory",
+        "Remember something the user wants Penny to keep in mind (a goal, a preference, a constraint), or forget a "
+        "note. Notes are shown to Penny in every conversation turn.",
+        {"add_note": {"type": "string"}, "remove_note_id": {"type": "integer"}}),
+    _fn("add_transaction",
+        "Record money the user just spent, received, or moved, before their bank reports it. Set person when paying "
+        "or being paid back by a friend: that also records the settle-up in Splitwise.",
+        {"account": {"type": "string", "description": "'chase' (everyday spending) or 'boa' (salary)."},
+         "amount": {"type": "number", "description": "Positive amount in dollars."},
+         "direction": {"type": "string", "enum": ["spent", "received", "transfer"]},
+         "description": {"type": "string", "description": "Merchant or short note, e.g. 'Zara'."},
+         "category": {"type": "string", "description": "Category for purchases; inferred from the merchant if omitted."},
+         "person": {"type": "string", "description": "The friend paid or paying back, if any."},
+         "to_account": {"type": "string", "description": "Destination account for transfers."}},
+        ["account", "amount", "direction", "description"]),
+    _fn("split_transaction",
+        "Split an existing purchase with friends by creating the expense in Splitwise. Each friend then owes the "
+        "user their share and the budget counts only the user's share. Equal split unless my_share is given.",
+        {"transaction_id": {"type": "integer", "description": "Id from query_transactions or add_transaction."},
+         "people": {"type": "array", "items": {"type": "string"}, "description": "Friends, e.g. ['Sam', 'Priya']."},
+         "my_share": {"type": "number", "description": "The user's own share in dollars (optional)."}},
+        ["transaction_id", "people"]),
 ]
 
-TOOL_MAP = {
-    "get_financial_position": get_financial_position,
-    "query_transactions": query_transactions,
-    "summarize_spending": summarize_spending,
-    "get_budget_status": get_budget_status,
-    "recommend_spending": recommend_spending,
-    "evaluate_purchase": evaluate_purchase,
-    "get_shared_balances": get_shared_balances,
-    "update_budget": update_budget,
-    "add_transaction": add_transaction,
-    "split_transaction": split_transaction,
-}
+TOOL_MAP = {t["function"]["name"]: globals()[t["function"]["name"]] for t in TOOLS}
 
 
 def run_tool(conn, name: str, args: dict) -> str:
@@ -426,7 +595,7 @@ def run_tool(conn, name: str, args: dict) -> str:
     try:
         result = TOOL_MAP[name](conn, **args)
         conn.commit()
-        return json.dumps(result)
+        return json.dumps(result, default=str)
     except ToolError as e:
         conn.rollback()
         return json.dumps({"error": str(e)})

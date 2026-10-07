@@ -1,0 +1,2456 @@
+{
+ "_about": "Sandbox fixture in the Splitwise API v3.0 schema (get_current_user, get_friends, get_groups, get_expenses). Served by sandbox/providers.py.",
+ "current_user": {
+  "id": 2210001,
+  "first_name": "Maya",
+  "last_name": "Chen",
+  "email": "maya.chen@example.com"
+ },
+ "friends": [
+  {
+   "id": 2210002,
+   "first_name": "Sam",
+   "last_name": "Okafor"
+  },
+  {
+   "id": 2210003,
+   "first_name": "Priya",
+   "last_name": "Raman"
+  },
+  {
+   "id": 2210004,
+   "first_name": "Jordan",
+   "last_name": "Lee"
+  },
+  {
+   "id": 2210005,
+   "first_name": "Alex",
+   "last_name": "Moreno"
+  }
+ ],
+ "groups": [
+  {
+   "id": 55120001,
+   "name": "Apartment 4B",
+   "members": [
+    {
+     "id": 2210001
+    },
+    {
+     "id": 2210002
+    },
+    {
+     "id": 2210003
+    }
+   ]
+  },
+  {
+   "id": 55120002,
+   "name": "Friends",
+   "members": [
+    {
+     "id": 2210001
+    },
+    {
+     "id": 2210004
+    },
+    {
+     "id": 2210005
+    },
+    {
+     "id": 2210003
+    }
+   ]
+  }
+ ],
+ "expenses": [
+  {
+   "id": 3400000000,
+   "group_id": 55120001,
+   "description": "Household supplies",
+   "payment": false,
+   "cost": "51.00",
+   "currency_code": "USD",
+   "date": "2026-03-10T12:00:00Z",
+   "created_at": "2026-03-10T12:00:00Z",
+   "updated_at": "2026-03-10T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 14,
+    "name": "Household supplies"
+   },
+   "users": [
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "51.00",
+     "owed_share": "17.00",
+     "net_balance": "34.00"
+    },
+    {
+     "user_id": 2210002,
+     "user": {
+      "id": 2210002,
+      "first_name": "Sam",
+      "last_name": "Okafor"
+     },
+     "paid_share": "0.00",
+     "owed_share": "17.00",
+     "net_balance": "-17.00"
+    },
+    {
+     "user_id": 2210003,
+     "user": {
+      "id": 2210003,
+      "first_name": "Priya",
+      "last_name": "Raman"
+     },
+     "paid_share": "0.00",
+     "owed_share": "17.00",
+     "net_balance": "-17.00"
+    }
+   ]
+  },
+  {
+   "id": 3400000001,
+   "group_id": 55120001,
+   "description": "ConEd electricity",
+   "payment": false,
+   "cost": "97.82",
+   "currency_code": "USD",
+   "date": "2026-03-14T12:00:00Z",
+   "created_at": "2026-03-15T20:00:00Z",
+   "updated_at": "2026-03-15T20:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 5,
+    "name": "Electricity"
+   },
+   "users": [
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "0.00",
+     "owed_share": "32.61",
+     "net_balance": "-32.61"
+    },
+    {
+     "user_id": 2210002,
+     "user": {
+      "id": 2210002,
+      "first_name": "Sam",
+      "last_name": "Okafor"
+     },
+     "paid_share": "97.82",
+     "owed_share": "32.61",
+     "net_balance": "65.21"
+    },
+    {
+     "user_id": 2210003,
+     "user": {
+      "id": 2210003,
+      "first_name": "Priya",
+      "last_name": "Raman"
+     },
+     "paid_share": "0.00",
+     "owed_share": "32.60",
+     "net_balance": "-32.60"
+    }
+   ]
+  },
+  {
+   "id": 3400000002,
+   "group_id": 55120001,
+   "description": "Spectrum internet",
+   "payment": false,
+   "cost": "65.00",
+   "currency_code": "USD",
+   "date": "2026-03-16T12:00:00Z",
+   "created_at": "2026-03-16T12:00:00Z",
+   "updated_at": "2026-03-16T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 8,
+    "name": "TV/Phone/Internet"
+   },
+   "users": [
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "0.00",
+     "owed_share": "21.67",
+     "net_balance": "-21.67"
+    },
+    {
+     "user_id": 2210002,
+     "user": {
+      "id": 2210002,
+      "first_name": "Sam",
+      "last_name": "Okafor"
+     },
+     "paid_share": "65.00",
+     "owed_share": "21.67",
+     "net_balance": "43.33"
+    },
+    {
+     "user_id": 2210003,
+     "user": {
+      "id": 2210003,
+      "first_name": "Priya",
+      "last_name": "Raman"
+     },
+     "paid_share": "0.00",
+     "owed_share": "21.66",
+     "net_balance": "-21.66"
+    }
+   ]
+  },
+  {
+   "id": 3400000003,
+   "group_id": 55120002,
+   "description": "Birthday dinner at Tomo",
+   "payment": false,
+   "cost": "142.80",
+   "currency_code": "USD",
+   "date": "2026-03-21T12:00:00Z",
+   "created_at": "2026-03-21T12:00:00Z",
+   "updated_at": "2026-03-21T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 13,
+    "name": "Dining out"
+   },
+   "users": [
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "142.80",
+     "owed_share": "47.60",
+     "net_balance": "95.20"
+    },
+    {
+     "user_id": 2210004,
+     "user": {
+      "id": 2210004,
+      "first_name": "Jordan",
+      "last_name": "Lee"
+     },
+     "paid_share": "0.00",
+     "owed_share": "47.60",
+     "net_balance": "-47.60"
+    },
+    {
+     "user_id": 2210005,
+     "user": {
+      "id": 2210005,
+      "first_name": "Alex",
+      "last_name": "Moreno"
+     },
+     "paid_share": "0.00",
+     "owed_share": "47.60",
+     "net_balance": "-47.60"
+    }
+   ]
+  },
+  {
+   "id": 3400000004,
+   "group_id": 55120001,
+   "description": "Payment",
+   "payment": true,
+   "cost": "37.28",
+   "currency_code": "USD",
+   "date": "2026-04-04T12:00:00Z",
+   "created_at": "2026-04-04T12:00:00Z",
+   "updated_at": "2026-04-04T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 18,
+    "name": "General"
+   },
+   "users": [
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "37.28",
+     "owed_share": "0.00",
+     "net_balance": "37.28"
+    },
+    {
+     "user_id": 2210002,
+     "user": {
+      "id": 2210002,
+      "first_name": "Sam",
+      "last_name": "Okafor"
+     },
+     "paid_share": "0.00",
+     "owed_share": "37.28",
+     "net_balance": "-37.28"
+    }
+   ]
+  },
+  {
+   "id": 3400000005,
+   "group_id": 55120001,
+   "description": "Payment",
+   "payment": true,
+   "cost": "17.00",
+   "currency_code": "USD",
+   "date": "2026-04-04T12:00:00Z",
+   "created_at": "2026-04-04T12:00:00Z",
+   "updated_at": "2026-04-04T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 18,
+    "name": "General"
+   },
+   "users": [
+    {
+     "user_id": 2210003,
+     "user": {
+      "id": 2210003,
+      "first_name": "Priya",
+      "last_name": "Raman"
+     },
+     "paid_share": "17.00",
+     "owed_share": "0.00",
+     "net_balance": "17.00"
+    },
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "0.00",
+     "owed_share": "17.00",
+     "net_balance": "-17.00"
+    }
+   ]
+  },
+  {
+   "id": 3400000006,
+   "group_id": 55120002,
+   "description": "Payment",
+   "payment": true,
+   "cost": "47.60",
+   "currency_code": "USD",
+   "date": "2026-04-05T12:00:00Z",
+   "created_at": "2026-04-05T12:00:00Z",
+   "updated_at": "2026-04-05T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 18,
+    "name": "General"
+   },
+   "users": [
+    {
+     "user_id": 2210004,
+     "user": {
+      "id": 2210004,
+      "first_name": "Jordan",
+      "last_name": "Lee"
+     },
+     "paid_share": "47.60",
+     "owed_share": "0.00",
+     "net_balance": "47.60"
+    },
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "0.00",
+     "owed_share": "47.60",
+     "net_balance": "-47.60"
+    }
+   ]
+  },
+  {
+   "id": 3400000007,
+   "group_id": 55120002,
+   "description": "Payment",
+   "payment": true,
+   "cost": "47.60",
+   "currency_code": "USD",
+   "date": "2026-04-06T12:00:00Z",
+   "created_at": "2026-04-06T12:00:00Z",
+   "updated_at": "2026-04-06T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 18,
+    "name": "General"
+   },
+   "users": [
+    {
+     "user_id": 2210005,
+     "user": {
+      "id": 2210005,
+      "first_name": "Alex",
+      "last_name": "Moreno"
+     },
+     "paid_share": "47.60",
+     "owed_share": "0.00",
+     "net_balance": "47.60"
+    },
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "0.00",
+     "owed_share": "47.60",
+     "net_balance": "-47.60"
+    }
+   ]
+  },
+  {
+   "id": 3400000008,
+   "group_id": 55120001,
+   "description": "Household supplies",
+   "payment": false,
+   "cost": "42.21",
+   "currency_code": "USD",
+   "date": "2026-04-10T12:00:00Z",
+   "created_at": "2026-04-10T12:00:00Z",
+   "updated_at": "2026-04-10T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 14,
+    "name": "Household supplies"
+   },
+   "users": [
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "42.21",
+     "owed_share": "14.07",
+     "net_balance": "28.14"
+    },
+    {
+     "user_id": 2210002,
+     "user": {
+      "id": 2210002,
+      "first_name": "Sam",
+      "last_name": "Okafor"
+     },
+     "paid_share": "0.00",
+     "owed_share": "14.07",
+     "net_balance": "-14.07"
+    },
+    {
+     "user_id": 2210003,
+     "user": {
+      "id": 2210003,
+      "first_name": "Priya",
+      "last_name": "Raman"
+     },
+     "paid_share": "0.00",
+     "owed_share": "14.07",
+     "net_balance": "-14.07"
+    }
+   ]
+  },
+  {
+   "id": 3400000009,
+   "group_id": 55120001,
+   "description": "ConEd electricity",
+   "payment": false,
+   "cost": "97.21",
+   "currency_code": "USD",
+   "date": "2026-04-14T12:00:00Z",
+   "created_at": "2026-04-15T20:00:00Z",
+   "updated_at": "2026-04-15T20:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 5,
+    "name": "Electricity"
+   },
+   "users": [
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "0.00",
+     "owed_share": "32.41",
+     "net_balance": "-32.41"
+    },
+    {
+     "user_id": 2210002,
+     "user": {
+      "id": 2210002,
+      "first_name": "Sam",
+      "last_name": "Okafor"
+     },
+     "paid_share": "97.21",
+     "owed_share": "32.40",
+     "net_balance": "64.81"
+    },
+    {
+     "user_id": 2210003,
+     "user": {
+      "id": 2210003,
+      "first_name": "Priya",
+      "last_name": "Raman"
+     },
+     "paid_share": "0.00",
+     "owed_share": "32.40",
+     "net_balance": "-32.40"
+    }
+   ]
+  },
+  {
+   "id": 3400000010,
+   "group_id": 55120001,
+   "description": "Spectrum internet",
+   "payment": false,
+   "cost": "65.00",
+   "currency_code": "USD",
+   "date": "2026-04-16T12:00:00Z",
+   "created_at": "2026-04-16T12:00:00Z",
+   "updated_at": "2026-04-16T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 8,
+    "name": "TV/Phone/Internet"
+   },
+   "users": [
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "0.00",
+     "owed_share": "21.67",
+     "net_balance": "-21.67"
+    },
+    {
+     "user_id": 2210002,
+     "user": {
+      "id": 2210002,
+      "first_name": "Sam",
+      "last_name": "Okafor"
+     },
+     "paid_share": "65.00",
+     "owed_share": "21.67",
+     "net_balance": "43.33"
+    },
+    {
+     "user_id": 2210003,
+     "user": {
+      "id": 2210003,
+      "first_name": "Priya",
+      "last_name": "Raman"
+     },
+     "paid_share": "0.00",
+     "owed_share": "21.66",
+     "net_balance": "-21.66"
+    }
+   ]
+  },
+  {
+   "id": 3400000011,
+   "group_id": 55120002,
+   "description": "Dinner at The Grand Tier",
+   "payment": false,
+   "cost": "118.35",
+   "currency_code": "USD",
+   "date": "2026-04-18T12:00:00Z",
+   "created_at": "2026-04-18T12:00:00Z",
+   "updated_at": "2026-04-18T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 13,
+    "name": "Dining out"
+   },
+   "users": [
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "118.35",
+     "owed_share": "29.59",
+     "net_balance": "88.76"
+    },
+    {
+     "user_id": 2210004,
+     "user": {
+      "id": 2210004,
+      "first_name": "Jordan",
+      "last_name": "Lee"
+     },
+     "paid_share": "0.00",
+     "owed_share": "29.59",
+     "net_balance": "-29.59"
+    },
+    {
+     "user_id": 2210005,
+     "user": {
+      "id": 2210005,
+      "first_name": "Alex",
+      "last_name": "Moreno"
+     },
+     "paid_share": "0.00",
+     "owed_share": "29.59",
+     "net_balance": "-29.59"
+    },
+    {
+     "user_id": 2210003,
+     "user": {
+      "id": 2210003,
+      "first_name": "Priya",
+      "last_name": "Raman"
+     },
+     "paid_share": "0.00",
+     "owed_share": "29.58",
+     "net_balance": "-29.58"
+    }
+   ]
+  },
+  {
+   "id": 3400000013,
+   "group_id": 55120001,
+   "description": "Payment",
+   "payment": true,
+   "cost": "43.65",
+   "currency_code": "USD",
+   "date": "2026-05-04T12:00:00Z",
+   "created_at": "2026-05-04T12:00:00Z",
+   "updated_at": "2026-05-04T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 18,
+    "name": "General"
+   },
+   "users": [
+    {
+     "user_id": 2210003,
+     "user": {
+      "id": 2210003,
+      "first_name": "Priya",
+      "last_name": "Raman"
+     },
+     "paid_share": "43.65",
+     "owed_share": "0.00",
+     "net_balance": "43.65"
+    },
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "0.00",
+     "owed_share": "43.65",
+     "net_balance": "-43.65"
+    }
+   ]
+  },
+  {
+   "id": 3400000014,
+   "group_id": 55120002,
+   "description": "Payment",
+   "payment": true,
+   "cost": "29.59",
+   "currency_code": "USD",
+   "date": "2026-05-04T12:00:00Z",
+   "created_at": "2026-05-04T12:00:00Z",
+   "updated_at": "2026-05-04T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 18,
+    "name": "General"
+   },
+   "users": [
+    {
+     "user_id": 2210004,
+     "user": {
+      "id": 2210004,
+      "first_name": "Jordan",
+      "last_name": "Lee"
+     },
+     "paid_share": "29.59",
+     "owed_share": "0.00",
+     "net_balance": "29.59"
+    },
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "0.00",
+     "owed_share": "29.59",
+     "net_balance": "-29.59"
+    }
+   ]
+  },
+  {
+   "id": 3400000015,
+   "group_id": 55120002,
+   "description": "Payment",
+   "payment": true,
+   "cost": "29.59",
+   "currency_code": "USD",
+   "date": "2026-05-04T12:00:00Z",
+   "created_at": "2026-05-04T12:00:00Z",
+   "updated_at": "2026-05-04T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 18,
+    "name": "General"
+   },
+   "users": [
+    {
+     "user_id": 2210005,
+     "user": {
+      "id": 2210005,
+      "first_name": "Alex",
+      "last_name": "Moreno"
+     },
+     "paid_share": "29.59",
+     "owed_share": "0.00",
+     "net_balance": "29.59"
+    },
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "0.00",
+     "owed_share": "29.59",
+     "net_balance": "-29.59"
+    }
+   ]
+  },
+  {
+   "id": 3400000012,
+   "group_id": 55120001,
+   "description": "Payment",
+   "payment": true,
+   "cost": "40.01",
+   "currency_code": "USD",
+   "date": "2026-05-05T12:00:00Z",
+   "created_at": "2026-05-05T12:00:00Z",
+   "updated_at": "2026-05-05T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 18,
+    "name": "General"
+   },
+   "users": [
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "40.01",
+     "owed_share": "0.00",
+     "net_balance": "40.01"
+    },
+    {
+     "user_id": 2210002,
+     "user": {
+      "id": 2210002,
+      "first_name": "Sam",
+      "last_name": "Okafor"
+     },
+     "paid_share": "0.00",
+     "owed_share": "40.01",
+     "net_balance": "-40.01"
+    }
+   ]
+  },
+  {
+   "id": 3400000016,
+   "group_id": 55120001,
+   "description": "Household supplies",
+   "payment": false,
+   "cost": "38.91",
+   "currency_code": "USD",
+   "date": "2026-05-10T12:00:00Z",
+   "created_at": "2026-05-10T12:00:00Z",
+   "updated_at": "2026-05-10T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 14,
+    "name": "Household supplies"
+   },
+   "users": [
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "38.91",
+     "owed_share": "12.97",
+     "net_balance": "25.94"
+    },
+    {
+     "user_id": 2210002,
+     "user": {
+      "id": 2210002,
+      "first_name": "Sam",
+      "last_name": "Okafor"
+     },
+     "paid_share": "0.00",
+     "owed_share": "12.97",
+     "net_balance": "-12.97"
+    },
+    {
+     "user_id": 2210003,
+     "user": {
+      "id": 2210003,
+      "first_name": "Priya",
+      "last_name": "Raman"
+     },
+     "paid_share": "0.00",
+     "owed_share": "12.97",
+     "net_balance": "-12.97"
+    }
+   ]
+  },
+  {
+   "id": 3400000017,
+   "group_id": 55120001,
+   "description": "ConEd electricity",
+   "payment": false,
+   "cost": "87.18",
+   "currency_code": "USD",
+   "date": "2026-05-14T12:00:00Z",
+   "created_at": "2026-05-15T20:00:00Z",
+   "updated_at": "2026-05-15T20:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 5,
+    "name": "Electricity"
+   },
+   "users": [
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "0.00",
+     "owed_share": "29.06",
+     "net_balance": "-29.06"
+    },
+    {
+     "user_id": 2210002,
+     "user": {
+      "id": 2210002,
+      "first_name": "Sam",
+      "last_name": "Okafor"
+     },
+     "paid_share": "87.18",
+     "owed_share": "29.06",
+     "net_balance": "58.12"
+    },
+    {
+     "user_id": 2210003,
+     "user": {
+      "id": 2210003,
+      "first_name": "Priya",
+      "last_name": "Raman"
+     },
+     "paid_share": "0.00",
+     "owed_share": "29.06",
+     "net_balance": "-29.06"
+    }
+   ]
+  },
+  {
+   "id": 3400000018,
+   "group_id": 55120001,
+   "description": "Spectrum internet",
+   "payment": false,
+   "cost": "65.00",
+   "currency_code": "USD",
+   "date": "2026-05-16T12:00:00Z",
+   "created_at": "2026-05-16T12:00:00Z",
+   "updated_at": "2026-05-16T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 8,
+    "name": "TV/Phone/Internet"
+   },
+   "users": [
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "0.00",
+     "owed_share": "21.67",
+     "net_balance": "-21.67"
+    },
+    {
+     "user_id": 2210002,
+     "user": {
+      "id": 2210002,
+      "first_name": "Sam",
+      "last_name": "Okafor"
+     },
+     "paid_share": "65.00",
+     "owed_share": "21.67",
+     "net_balance": "43.33"
+    },
+    {
+     "user_id": 2210003,
+     "user": {
+      "id": 2210003,
+      "first_name": "Priya",
+      "last_name": "Raman"
+     },
+     "paid_share": "0.00",
+     "owed_share": "21.66",
+     "net_balance": "-21.66"
+    }
+   ]
+  },
+  {
+   "id": 3400000019,
+   "group_id": 55120002,
+   "description": "Dim sum",
+   "payment": false,
+   "cost": "96.40",
+   "currency_code": "USD",
+   "date": "2026-05-30T12:00:00Z",
+   "created_at": "2026-05-30T12:00:00Z",
+   "updated_at": "2026-05-30T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 13,
+    "name": "Dining out"
+   },
+   "users": [
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "96.40",
+     "owed_share": "48.20",
+     "net_balance": "48.20"
+    },
+    {
+     "user_id": 2210005,
+     "user": {
+      "id": 2210005,
+      "first_name": "Alex",
+      "last_name": "Moreno"
+     },
+     "paid_share": "0.00",
+     "owed_share": "48.20",
+     "net_balance": "-48.20"
+    }
+   ]
+  },
+  {
+   "id": 3400000022,
+   "group_id": 55120002,
+   "description": "Payment",
+   "payment": true,
+   "cost": "48.20",
+   "currency_code": "USD",
+   "date": "2026-06-04T12:00:00Z",
+   "created_at": "2026-06-04T12:00:00Z",
+   "updated_at": "2026-06-04T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 18,
+    "name": "General"
+   },
+   "users": [
+    {
+     "user_id": 2210005,
+     "user": {
+      "id": 2210005,
+      "first_name": "Alex",
+      "last_name": "Moreno"
+     },
+     "paid_share": "48.20",
+     "owed_share": "0.00",
+     "net_balance": "48.20"
+    },
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "0.00",
+     "owed_share": "48.20",
+     "net_balance": "-48.20"
+    }
+   ]
+  },
+  {
+   "id": 3400000020,
+   "group_id": 55120001,
+   "description": "Payment",
+   "payment": true,
+   "cost": "37.76",
+   "currency_code": "USD",
+   "date": "2026-06-05T12:00:00Z",
+   "created_at": "2026-06-05T12:00:00Z",
+   "updated_at": "2026-06-05T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 18,
+    "name": "General"
+   },
+   "users": [
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "37.76",
+     "owed_share": "0.00",
+     "net_balance": "37.76"
+    },
+    {
+     "user_id": 2210002,
+     "user": {
+      "id": 2210002,
+      "first_name": "Sam",
+      "last_name": "Okafor"
+     },
+     "paid_share": "0.00",
+     "owed_share": "37.76",
+     "net_balance": "-37.76"
+    }
+   ]
+  },
+  {
+   "id": 3400000021,
+   "group_id": 55120001,
+   "description": "Payment",
+   "payment": true,
+   "cost": "12.97",
+   "currency_code": "USD",
+   "date": "2026-06-06T12:00:00Z",
+   "created_at": "2026-06-06T12:00:00Z",
+   "updated_at": "2026-06-06T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 18,
+    "name": "General"
+   },
+   "users": [
+    {
+     "user_id": 2210003,
+     "user": {
+      "id": 2210003,
+      "first_name": "Priya",
+      "last_name": "Raman"
+     },
+     "paid_share": "12.97",
+     "owed_share": "0.00",
+     "net_balance": "12.97"
+    },
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "0.00",
+     "owed_share": "12.97",
+     "net_balance": "-12.97"
+    }
+   ]
+  },
+  {
+   "id": 3400000023,
+   "group_id": 55120001,
+   "description": "Household supplies",
+   "payment": false,
+   "cost": "55.69",
+   "currency_code": "USD",
+   "date": "2026-06-10T12:00:00Z",
+   "created_at": "2026-06-10T12:00:00Z",
+   "updated_at": "2026-06-10T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 14,
+    "name": "Household supplies"
+   },
+   "users": [
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "55.69",
+     "owed_share": "18.57",
+     "net_balance": "37.12"
+    },
+    {
+     "user_id": 2210002,
+     "user": {
+      "id": 2210002,
+      "first_name": "Sam",
+      "last_name": "Okafor"
+     },
+     "paid_share": "0.00",
+     "owed_share": "18.56",
+     "net_balance": "-18.56"
+    },
+    {
+     "user_id": 2210003,
+     "user": {
+      "id": 2210003,
+      "first_name": "Priya",
+      "last_name": "Raman"
+     },
+     "paid_share": "0.00",
+     "owed_share": "18.56",
+     "net_balance": "-18.56"
+    }
+   ]
+  },
+  {
+   "id": 3400000024,
+   "group_id": 55120001,
+   "description": "ConEd electricity",
+   "payment": false,
+   "cost": "87.88",
+   "currency_code": "USD",
+   "date": "2026-06-14T12:00:00Z",
+   "created_at": "2026-06-15T20:00:00Z",
+   "updated_at": "2026-06-15T20:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 5,
+    "name": "Electricity"
+   },
+   "users": [
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "0.00",
+     "owed_share": "29.30",
+     "net_balance": "-29.30"
+    },
+    {
+     "user_id": 2210002,
+     "user": {
+      "id": 2210002,
+      "first_name": "Sam",
+      "last_name": "Okafor"
+     },
+     "paid_share": "87.88",
+     "owed_share": "29.29",
+     "net_balance": "58.59"
+    },
+    {
+     "user_id": 2210003,
+     "user": {
+      "id": 2210003,
+      "first_name": "Priya",
+      "last_name": "Raman"
+     },
+     "paid_share": "0.00",
+     "owed_share": "29.29",
+     "net_balance": "-29.29"
+    }
+   ]
+  },
+  {
+   "id": 3400000025,
+   "group_id": 55120001,
+   "description": "Spectrum internet",
+   "payment": false,
+   "cost": "65.00",
+   "currency_code": "USD",
+   "date": "2026-06-16T12:00:00Z",
+   "created_at": "2026-06-16T12:00:00Z",
+   "updated_at": "2026-06-16T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 8,
+    "name": "TV/Phone/Internet"
+   },
+   "users": [
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "0.00",
+     "owed_share": "21.67",
+     "net_balance": "-21.67"
+    },
+    {
+     "user_id": 2210002,
+     "user": {
+      "id": 2210002,
+      "first_name": "Sam",
+      "last_name": "Okafor"
+     },
+     "paid_share": "65.00",
+     "owed_share": "21.67",
+     "net_balance": "43.33"
+    },
+    {
+     "user_id": 2210003,
+     "user": {
+      "id": 2210003,
+      "first_name": "Priya",
+      "last_name": "Raman"
+     },
+     "paid_share": "0.00",
+     "owed_share": "21.66",
+     "net_balance": "-21.66"
+    }
+   ]
+  },
+  {
+   "id": 3400000026,
+   "group_id": 55120002,
+   "description": "Rooftop drinks",
+   "payment": false,
+   "cost": "84.00",
+   "currency_code": "USD",
+   "date": "2026-06-27T12:00:00Z",
+   "created_at": "2026-06-27T12:00:00Z",
+   "updated_at": "2026-06-27T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 13,
+    "name": "Dining out"
+   },
+   "users": [
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "84.00",
+     "owed_share": "42.00",
+     "net_balance": "42.00"
+    },
+    {
+     "user_id": 2210004,
+     "user": {
+      "id": 2210004,
+      "first_name": "Jordan",
+      "last_name": "Lee"
+     },
+     "paid_share": "0.00",
+     "owed_share": "42.00",
+     "net_balance": "-42.00"
+    }
+   ]
+  },
+  {
+   "id": 3400000027,
+   "group_id": 55120001,
+   "description": "Payment",
+   "payment": true,
+   "cost": "32.41",
+   "currency_code": "USD",
+   "date": "2026-07-05T12:00:00Z",
+   "created_at": "2026-07-05T12:00:00Z",
+   "updated_at": "2026-07-05T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 18,
+    "name": "General"
+   },
+   "users": [
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "32.41",
+     "owed_share": "0.00",
+     "net_balance": "32.41"
+    },
+    {
+     "user_id": 2210002,
+     "user": {
+      "id": 2210002,
+      "first_name": "Sam",
+      "last_name": "Okafor"
+     },
+     "paid_share": "0.00",
+     "owed_share": "32.41",
+     "net_balance": "-32.41"
+    }
+   ]
+  },
+  {
+   "id": 3400000028,
+   "group_id": 55120001,
+   "description": "Payment",
+   "payment": true,
+   "cost": "18.56",
+   "currency_code": "USD",
+   "date": "2026-07-05T12:00:00Z",
+   "created_at": "2026-07-05T12:00:00Z",
+   "updated_at": "2026-07-05T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 18,
+    "name": "General"
+   },
+   "users": [
+    {
+     "user_id": 2210003,
+     "user": {
+      "id": 2210003,
+      "first_name": "Priya",
+      "last_name": "Raman"
+     },
+     "paid_share": "18.56",
+     "owed_share": "0.00",
+     "net_balance": "18.56"
+    },
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "0.00",
+     "owed_share": "18.56",
+     "net_balance": "-18.56"
+    }
+   ]
+  },
+  {
+   "id": 3400000029,
+   "group_id": 55120002,
+   "description": "Payment",
+   "payment": true,
+   "cost": "42.00",
+   "currency_code": "USD",
+   "date": "2026-07-05T12:00:00Z",
+   "created_at": "2026-07-05T12:00:00Z",
+   "updated_at": "2026-07-05T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 18,
+    "name": "General"
+   },
+   "users": [
+    {
+     "user_id": 2210004,
+     "user": {
+      "id": 2210004,
+      "first_name": "Jordan",
+      "last_name": "Lee"
+     },
+     "paid_share": "42.00",
+     "owed_share": "0.00",
+     "net_balance": "42.00"
+    },
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "0.00",
+     "owed_share": "42.00",
+     "net_balance": "-42.00"
+    }
+   ]
+  },
+  {
+   "id": 3400000030,
+   "group_id": 55120001,
+   "description": "Household supplies",
+   "payment": false,
+   "cost": "47.63",
+   "currency_code": "USD",
+   "date": "2026-07-10T12:00:00Z",
+   "created_at": "2026-07-10T12:00:00Z",
+   "updated_at": "2026-07-10T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 14,
+    "name": "Household supplies"
+   },
+   "users": [
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "47.63",
+     "owed_share": "15.88",
+     "net_balance": "31.75"
+    },
+    {
+     "user_id": 2210002,
+     "user": {
+      "id": 2210002,
+      "first_name": "Sam",
+      "last_name": "Okafor"
+     },
+     "paid_share": "0.00",
+     "owed_share": "15.88",
+     "net_balance": "-15.88"
+    },
+    {
+     "user_id": 2210003,
+     "user": {
+      "id": 2210003,
+      "first_name": "Priya",
+      "last_name": "Raman"
+     },
+     "paid_share": "0.00",
+     "owed_share": "15.87",
+     "net_balance": "-15.87"
+    }
+   ]
+  },
+  {
+   "id": 3400000031,
+   "group_id": 55120001,
+   "description": "ConEd electricity",
+   "payment": false,
+   "cost": "143.36",
+   "currency_code": "USD",
+   "date": "2026-07-14T12:00:00Z",
+   "created_at": "2026-07-15T20:00:00Z",
+   "updated_at": "2026-07-15T20:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 5,
+    "name": "Electricity"
+   },
+   "users": [
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "0.00",
+     "owed_share": "47.79",
+     "net_balance": "-47.79"
+    },
+    {
+     "user_id": 2210002,
+     "user": {
+      "id": 2210002,
+      "first_name": "Sam",
+      "last_name": "Okafor"
+     },
+     "paid_share": "143.36",
+     "owed_share": "47.79",
+     "net_balance": "95.57"
+    },
+    {
+     "user_id": 2210003,
+     "user": {
+      "id": 2210003,
+      "first_name": "Priya",
+      "last_name": "Raman"
+     },
+     "paid_share": "0.00",
+     "owed_share": "47.78",
+     "net_balance": "-47.78"
+    }
+   ]
+  },
+  {
+   "id": 3400000032,
+   "group_id": 55120001,
+   "description": "Spectrum internet",
+   "payment": false,
+   "cost": "65.00",
+   "currency_code": "USD",
+   "date": "2026-07-16T12:00:00Z",
+   "created_at": "2026-07-16T12:00:00Z",
+   "updated_at": "2026-07-16T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 8,
+    "name": "TV/Phone/Internet"
+   },
+   "users": [
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "0.00",
+     "owed_share": "21.67",
+     "net_balance": "-21.67"
+    },
+    {
+     "user_id": 2210002,
+     "user": {
+      "id": 2210002,
+      "first_name": "Sam",
+      "last_name": "Okafor"
+     },
+     "paid_share": "65.00",
+     "owed_share": "21.67",
+     "net_balance": "43.33"
+    },
+    {
+     "user_id": 2210003,
+     "user": {
+      "id": 2210003,
+      "first_name": "Priya",
+      "last_name": "Raman"
+     },
+     "paid_share": "0.00",
+     "owed_share": "21.66",
+     "net_balance": "-21.66"
+    }
+   ]
+  },
+  {
+   "id": 3400000033,
+   "group_id": 55120002,
+   "description": "Patiala Grill dinner",
+   "payment": false,
+   "cost": "126.90",
+   "currency_code": "USD",
+   "date": "2026-07-25T12:00:00Z",
+   "created_at": "2026-07-25T12:00:00Z",
+   "updated_at": "2026-07-25T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 13,
+    "name": "Dining out"
+   },
+   "users": [
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "126.90",
+     "owed_share": "42.30",
+     "net_balance": "84.60"
+    },
+    {
+     "user_id": 2210004,
+     "user": {
+      "id": 2210004,
+      "first_name": "Jordan",
+      "last_name": "Lee"
+     },
+     "paid_share": "0.00",
+     "owed_share": "42.30",
+     "net_balance": "-42.30"
+    },
+    {
+     "user_id": 2210005,
+     "user": {
+      "id": 2210005,
+      "first_name": "Alex",
+      "last_name": "Moreno"
+     },
+     "paid_share": "0.00",
+     "owed_share": "42.30",
+     "net_balance": "-42.30"
+    }
+   ]
+  },
+  {
+   "id": 3400000036,
+   "group_id": 55120002,
+   "description": "Payment",
+   "payment": true,
+   "cost": "42.30",
+   "currency_code": "USD",
+   "date": "2026-08-04T12:00:00Z",
+   "created_at": "2026-08-04T12:00:00Z",
+   "updated_at": "2026-08-04T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 18,
+    "name": "General"
+   },
+   "users": [
+    {
+     "user_id": 2210004,
+     "user": {
+      "id": 2210004,
+      "first_name": "Jordan",
+      "last_name": "Lee"
+     },
+     "paid_share": "42.30",
+     "owed_share": "0.00",
+     "net_balance": "42.30"
+    },
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "0.00",
+     "owed_share": "42.30",
+     "net_balance": "-42.30"
+    }
+   ]
+  },
+  {
+   "id": 3400000035,
+   "group_id": 55120001,
+   "description": "Payment",
+   "payment": true,
+   "cost": "15.87",
+   "currency_code": "USD",
+   "date": "2026-08-05T12:00:00Z",
+   "created_at": "2026-08-05T12:00:00Z",
+   "updated_at": "2026-08-05T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 18,
+    "name": "General"
+   },
+   "users": [
+    {
+     "user_id": 2210003,
+     "user": {
+      "id": 2210003,
+      "first_name": "Priya",
+      "last_name": "Raman"
+     },
+     "paid_share": "15.87",
+     "owed_share": "0.00",
+     "net_balance": "15.87"
+    },
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "0.00",
+     "owed_share": "15.87",
+     "net_balance": "-15.87"
+    }
+   ]
+  },
+  {
+   "id": 3400000034,
+   "group_id": 55120001,
+   "description": "Payment",
+   "payment": true,
+   "cost": "53.58",
+   "currency_code": "USD",
+   "date": "2026-08-07T12:00:00Z",
+   "created_at": "2026-08-07T12:00:00Z",
+   "updated_at": "2026-08-07T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 18,
+    "name": "General"
+   },
+   "users": [
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "53.58",
+     "owed_share": "0.00",
+     "net_balance": "53.58"
+    },
+    {
+     "user_id": 2210002,
+     "user": {
+      "id": 2210002,
+      "first_name": "Sam",
+      "last_name": "Okafor"
+     },
+     "paid_share": "0.00",
+     "owed_share": "53.58",
+     "net_balance": "-53.58"
+    }
+   ]
+  },
+  {
+   "id": 3400000037,
+   "group_id": 55120002,
+   "description": "Payment",
+   "payment": true,
+   "cost": "42.30",
+   "currency_code": "USD",
+   "date": "2026-08-07T12:00:00Z",
+   "created_at": "2026-08-07T12:00:00Z",
+   "updated_at": "2026-08-07T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 18,
+    "name": "General"
+   },
+   "users": [
+    {
+     "user_id": 2210005,
+     "user": {
+      "id": 2210005,
+      "first_name": "Alex",
+      "last_name": "Moreno"
+     },
+     "paid_share": "42.30",
+     "owed_share": "0.00",
+     "net_balance": "42.30"
+    },
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "0.00",
+     "owed_share": "42.30",
+     "net_balance": "-42.30"
+    }
+   ]
+  },
+  {
+   "id": 3400000038,
+   "group_id": 55120001,
+   "description": "Household supplies",
+   "payment": false,
+   "cost": "51.86",
+   "currency_code": "USD",
+   "date": "2026-08-10T12:00:00Z",
+   "created_at": "2026-08-10T12:00:00Z",
+   "updated_at": "2026-08-10T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 14,
+    "name": "Household supplies"
+   },
+   "users": [
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "51.86",
+     "owed_share": "17.29",
+     "net_balance": "34.57"
+    },
+    {
+     "user_id": 2210002,
+     "user": {
+      "id": 2210002,
+      "first_name": "Sam",
+      "last_name": "Okafor"
+     },
+     "paid_share": "0.00",
+     "owed_share": "17.29",
+     "net_balance": "-17.29"
+    },
+    {
+     "user_id": 2210003,
+     "user": {
+      "id": 2210003,
+      "first_name": "Priya",
+      "last_name": "Raman"
+     },
+     "paid_share": "0.00",
+     "owed_share": "17.28",
+     "net_balance": "-17.28"
+    }
+   ]
+  },
+  {
+   "id": 3400000039,
+   "group_id": 55120001,
+   "description": "ConEd electricity",
+   "payment": false,
+   "cost": "126.06",
+   "currency_code": "USD",
+   "date": "2026-08-14T12:00:00Z",
+   "created_at": "2026-08-15T20:00:00Z",
+   "updated_at": "2026-08-15T20:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 5,
+    "name": "Electricity"
+   },
+   "users": [
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "0.00",
+     "owed_share": "42.02",
+     "net_balance": "-42.02"
+    },
+    {
+     "user_id": 2210002,
+     "user": {
+      "id": 2210002,
+      "first_name": "Sam",
+      "last_name": "Okafor"
+     },
+     "paid_share": "126.06",
+     "owed_share": "42.02",
+     "net_balance": "84.04"
+    },
+    {
+     "user_id": 2210003,
+     "user": {
+      "id": 2210003,
+      "first_name": "Priya",
+      "last_name": "Raman"
+     },
+     "paid_share": "0.00",
+     "owed_share": "42.02",
+     "net_balance": "-42.02"
+    }
+   ]
+  },
+  {
+   "id": 3400000040,
+   "group_id": 55120001,
+   "description": "Spectrum internet",
+   "payment": false,
+   "cost": "65.00",
+   "currency_code": "USD",
+   "date": "2026-08-16T12:00:00Z",
+   "created_at": "2026-08-16T12:00:00Z",
+   "updated_at": "2026-08-16T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 8,
+    "name": "TV/Phone/Internet"
+   },
+   "users": [
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "0.00",
+     "owed_share": "21.67",
+     "net_balance": "-21.67"
+    },
+    {
+     "user_id": 2210002,
+     "user": {
+      "id": 2210002,
+      "first_name": "Sam",
+      "last_name": "Okafor"
+     },
+     "paid_share": "65.00",
+     "owed_share": "21.67",
+     "net_balance": "43.33"
+    },
+    {
+     "user_id": 2210003,
+     "user": {
+      "id": 2210003,
+      "first_name": "Priya",
+      "last_name": "Raman"
+     },
+     "paid_share": "0.00",
+     "owed_share": "21.66",
+     "net_balance": "-21.66"
+    }
+   ]
+  },
+  {
+   "id": 3400000041,
+   "group_id": 55120002,
+   "description": "Tomo sushi night",
+   "payment": false,
+   "cost": "144.00",
+   "currency_code": "USD",
+   "date": "2026-08-29T12:00:00Z",
+   "created_at": "2026-08-29T12:00:00Z",
+   "updated_at": "2026-08-29T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 13,
+    "name": "Dining out"
+   },
+   "users": [
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "144.00",
+     "owed_share": "48.00",
+     "net_balance": "96.00"
+    },
+    {
+     "user_id": 2210004,
+     "user": {
+      "id": 2210004,
+      "first_name": "Jordan",
+      "last_name": "Lee"
+     },
+     "paid_share": "0.00",
+     "owed_share": "48.00",
+     "net_balance": "-48.00"
+    },
+    {
+     "user_id": 2210005,
+     "user": {
+      "id": 2210005,
+      "first_name": "Alex",
+      "last_name": "Moreno"
+     },
+     "paid_share": "0.00",
+     "owed_share": "48.00",
+     "net_balance": "-48.00"
+    }
+   ]
+  },
+  {
+   "id": 3400000042,
+   "group_id": 55120001,
+   "description": "Payment",
+   "payment": true,
+   "cost": "46.40",
+   "currency_code": "USD",
+   "date": "2026-09-04T12:00:00Z",
+   "created_at": "2026-09-04T12:00:00Z",
+   "updated_at": "2026-09-04T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 18,
+    "name": "General"
+   },
+   "users": [
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "46.40",
+     "owed_share": "0.00",
+     "net_balance": "46.40"
+    },
+    {
+     "user_id": 2210002,
+     "user": {
+      "id": 2210002,
+      "first_name": "Sam",
+      "last_name": "Okafor"
+     },
+     "paid_share": "0.00",
+     "owed_share": "46.40",
+     "net_balance": "-46.40"
+    }
+   ]
+  },
+  {
+   "id": 3400000044,
+   "group_id": 55120002,
+   "description": "Payment",
+   "payment": true,
+   "cost": "48.00",
+   "currency_code": "USD",
+   "date": "2026-09-04T12:00:00Z",
+   "created_at": "2026-09-04T12:00:00Z",
+   "updated_at": "2026-09-04T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 18,
+    "name": "General"
+   },
+   "users": [
+    {
+     "user_id": 2210005,
+     "user": {
+      "id": 2210005,
+      "first_name": "Alex",
+      "last_name": "Moreno"
+     },
+     "paid_share": "48.00",
+     "owed_share": "0.00",
+     "net_balance": "48.00"
+    },
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "0.00",
+     "owed_share": "48.00",
+     "net_balance": "-48.00"
+    }
+   ]
+  },
+  {
+   "id": 3400000043,
+   "group_id": 55120001,
+   "description": "Payment",
+   "payment": true,
+   "cost": "17.28",
+   "currency_code": "USD",
+   "date": "2026-09-05T12:00:00Z",
+   "created_at": "2026-09-05T12:00:00Z",
+   "updated_at": "2026-09-05T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 18,
+    "name": "General"
+   },
+   "users": [
+    {
+     "user_id": 2210003,
+     "user": {
+      "id": 2210003,
+      "first_name": "Priya",
+      "last_name": "Raman"
+     },
+     "paid_share": "17.28",
+     "owed_share": "0.00",
+     "net_balance": "17.28"
+    },
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "0.00",
+     "owed_share": "17.28",
+     "net_balance": "-17.28"
+    }
+   ]
+  },
+  {
+   "id": 3400000045,
+   "group_id": 55120001,
+   "description": "Movie tickets",
+   "payment": false,
+   "cost": "52.47",
+   "currency_code": "USD",
+   "date": "2026-09-06T12:00:00Z",
+   "created_at": "2026-09-06T12:00:00Z",
+   "updated_at": "2026-09-06T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 21,
+    "name": "Movies"
+   },
+   "users": [
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "0.00",
+     "owed_share": "17.49",
+     "net_balance": "-17.49"
+    },
+    {
+     "user_id": 2210003,
+     "user": {
+      "id": 2210003,
+      "first_name": "Priya",
+      "last_name": "Raman"
+     },
+     "paid_share": "52.47",
+     "owed_share": "17.49",
+     "net_balance": "34.98"
+    },
+    {
+     "user_id": 2210002,
+     "user": {
+      "id": 2210002,
+      "first_name": "Sam",
+      "last_name": "Okafor"
+     },
+     "paid_share": "0.00",
+     "owed_share": "17.49",
+     "net_balance": "-17.49"
+    }
+   ]
+  },
+  {
+   "id": 3400000046,
+   "group_id": 55120001,
+   "description": "Household supplies",
+   "payment": false,
+   "cost": "37.00",
+   "currency_code": "USD",
+   "date": "2026-09-10T12:00:00Z",
+   "created_at": "2026-09-10T12:00:00Z",
+   "updated_at": "2026-09-10T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 14,
+    "name": "Household supplies"
+   },
+   "users": [
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "37.00",
+     "owed_share": "12.34",
+     "net_balance": "24.66"
+    },
+    {
+     "user_id": 2210002,
+     "user": {
+      "id": 2210002,
+      "first_name": "Sam",
+      "last_name": "Okafor"
+     },
+     "paid_share": "0.00",
+     "owed_share": "12.33",
+     "net_balance": "-12.33"
+    },
+    {
+     "user_id": 2210003,
+     "user": {
+      "id": 2210003,
+      "first_name": "Priya",
+      "last_name": "Raman"
+     },
+     "paid_share": "0.00",
+     "owed_share": "12.33",
+     "net_balance": "-12.33"
+    }
+   ]
+  },
+  {
+   "id": 3400000047,
+   "group_id": 55120002,
+   "description": "Brunch at Jacob's Pickles",
+   "payment": false,
+   "cost": "108.60",
+   "currency_code": "USD",
+   "date": "2026-09-12T12:00:00Z",
+   "created_at": "2026-09-12T12:00:00Z",
+   "updated_at": "2026-09-12T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 13,
+    "name": "Dining out"
+   },
+   "users": [
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "108.60",
+     "owed_share": "36.20",
+     "net_balance": "72.40"
+    },
+    {
+     "user_id": 2210003,
+     "user": {
+      "id": 2210003,
+      "first_name": "Priya",
+      "last_name": "Raman"
+     },
+     "paid_share": "0.00",
+     "owed_share": "36.20",
+     "net_balance": "-36.20"
+    },
+    {
+     "user_id": 2210005,
+     "user": {
+      "id": 2210005,
+      "first_name": "Alex",
+      "last_name": "Moreno"
+     },
+     "paid_share": "0.00",
+     "owed_share": "36.20",
+     "net_balance": "-36.20"
+    }
+   ]
+  },
+  {
+   "id": 3400000050,
+   "group_id": 55120002,
+   "description": "Payment",
+   "payment": true,
+   "cost": "36.20",
+   "currency_code": "USD",
+   "date": "2026-09-14T12:00:00Z",
+   "created_at": "2026-09-14T12:00:00Z",
+   "updated_at": "2026-09-14T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 18,
+    "name": "General"
+   },
+   "users": [
+    {
+     "user_id": 2210003,
+     "user": {
+      "id": 2210003,
+      "first_name": "Priya",
+      "last_name": "Raman"
+     },
+     "paid_share": "36.20",
+     "owed_share": "0.00",
+     "net_balance": "36.20"
+    },
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "0.00",
+     "owed_share": "36.20",
+     "net_balance": "-36.20"
+    }
+   ]
+  },
+  {
+   "id": 3400000048,
+   "group_id": 55120001,
+   "description": "ConEd electricity",
+   "payment": false,
+   "cost": "83.16",
+   "currency_code": "USD",
+   "date": "2026-09-14T12:00:00Z",
+   "created_at": "2026-09-15T20:00:00Z",
+   "updated_at": "2026-09-15T20:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 5,
+    "name": "Electricity"
+   },
+   "users": [
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "0.00",
+     "owed_share": "27.72",
+     "net_balance": "-27.72"
+    },
+    {
+     "user_id": 2210002,
+     "user": {
+      "id": 2210002,
+      "first_name": "Sam",
+      "last_name": "Okafor"
+     },
+     "paid_share": "83.16",
+     "owed_share": "27.72",
+     "net_balance": "55.44"
+    },
+    {
+     "user_id": 2210003,
+     "user": {
+      "id": 2210003,
+      "first_name": "Priya",
+      "last_name": "Raman"
+     },
+     "paid_share": "0.00",
+     "owed_share": "27.72",
+     "net_balance": "-27.72"
+    }
+   ]
+  },
+  {
+   "id": 3400000049,
+   "group_id": 55120001,
+   "description": "Spectrum internet",
+   "payment": false,
+   "cost": "65.00",
+   "currency_code": "USD",
+   "date": "2026-09-16T12:00:00Z",
+   "created_at": "2026-09-16T12:00:00Z",
+   "updated_at": "2026-09-16T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 8,
+    "name": "TV/Phone/Internet"
+   },
+   "users": [
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "0.00",
+     "owed_share": "21.67",
+     "net_balance": "-21.67"
+    },
+    {
+     "user_id": 2210002,
+     "user": {
+      "id": 2210002,
+      "first_name": "Sam",
+      "last_name": "Okafor"
+     },
+     "paid_share": "65.00",
+     "owed_share": "21.67",
+     "net_balance": "43.33"
+    },
+    {
+     "user_id": 2210003,
+     "user": {
+      "id": 2210003,
+      "first_name": "Priya",
+      "last_name": "Raman"
+     },
+     "paid_share": "0.00",
+     "owed_share": "21.66",
+     "net_balance": "-21.66"
+    }
+   ]
+  },
+  {
+   "id": 3400000051,
+   "group_id": 55120001,
+   "description": "Payment",
+   "payment": true,
+   "cost": "37.06",
+   "currency_code": "USD",
+   "date": "2026-09-17T12:00:00Z",
+   "created_at": "2026-09-17T12:00:00Z",
+   "updated_at": "2026-09-17T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 18,
+    "name": "General"
+   },
+   "users": [
+    {
+     "user_id": 2210001,
+     "user": {
+      "id": 2210001,
+      "first_name": "Maya",
+      "last_name": "Chen"
+     },
+     "paid_share": "37.06",
+     "owed_share": "0.00",
+     "net_balance": "37.06"
+    },
+    {
+     "user_id": 2210002,
+     "user": {
+      "id": 2210002,
+      "first_name": "Sam",
+      "last_name": "Okafor"
+     },
+     "paid_share": "0.00",
+     "owed_share": "37.06",
+     "net_balance": "-37.06"
+    }
+   ]
+  }
+ ]
+}

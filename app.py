@@ -12,6 +12,10 @@ from pydantic import BaseModel
 
 import db
 import finance
+import notifications
+import planning
+import recurring
+import simulation
 from tools import TOOLS, run_tool
 
 # --- Config ---
@@ -20,36 +24,46 @@ MODEL = os.environ.get("PENNY_MODEL", "vertex_ai/gemini-3.5-flash")
 MAX_TOOL_ROUNDS = 8
 
 SYSTEM_PROMPT = """You are Penny, a personal finance agent. You help {user} keep spending under a monthly cap, \
-track who owes whom from shared expenses, and decide how much they can spend right now.
+track who owes whom, stay ahead of bills, and decide how much they can spend right now.
 
 Today is {weekday}, {today}. This is a simulated date: never refer to data after it.
 
-What you can see: {user}'s bank accounts ({accounts}), their shared expenses with {people} (from Splitwise), \
-and their monthly budget (a ${cap:,.0f} cap that includes rent and bills).
+Where your information comes from (say which when it matters):
+- Bank accounts and transactions: synced from {banks} through Plaid. Purchases can be pending for a day or two.
+- Shared expenses and IOUs: synced from Splitwise, cross-checked against the bank.
+- Recurring payments (subscriptions, bills, paychecks): DETECTED by you from the transactions. Nobody entered them.
+- The monthly plan (cap, bills with due windows, category targets): provided by {user}, with targets you suggested \
+from their history unless they set their own. The cap is ${cap:,.0f} for {month} and includes bills.
+
+What {user} has asked you to remember:
+{memory}
 
 Rules:
-- Never calculate money in your head or guess a number. Every dollar figure you state must come from a tool \
-result in this conversation. If a tool can't answer it, say so.
-- Data changes during the conversation (new transactions, the date moving forward), so call tools again rather \
+- Never calculate money in your head or guess a number. Every dollar figure must come from a tool result in this \
+conversation. If a tool can't answer it, say so.
+- Data changes during the conversation (new syncs, new transactions, the date moving), so call tools again rather \
 than reusing numbers from earlier turns.
-- "Net position" counts money people owe {user}; "spendable cash" does not. Explain the difference when it matters.
-- When asked how much to spend, use recommend_spending and explain the main reasons in plain words \
-(e.g. "Shopping is $109 over, so I've pulled back the rest of your budget").
-- When {user} says they spent, received or transferred money, record it with add_transaction. If they say they \
-paid for a group, record it and then split it with split_transaction. Only ask a question if the account, \
-amount or people are genuinely unclear.
-- If a tool returns an error, fix the arguments and try again, or tell {user} what you need.
-- Splitwise and the bank can disagree. When get_shared_balances lists mismatches, point them out.
-- Be concise and warm: lead with the answer, then 1-3 short reasons. Use $ amounts with cents only when useful."""
+- "Net position" counts money people owe {user}; "spendable cash" does not.
+- When asked how much to spend, use recommend_spending and explain the main reasons plainly.
+- When {user} says they spent, received or moved money, record it with add_transaction. If they paid for a group, \
+record it, then split it with split_transaction. Only ask if the account, amount or people are genuinely unclear.
+- Planning a month: call draft_monthly_plan, walk {user} through it (bills they told you about, recurring payments \
+you detected that aren't in the plan, suggested targets), ask what to change, then save with update_plan.
+- Categories belong to {user}: add, remove, rename or re-map them with update_plan and recategorize_merchant.
+- When {user} shares a goal or preference worth keeping, save it with update_memory.
+- If a tool returns an error, fix the arguments and retry, or tell {user} what you need.
+- Be concise and warm: lead with the answer, then 1-3 short reasons."""
 
 
 def system_prompt(conn) -> str:
     today = db.today(conn)
-    accounts = ", ".join(f"{r[0]} = {r[1]} ({r[2]})" for r in conn.execute("SELECT account_id, name, role FROM accounts"))
-    people = ", ".join(sorted({r[0] for r in conn.execute("SELECT person FROM shared_shares")} - {"me"}))
-    cap = conn.execute("SELECT value FROM budget WHERE key = 'monthly_cap_cents'").fetchone()[0] / 100
-    return SYSTEM_PROMPT.format(user=db.ME, weekday=today.strftime("%A"), today=today.strftime("%B %d, %Y"),
-                                accounts=accounts, people=people, cap=cap)
+    month = planning.ensure_plan(conn, planning.month_key(today))
+    cap = conn.execute("SELECT monthly_cap_cents FROM plans WHERE month = ?", (month,)).fetchone()[0] / 100
+    banks = " and ".join(r[0] for r in conn.execute("SELECT institution FROM connections WHERE provider = 'plaid'"))
+    notes = conn.execute("SELECT note_id, text FROM memory_notes ORDER BY note_id").fetchall()
+    memory = "\n".join(f"- (note {i}) {t}" for i, t in notes) or "- Nothing yet."
+    return SYSTEM_PROMPT.format(user=db.user_name(conn), weekday=today.strftime("%A"), today=today.strftime("%B %d, %Y"),
+                                banks=banks, cap=cap, month=today.strftime("%B"), memory=memory)
 
 
 # --- The Harness ---
@@ -98,8 +112,13 @@ def run_agent(messages: list[dict], conn) -> tuple[str, list[dict]]:
 
 # --- Session Store ---
 
-# Seed database built once from the statement files at startup.
-SEED = db.build_seed()
+# At startup, onboard the demo user through the real pipeline: connect the (sandbox) Plaid and
+# Splitwise sources, sync, link, detect recurring payments, draft the first plan. A file copy is
+# written to penny.db so the database can be opened and inspected with any SQLite browser.
+try:
+    SEED = db.build_seed(Path(__file__).parent / "penny.db")
+except OSError:  # read-only filesystem: skip the inspectable copy
+    SEED = db.build_seed()
 
 
 class Session:
@@ -161,27 +180,44 @@ def chat(request: ChatRequest):
 
 @app.get("/state")
 def state(session_id: str | None = None):
-    """Everything the dashboard panel shows, computed fresh from this session's data."""
+    """Everything the dashboard shows, computed fresh from this session's data."""
     session_id, s = get_session(session_id)
     with s.lock:
         conn = s.db
-        meta = dict(conn.execute("SELECT key, value FROM meta"))
+        connections = []
+        for cid, provider, institution, last in conn.execute(
+                "SELECT connection_id, provider, institution, last_synced FROM connections").fetchall():
+            if provider == "plaid":
+                accounts = [f"...{m}" for (m,) in conn.execute("SELECT mask FROM accounts WHERE connection_id = ?", (cid,))]
+                count = conn.execute("SELECT COUNT(*) FROM transactions t JOIN accounts a USING (account_id) "
+                                     "WHERE a.connection_id = ?", (cid,)).fetchone()[0]
+                what = f"{len(accounts)} account ({', '.join(accounts)}) · {count} transactions"
+            else:
+                count = conn.execute("SELECT (SELECT COUNT(*) FROM shared_expenses) + (SELECT COUNT(*) FROM settlements)").fetchone()[0]
+                friends = conn.execute("SELECT COUNT(*) FROM people").fetchone()[0]
+                what = f"{friends} friends · {count} expenses & payments"
+            connections.append({"provider": "Plaid" if provider == "plaid" else "Splitwise API", "institution": institution,
+                                "last_synced": last, "detail": what})
         return {
             "session_id": session_id,
-            "today": meta["today"], "start": meta["start"], "last_day": meta["last_day"],
-            "user": db.ME,
+            "today": db.meta(conn, "today"), "start": db.meta(conn, "start"), "last_day": db.meta(conn, "last_day"),
+            "user": db.user_name(conn),
+            "connections": connections,
             "position": finance.financial_position(conn),
             "budget": finance.budget_status(conn),
             "shared": finance.shared_balances(conn),
+            "recurring": recurring.series(conn),
+            "notifications": notifications.build(conn),
+            "memory": [{"id": i, "text": t} for i, t in conn.execute("SELECT note_id, text FROM memory_notes")],
         }
 
 
 @app.post("/next-day")
 def next_day(session_id: str):
-    """Move this session's simulated date forward and reveal that day's transactions."""
+    """Advance this session's simulated date and sync, as Plaid's webhook would trigger in production."""
     _, s = get_session(session_id)
     with s.lock:
-        result = finance.advance_day(s.db)
+        result = simulation.advance_day(s.db)
         s.db.commit()
     return result
 
