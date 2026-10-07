@@ -98,7 +98,7 @@ uv run pytest            # engine tests: balances match statements, splits, re-b
 uv run generate_demo_data.py   # regenerate Maya's statements (deterministic)
 ```
 
-Set `PENNY_MODEL` to use a different LiteLLM model (default `vertex_ai/gemini-3.5-flash-lite`).
+Set `PENNY_MODEL` to use a different LiteLLM model (default `vertex_ai/gemini-3.5-flash`).
 
 ## Files
 

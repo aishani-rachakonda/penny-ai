@@ -8,6 +8,7 @@ Every function only sees data dated on or before the session's simulated today.
 """
 
 import calendar
+import math
 import json
 import statistics
 from collections import defaultdict
@@ -353,8 +354,9 @@ def recommend(conn, category: str, horizon: str = "today", log: bool = True) -> 
     later = sum(chance[d.weekday()] for d in remaining if d not in window)
     share = 1.0 if horizon == "rest_of_month" else (in_window / (in_window + later) if window else 0.0)
 
-    amount = round(cat["adjusted_room_left"] * share, 2)
-    baseline = round(cat["room_left"] * share, 2)  # what it would be if every category were on plan
+    # Whole dollars, rounded down so a recommendation never exceeds the room.
+    amount = float(math.floor(cat["adjusted_room_left"] * share))
+    baseline = float(math.floor(cat["room_left"] * share))  # what it would be if every category were on plan
     typical = pattern["typical_per_occasion"]
 
     position = financial_position(conn, as_of)
@@ -394,7 +396,8 @@ def recommend(conn, category: str, horizon: str = "today", log: bool = True) -> 
 
     inputs = {"spent": {c["category"]: c["spent"] for c in status["categories"]},
               "over": {o["category"]: o["over_by"] for o in rb["categories_over_target"]},
-              "bills_vs_plan": rb["bills_vs_plan"], "days_left": status["days_left_including_today"]}
+              "bills_vs_plan": rb["bills_vs_plan"], "days_left": status["days_left_including_today"],
+              "flexible_left": status["flexible_left"], "category_room": cat["adjusted_room_left"]}
     prev = conn.execute("SELECT sim_date, amount_cents, inputs FROM recommendations WHERE category = ? AND horizon = ? "
                         "ORDER BY rec_id DESC LIMIT 1", (category, horizon)).fetchone()
     if prev:
@@ -418,6 +421,9 @@ def explain_change(prev: tuple, amount: float, inputs: dict) -> dict:
             changes.append(f"{c} went from ${before:.2f} to ${v:.2f} over target.")
     if inputs["bills_vs_plan"] != prev_inputs["bills_vs_plan"]:
         changes.append(f"Bills vs plan moved from ${prev_inputs['bills_vs_plan']:.2f} to ${inputs['bills_vs_plan']:.2f}.")
+    for key, label in (("flexible_left", "Flexible money left this month"), ("category_room", "Room left in this category")):
+        if key in prev_inputs and inputs[key] != prev_inputs[key]:
+            changes.append(f"{label} went from ${prev_inputs[key]:.2f} to ${inputs[key]:.2f}.")
     if inputs["days_left"] != prev_inputs["days_left"]:
         changes.append(f"Days left in the month went from {prev_inputs['days_left']} to {inputs['days_left']}.")
     return {"previous_recommendation": dollars(prev_cents), "previous_date": prev_date,
@@ -456,6 +462,7 @@ def evaluate_purchase(conn, amount_cents: int, category: str) -> dict:
     return {
         "purchase": amount, "category": category, "verdict": verdict,
         "category_room_before": cat_room, "category_room_after": ca["adjusted_room_left"] if ca else 0.0,
+        "category_over_target_after": ca["over_by"] if ca else amount,
         "flexible_left_before": before["flexible_left"], "flexible_left_after": after["flexible_left"],
         "month_spent_after": after["spent_so_far"], "monthly_cap": after["monthly_cap"],
         "over_cap_by_after": after["over_cap_by"],

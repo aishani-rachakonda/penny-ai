@@ -16,7 +16,7 @@ from tools import TOOLS, run_tool
 
 # --- Config ---
 
-MODEL = os.environ.get("PENNY_MODEL", "vertex_ai/gemini-3.5-flash-lite")
+MODEL = os.environ.get("PENNY_MODEL", "vertex_ai/gemini-3.5-flash")
 MAX_TOOL_ROUNDS = 8
 
 SYSTEM_PROMPT = """You are Penny, a personal finance agent. You help {user} keep spending under a monthly cap, \
@@ -76,7 +76,11 @@ def run_agent(messages: list[dict], conn) -> tuple[str, list[dict]]:
         messages += [reply.model_dump()]
 
         if not reply.tool_calls:
-            return reply.content, tool_calls
+            if (reply.content or "").strip():
+                return reply.content, tool_calls
+            # Models occasionally return an empty turn. Drop it and ask again.
+            messages.pop()
+            continue
 
         # The harness, not the model, runs each tool and appends the result
         for call in reply.tool_calls:
