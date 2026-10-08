@@ -76,6 +76,7 @@ def normalize(conn, t: dict, account_id: str) -> dict:
                                          if individual else clean_name(t["name"]))
     if kind == "purchase":
         category, cat_source = categorize(conn, merchant, pfc)
+        db.ensure_category(conn, category)
     else:
         category, cat_source = {"income": "Income", "transfer": "Transfer"}.get(kind, "Payments"), "plaid"
     return {

@@ -85,6 +85,7 @@
                 margin: 0 auto;
                 height: calc(100vh - 70px);
             }
+            #dash, #chat { min-width: 0; }
             #dash { overflow-y: auto; display: flex; flex-direction: column; gap: 1rem; padding-bottom: 1rem; }
             .card {
                 background: var(--panel); border: 1px solid var(--line);
@@ -138,6 +139,9 @@
                 padding: 0.4rem 0.8rem; font-size: 0.82rem; text-align: left;
             }
             .chip:hover { border-color: var(--accent); color: var(--accent); }
+            .followups { padding: 0.6rem 1rem 0; border-top: 1px solid var(--line); flex-wrap: nowrap; overflow-x: auto; }
+            .followups:empty { display: none; }
+            .followups .chip { white-space: nowrap; font-size: 0.78rem; padding: 0.3rem 0.7rem; }
             .group-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin: 0.8rem 0 0.35rem; }
             .msg { max-width: 82%; }
             .msg.user { align-self: flex-end; background: var(--accent); color: #fff; padding: 0.6rem 0.9rem; border-radius: 16px 16px 4px 16px; }
@@ -228,47 +232,14 @@
                 <div id="messages">
                     <div class="welcome" id="welcome">
                         <h2>Hi, I'm Penny 👋</h2>
-                        <p>
-                            You're looking at <b>Maya's</b> money: a grad student in New York with a Chase account for
-                            everyday spending, a Bank of America account for her salary and rent, roommates and
-                            friends on Splitwise, and a $1,800 monthly limit that includes her $1,250 rent. Ask me how
-                            much she can spend, who owes her, or what's coming up, or tell me about something she just
-                            bought. Use <b>Next day</b> to move through the month.
-                        </p>
-                        <div class="group-label">Where things stand</div>
-                        <div class="chips">
-                            <button class="chip">How much money do I have across my accounts?</button>
-                            <button class="chip">Where am I overspending this month?</button>
-                            <button class="chip">What bills are still coming up?</button>
-                        </div>
-                        <div class="group-label">Shared expenses</div>
-                        <div class="chips">
-                            <button class="chip">Who still owes me money?</button>
-                            <button class="chip">I paid $90 for dinner with Sam and Priya tonight. Split it.</button>
-                        </div>
-                        <div class="group-label">Decisions</div>
-                        <div class="chips">
-                            <button class="chip">I'm going out for drinks tonight. How much should I spend?</button>
-                            <button class="chip">I just spent $30 at Zara.</button>
-                            <button class="chip">Why did you change my recommendation?</button>
-                            <button class="chip">Can I afford a $60 dinner this weekend?</button>
-                        </div>
-                        <div class="group-label">Planning & bills</div>
-                        <div class="chips">
-                            <button class="chip">What subscriptions am I paying for?</button>
-                            <button class="chip">Let's plan October.</button>
-                            <button class="chip">Remove the Coffee category and count it as Dining.</button>
-                            <button class="chip">Remember that I'm saving for a trip to Italy in December.</button>
-                        </div>
-                        <div class="group-label">Patterns</div>
-                        <div class="chips">
-                            <button class="chip">How much did I spend on dining this month compared with last month?</button>
-                            <button class="chip">How many small purchases have I made this month, and what do they add up to?</button>
-                        </div>
+                        <p id="welcome-text"></p>
+                        <div class="group-label">Try asking</div>
+                        <div class="chips" id="suggest-welcome"></div>
                     </div>
                 </div>
+                <div class="chips followups" id="suggest-followup"></div>
                 <div id="input-area">
-                    <input type="text" id="user-input" placeholder="Ask Penny about Maya's money…" autocomplete="off" />
+                    <input type="text" id="user-input" placeholder="Ask Penny anything…" autocomplete="off" />
                     <button id="send-btn" class="primary">Send</button>
                 </div>
             </section>
@@ -312,6 +283,20 @@
                 saveSession(s.session_id);
                 $("sim-date").textContent = fmtDate(s.today);
                 $("next-day").disabled = s.today >= s.last_day;
+
+                const rent = s.budget.bills.find((x) => x.category === "Rent");
+                const banks = s.connections.filter((c) => c.masks.length).map((c) => c.institution);
+                const others = s.connections.filter((c) => !c.masks.length).map((c) => c.institution);
+                $("welcome-text").innerHTML =
+                    `You're looking at <b>${esc(s.user)}'s</b> money: accounts at ${esc(banks.join(" and "))}` +
+                    (others.length ? `, shared expenses on ${esc(others.join(" and "))}` : "") +
+                    `, and a ${usd(s.budget.monthly_cap).replace(".00", "")} limit for ${esc(s.budget.month.split(" ")[0])}` +
+                    (rent ? ` that includes ${usd(rent.expected).replace(".00", "")} rent` : "") +
+                    `. Ask how much ${esc(s.user)} can spend, who owes money, or what's coming up, or tell me about something ${esc(s.user)}` +
+                    ` just bought. Use <b>Next day</b> to move through the month.`;
+                const chipHTML = s.suggestions.map((q) => `<button class="chip">${esc(q)}</button>`).join("");
+                $("suggest-welcome").innerHTML = chipHTML;
+                $("suggest-followup").innerHTML = $("welcome").style.display === "none" ? chipHTML : "";
 
                 const p = s.position;
                 $("accounts").innerHTML =
@@ -465,7 +450,10 @@
                 await refresh();
             });
 
-            document.querySelectorAll(".chip").forEach((c) => c.addEventListener("click", () => send(c.textContent)));
+            document.addEventListener("click", (e) => {
+                const chip = e.target.closest(".chip");
+                if (chip) send(chip.textContent);
+            });
             sendBtn.addEventListener("click", () => send());
             userInput.addEventListener("keydown", (e) => { if (e.key === "Enter") send(); });
             refresh();

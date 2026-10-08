@@ -51,6 +51,8 @@ def sync(conn, client, connection: tuple) -> dict:
                 removed += conn.execute("DELETE FROM shared_expenses WHERE external_id = ?", (ext,)).rowcount
                 removed += conn.execute("DELETE FROM settlements WHERE external_id = ?", (ext,)).rowcount
                 continue
+            if not e["payment"]:
+                db.ensure_category(conn, CATEGORY.get(e["category"]["name"], "Other"))
             users = [(person_name(conn, u, me_id), _cents(u["paid_share"]), _cents(u["owed_share"])) for u in e["users"]]
             day = e["date"][:10]
             if e["payment"]:

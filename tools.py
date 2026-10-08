@@ -38,9 +38,7 @@ def _category(conn, name: str | None, allow_none: bool = False, create: bool = F
         return lookup[key]
     close = difflib.get_close_matches(key, lookup, n=3, cutoff=0.6)
     if create and not close and key:
-        new = name.strip().title()
-        conn.execute("INSERT INTO categories VALUES (?, 'flexible', 'user')", (new,))
-        return new
+        return db.ensure_category(conn, name.strip().title(), source="user")
     hint = f" Did you mean: {', '.join(lookup[c] for c in close)}?" if close else ""
     extra = " To make a new category, pass create_category=true." if create is False and not close else ""
     raise ToolError(f"Unknown category '{name}'.{hint} Categories: {', '.join(known)}.{extra}")
@@ -413,7 +411,7 @@ def add_transaction(conn, account, amount, direction, description, category=None
         rule = conn.execute("SELECT category FROM merchant_rules WHERE merchant = ?", (description.lower(),)).fetchone()
         seen = conn.execute("SELECT category FROM transactions WHERE lower(merchant) = lower(?) ORDER BY date DESC LIMIT 1",
                             (description,)).fetchone()
-        cat = (rule or seen or ("Other",))[0]
+        cat = db.ensure_category(conn, (rule or seen or ("Other",))[0])
     txn = insert(acct, -cents, description, description, cat, "purchase")
     status = finance.budget_status(conn)
     c = next((x for x in status["categories"] if x["category"] == cat), None)

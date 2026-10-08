@@ -106,8 +106,15 @@ until she confirms them into the plan or dismisses them.
 Plans are **per month**. A month nobody planned inherits the previous month's plan, so budgeting never stops.
 Planning happens in chat: `draft_monthly_plan` proposes the next month from the known bills, detected recurring
 payments not yet in the plan, price changes, stopped subscriptions and spending history; `update_plan` saves
-what the user decides. Categories belong to the user too: they can add, remove or merge them, and merchant
+what the user decides. Categories belong to the user too: there is no preset list (each category is created the
+first time the user's own data uses it), the user can add, remove or merge them in chat, and merchant
 corrections become rules that apply to future transactions.
+
+Nothing in the interface is hard-coded to the demo user. The welcome text is built from the linked accounts and
+the current plan, and the suggested questions are chosen by `suggestions.py` from the current situation (a
+category over target, someone who owes money, a bill Penny found that isn't in the plan, the next month to
+plan), recomputed after every chat turn and every new day. Alerts work the same way: `notifications.py` rules
+re-run against the latest data on every refresh.
 
 ## Architecture
 
@@ -204,6 +211,7 @@ Set `PENNY_MODEL` to use a different LiteLLM model (default `vertex_ai/gemini-3.
 | `planning.py` | Monthly plans: known bills, detected bills, carry-forward, suggested targets, drafts, totals |
 | `recurring.py` | Recurring payment detection |
 | `notifications.py` | Reminder and alert rules |
+| `suggestions.py` | Suggested questions chosen from the user's current situation |
 | `ingest/` | `clients.py` (sandbox vs production clients), `plaid.py` and `splitwise.py` connectors, `pipeline.py` (sync, reconcile, link, detect) |
 | `sandbox/` | `providers.py` (fake Plaid and Splitwise APIs) and `data/` (fixtures in each provider's schema, plus the onboarding profile) |
 | `simulation.py` | The simulated clock: advance a day, then sync |

@@ -203,12 +203,16 @@ CREATE TABLE sync_log (
 CREATE TABLE sandbox_splitwise_writes (id INTEGER PRIMARY KEY, payload TEXT NOT NULL);
 """
 
-DEFAULT_CATEGORIES = [
-    ("Rent", "bill"), ("Utilities", "bill"), ("Subscriptions", "bill"),
-    ("Groceries", "flexible"), ("Dining", "flexible"), ("Coffee", "flexible"), ("Food Delivery", "flexible"),
-    ("Nightlife", "flexible"), ("Transport", "flexible"), ("Shopping", "flexible"), ("Entertainment", "flexible"),
-    ("Personal Care", "flexible"), ("Household", "flexible"), ("Other", "flexible"),
-]
+# Categories aren't preset: each one is created the first time the user's own data uses it
+# (or when the user makes one in chat). These are the ones that hold fixed bills.
+BILL_CATEGORIES = {"Rent", "Utilities", "Subscriptions"}
+
+
+def ensure_category(conn, name: str, source: str = "penny") -> str:
+    conn.execute("INSERT OR IGNORE INTO categories VALUES (?, ?, ?)",
+                 (name, "bill" if name in BILL_CATEGORIES else "flexible", source))
+    return name
+
 
 # Built-in merchant rules, for where Plaid's category is too coarse for budgeting.
 DEFAULT_MERCHANT_RULES = {
@@ -260,7 +264,6 @@ def build_seed(snapshot_path: Path | None = None) -> sqlite3.Connection:
 
     conn = connect()
     conn.executescript(SCHEMA)
-    conn.executemany("INSERT INTO categories VALUES (?, ?, 'penny')", DEFAULT_CATEGORIES)
     conn.executemany("INSERT INTO merchant_rules VALUES (?, ?, 'penny')", DEFAULT_MERCHANT_RULES.items())
     conn.executemany("INSERT INTO meta VALUES (?, ?)", [
         ("today", DEMO_START), ("start", DEMO_START), ("last_day", DEMO_LAST_DAY), ("user_name", PROFILE["name"])])

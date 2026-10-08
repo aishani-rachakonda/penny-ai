@@ -16,6 +16,7 @@ import notifications
 import planning
 import recurring
 import simulation
+import suggestions
 from tools import TOOLS, run_tool
 
 # --- Config ---
@@ -199,6 +200,7 @@ def state(session_id: str | None = None):
             "recurring": recurring.series(conn),
             "notifications": notifications.build(conn),
             "memory": [{"id": i, "text": t} for i, t in conn.execute("SELECT note_id, text FROM memory_notes")],
+            "suggestions": suggestions.build(conn),
         }
 
 
