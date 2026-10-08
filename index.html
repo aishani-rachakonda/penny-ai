@@ -176,8 +176,8 @@
                 <h1>Penny<span>.</span></h1>
                 <p>A finance agent connected to your bank accounts and Splitwise that reasons about your money and plans with you.</p>
             </div>
-            <div class="sim" title="Penny runs on a simulated calendar so you can watch the month play out.">
-                <span class="label">Simulated today</span>
+            <div class="sim">
+                <span class="label">Demo date</span>
                 <span class="date" id="sim-date">…</span>
                 <button id="next-day" class="primary">Next day →</button>
                 <button id="reset">Reset</button>
@@ -201,30 +201,26 @@
                 <div class="card">
                     <h2>Flexible budget by category</h2>
                     <div id="categories"></div>
-                    <p class="hint">When one category goes over, the room left in every other category shrinks so the month still fits the cap.</p>
                 </div>
                 <div class="card">
-                    <h2>Shared expenses (Splitwise × bank)</h2>
+                    <h2>Shared expenses</h2>
                     <div id="shared"></div>
                 </div>
                 <div class="card">
                     <h2>Bills this month</h2>
                     <div id="bills"></div>
-                    <p class="hint"><span class="src user">you told Penny</span> came from you; <span class="src det">detected</span> Penny found in your transactions.</p>
                 </div>
                 <div class="card">
                     <h2>Recurring payments Penny detected</h2>
                     <div id="recurring"></div>
-                    <p class="hint">Nobody entered these. Penny finds them after every sync: same merchant, a regular rhythm, at least 3 times.</p>
                 </div>
                 <div class="card">
                     <h2>What Penny remembers</h2>
                     <div id="memory"></div>
                 </div>
                 <div class="card">
-                    <h2>Connected sources</h2>
+                    <h2>Linked accounts</h2>
                     <div id="connections"></div>
-                    <p class="hint">Sandbox connections: simulated Plaid and Splitwise APIs that return the same data formats as the real ones, revealed day by day.</p>
                 </div>
             </section>
 
@@ -233,11 +229,11 @@
                     <div class="welcome" id="welcome">
                         <h2>Hi, I'm Penny 👋</h2>
                         <p>
-                            This demo is <b>Maya</b>, a fictional NYC grad student. Her Chase and Bank of America accounts
-                            arrive through a Plaid sandbox, her shared expenses through a Splitwise sandbox, and her
-                            subscriptions are detected from the transactions. She told Penny her rent ($1,250, due the
-                            1st–10th) and her $1,800 monthly cap. Every number comes from a tool call, shown above each
-                            answer. Anything you change only affects your session; <b>Next day</b> syncs the next day's data.
+                            You're looking at <b>Maya's</b> money: a grad student in New York with a Chase account for
+                            everyday spending, a Bank of America account for her salary and rent, roommates and
+                            friends on Splitwise, and a $1,800 monthly limit that includes her $1,250 rent. Ask me how
+                            much she can spend, who owes her, or what's coming up, or tell me about something she just
+                            bought. Use <b>Next day</b> to move through the month.
                         </p>
                         <div class="group-label">Where things stand</div>
                         <div class="chips">
@@ -321,7 +317,7 @@
                 $("accounts").innerHTML =
                     p.accounts.map((a) => row(`${a.institution} <span class="muted">...${a.mask}</span>`, usd(a.balance)) +
                         (a.pending || a.told_penny ? `<div class="hint" style="margin:0 0 0.3rem">Bank says ${usd(a.bank_balance)}` +
-                            (a.pending ? ` · ${usd(a.pending)} pending` : "") + (a.told_penny ? ` · ${usd(a.told_penny)} you told Penny` : "") + `</div>` : "")).join("") +
+                            (a.pending ? ` · ${usd(a.pending)} pending` : "") + (a.told_penny ? ` · ${usd(a.told_penny)} added manually` : "") + `</div>` : "")).join("") +
                     row("Total cash", usd(p.cash_total), "strong") +
                     row("+ Owed to you", usd(p.owed_to_you)) +
                     row("− You owe", usd(p.you_owe)) +
@@ -359,19 +355,22 @@
                         `${usd(Math.abs(x.balance))}${x.days_open >= 14 ? ` · ${x.days_open}d` : ""}`)).join("") +
                     sh.mismatches.map((m) => `<div class="flag">⚠ ${esc(m.detail)}</div>`).join("");
 
-                const srcBadge = (src) => src.startsWith("detected by") ? '<span class="src det">detected</span>'
-                    : src.startsWith("detected,") ? '<span class="src det">detected · confirmed</span>' : '<span class="src user">you told Penny</span>';
+                const srcBadge = (src) => src.startsWith("detected by") ? '<span class="src det">Found by Penny</span>'
+                    : src.startsWith("detected,") ? '<span class="src det">Found by Penny · confirmed</span>' : '<span class="src user">Added by you</span>';
                 $("bills").innerHTML = b.bills.map((o) => row(
                     `${o.status === "paid" ? "✓" : "○"} ${esc(o.name)} ${srcBadge(o.source)}`,
                     `${o.estimated ? "~" : ""}${usd(o.amount)} <span class="pill ${o.status === "paid" ? "" : "up"}">${o.status === "paid" ? "paid " + o.paid_on.slice(5) : "due " + o.due}</span>`
                 )).join("");
 
+                const monthName = (iso) => new Date(iso + "T12:00:00").toLocaleDateString("en-US", { month: "long" });
+                const shortDate = (iso) => new Date(iso + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" });
+                const rhythm = { monthly: "Every month", biweekly: "Every 2 weeks", weekly: "Every week" };
                 $("recurring").innerHTML = s.recurring.map((r) => {
                     const amt = r.variable ? `~${usd(r.typical_cents / 100)}` : usd(r.last_cents / 100);
-                    const tags = [r.kind, r.cadence, r.status === "stopped" ? "stopped" : r.next_due ? "next " + r.next_due.slice(5) : ""]
-                        .filter(Boolean).join(" · ");
+                    const when = r.status === "stopped" ? `Stopped after ${monthName(r.last_date)}`
+                        : `${rhythm[r.cadence]} since ${monthName(r.first_date)}${r.next_due ? " · next " + shortDate(r.next_due) : ""}`;
                     const pc = r.price_change ? ` <span class="pill up">↑ was ${usd(r.price_change.from)}</span>` : "";
-                    return `<div class="row"><span class="k">${r.direction === "in" ? "↓ " : ""}${esc(r.label)}${pc}<br><span class="hint">${tags} · seen ${r.occurrences}× · ${Math.round(r.confidence * 100)}% sure</span></span><span class="v">${amt}</span></div>`;
+                    return `<div class="row"><span class="k">${r.direction === "in" ? "↓ " : ""}${esc(r.label)}${pc}<br><span class="hint">${when}</span></span><span class="v">${amt}</span></div>`;
                 }).join("");
 
                 $("memory").innerHTML = s.memory.length
@@ -379,8 +378,8 @@
                     : '<p class="hint" style="margin:0">Nothing yet. Tell Penny a goal or preference ("I\'m saving for a trip in December") and it will remember.</p>';
 
                 $("connections").innerHTML = s.connections.map((c) => row(
-                    `${esc(c.institution)} <span class="src sync">${c.provider}</span><br><span class="hint">${esc(c.detail)}</span>`,
-                    `<span class="hint">synced ${c.last_synced ? c.last_synced.slice(5) : "never"}</span>`)).join("");
+                    `${esc(c.institution)}${c.masks.length ? ` <span class="muted">${c.masks.map((m) => "···" + m).join(", ")}</span>` : ""}`,
+                    `<span class="hint">Updated ${c.last_synced ? shortDate(c.last_synced) : "never"}</span>`)).join("");
 
                 const seen = window.seenNotifs || new Set();
                 $("notifications").innerHTML = s.notifications.length ? s.notifications.map((n) =>
@@ -443,18 +442,15 @@
                 $("next-day").disabled = true;
                 const r = await (await fetch("/next-day?session_id=" + sessionId, { method: "POST" })).json();
                 $("welcome").style.display = "none";
-                let note = `📅 It's now ${fmtDate(r.today)}.`;
+                let note = `📅 ${new Date(r.today + "T12:00:00").toLocaleDateString("en-US", { weekday: "long", month: "short", day: "numeric" })}`;
                 if (r.sync) {
-                    const parts = r.sync.sources.filter((x) => x.added || x.modified || x.removed).map((x) => {
-                        const bits = [];
-                        if (x.added) bits.push(`${x.added} new`);
-                        if (x.modified) bits.push(`${x.modified} ${x.provider === "plaid" ? "posted" : "updated"}`);
-                        if (x.removed) bits.push(`${x.removed} removed`);
-                        const items = x.new.slice(0, 3).map((t) => t.merchant ? `${t.merchant} ${usd(t.amount)}${t.pending ? " (pending)" : ""}` : t.description).join(", ");
-                        return `${x.institution}: ${bits.join(", ")}${items ? " — " + items : ""}`;
+                    const parts = r.sync.sources.filter((x) => x.new.length).map((x) => {
+                        const items = x.new.slice(0, 3).map((t) => t.merchant ? `${t.merchant} ${usd(Math.abs(t.amount))}` : t.description);
+                        const more = x.new.length > 3 ? ` and ${x.new.length - 3} more` : "";
+                        return `${x.institution}: ${items.join(", ")}${more}`;
                     });
-                    note += parts.length ? ` Sync: ${parts.join(" · ")}.` : " Sync: nothing new from Plaid or Splitwise.";
-                    if (r.new_notifications && r.new_notifications.length) note += ` 🔔 ${r.new_notifications.map((n) => n.title).join("; ")}.`;
+                    note += parts.length ? ` · ${parts.join(" · ")}` : " · No new activity.";
+                    if (r.new_notifications && r.new_notifications.length) note += ` · 🔔 ${r.new_notifications.map((n) => n.title).join("; ")}`;
                 }
                 addMessage("note", esc(note));
                 await refresh();

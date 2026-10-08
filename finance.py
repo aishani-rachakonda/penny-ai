@@ -20,6 +20,11 @@ def dollars(c: int | float) -> float:
     return round(c / 100, 2)
 
 
+def _day(iso: str) -> str:
+    d = date.fromisoformat(iso)
+    return f"{d.strftime('%b')} {d.day}"
+
+
 def month_bounds(d: date) -> tuple[date, date]:
     return d.replace(day=1), d.replace(day=calendar.monthrange(d.year, d.month)[1])
 
@@ -140,7 +145,7 @@ def shared_balances(conn, as_of: date | None = None) -> dict:
             events[src].append((sd, -amount, "paid you"))
             if txn_id is None:
                 flags.append({"person": src, "type": "recorded_but_not_received", "amount": dollars(amount),
-                              "date": sd, "detail": f"Splitwise says {src} paid you ${dollars(amount):.2f} on {sd}, "
+                              "date": sd, "detail": f"Splitwise says {src} paid you ${dollars(amount):.2f} on {_day(sd)}, "
                                                     "but no matching deposit is in your bank accounts."})
         else:
             events[dst].append((sd, amount, "you paid them"))
@@ -150,7 +155,7 @@ def shared_balances(conn, as_of: date | None = None) -> dict:
                WHERE kind = 'p2p_in' AND date <= ?
                AND txn_id NOT IN (SELECT txn_id FROM settlements WHERE txn_id IS NOT NULL)""", (d,)):
         flags.append({"person": person, "type": "received_but_not_recorded", "amount": dollars(amount), "date": td,
-                      "txn_id": txn_id, "detail": f"{person} sent you ${dollars(amount):.2f} on {td}, but it isn't "
+                      "txn_id": txn_id, "detail": f"{person} sent you ${dollars(amount):.2f} on {_day(td)}, but it isn't "
                                                   "recorded as a payment in Splitwise, so your balance with them "
                                                   "may be out of date."})
 

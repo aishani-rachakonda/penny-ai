@@ -184,20 +184,10 @@ def state(session_id: str | None = None):
     session_id, s = get_session(session_id)
     with s.lock:
         conn = s.db
-        connections = []
-        for cid, provider, institution, last in conn.execute(
-                "SELECT connection_id, provider, institution, last_synced FROM connections").fetchall():
-            if provider == "plaid":
-                accounts = [f"...{m}" for (m,) in conn.execute("SELECT mask FROM accounts WHERE connection_id = ?", (cid,))]
-                count = conn.execute("SELECT COUNT(*) FROM transactions t JOIN accounts a USING (account_id) "
-                                     "WHERE a.connection_id = ?", (cid,)).fetchone()[0]
-                what = f"{len(accounts)} account ({', '.join(accounts)}) · {count} transactions"
-            else:
-                count = conn.execute("SELECT (SELECT COUNT(*) FROM shared_expenses) + (SELECT COUNT(*) FROM settlements)").fetchone()[0]
-                friends = conn.execute("SELECT COUNT(*) FROM people").fetchone()[0]
-                what = f"{friends} friends · {count} expenses & payments"
-            connections.append({"provider": "Plaid" if provider == "plaid" else "Splitwise API", "institution": institution,
-                                "last_synced": last, "detail": what})
+        connections = [{"institution": institution, "last_synced": last,
+                        "masks": [m for (m,) in conn.execute("SELECT mask FROM accounts WHERE connection_id = ?", (cid,))]}
+                       for cid, institution, last in conn.execute(
+                           "SELECT connection_id, institution, last_synced FROM connections").fetchall()]
         return {
             "session_id": session_id,
             "today": db.meta(conn, "today"), "start": db.meta(conn, "start"), "last_day": db.meta(conn, "last_day"),

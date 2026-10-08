@@ -12,6 +12,21 @@ Every notification says where its facts came from (synced, detected, or the user
 from datetime import date, timedelta
 
 import db
+
+LABEL = {"you told Penny": "Added by you", "detected, confirmed by you": "Found by Penny",
+         "detected by Penny": "Found by Penny"}
+
+
+EVERY = {"monthly": "every month", "biweekly": "every 2 weeks", "weekly": "every week"}
+
+
+def _month(iso: str) -> str:
+    return date.fromisoformat(iso).strftime("%B")
+
+
+def _day(iso: str) -> str:
+    d = date.fromisoformat(iso)
+    return f"{d.strftime('%b')} {d.day}"
 import finance
 import planning
 import recurring
@@ -33,7 +48,8 @@ def build(conn) -> list[dict]:
             when = "today" if end == today else f"by {end.strftime('%b %d')}" if start != end else end.strftime("%b %d")
             amount = f"~${b['amount']:.2f}" if b["estimated"] else f"${b['amount']:.2f}"
             out.append({"id": f"bill:{b['name']}:{end}", "type": "bill_due", "severity": "info",
-                        "title": f"{b['name']} due {when}", "detail": f"{amount} · {b['source']}", "source": b["source"]})
+                        "title": f"{b['name']} due {when}", "detail": f"{amount} · {LABEL.get(b['source'], b['source'])}",
+                        "source": b["source"]})
 
     # Recurring charges Penny found that aren't in the plan, price changes, and probable cancellations.
     in_plan = {b["detected_match"] for b in planning.bills_for_month(conn, today) if b["in_plan"]}
@@ -43,17 +59,17 @@ def build(conn) -> list[dict]:
         if s["status"] == "active" and s["label"] not in in_plan:
             out.append({"id": f"found:{s['series_key']}", "type": "detected_recurring", "severity": "info",
                         "title": f"Recurring charge found: {s['label']}",
-                        "detail": f"${s['last_cents'] / 100:.2f} {s['cadence']}, {s['occurrences']} times since "
-                                  f"{s['first_date'][:7]}. Not in your plan.", "source": "detected by Penny"})
+                        "detail": f"${s['last_cents'] / 100:.2f} {EVERY[s['cadence']]} "
+                                  f"since {_month(s['first_date'])}. Not in your plan yet.", "source": "detected by Penny"})
         if s["price_change"] and (today - date.fromisoformat(s["price_change"]["on"])).days <= 120:
             pc = s["price_change"]
             out.append({"id": f"price:{s['series_key']}:{pc['on']}", "type": "price_change", "severity": "warn",
-                        "title": f"{s['label']} went up", "detail": f"${pc['from']:.2f} → ${pc['to']:.2f} since {pc['on']}",
+                        "title": f"{s['label']} went up", "detail": f"${pc['from']:.2f} → ${pc['to']:.2f} since {_day(pc['on'])}",
                         "source": "detected by Penny"})
         if s["status"] == "stopped" and (today - date.fromisoformat(s["last_date"])).days <= 120:
             out.append({"id": f"stopped:{s['series_key']}", "type": "stopped", "severity": "info",
                         "title": f"{s['label']} stopped charging",
-                        "detail": f"Last charge {s['last_date']}. Cancelled? It's no longer counted as a bill.",
+                        "detail": f"Last charged {_day(s['last_date'])}. If you cancelled it, you're all set.",
                         "source": "detected by Penny"})
 
     # Budget pace and cross-source mismatches.
