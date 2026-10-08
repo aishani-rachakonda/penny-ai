@@ -193,16 +193,16 @@
                     <div id="month"></div>
                 </div>
                 <div class="card">
+                    <h2>Bills this month</h2>
+                    <div id="bills"></div>
+                </div>
+                <div class="card">
                     <h2>Flexible budget by category</h2>
                     <div id="categories"></div>
                 </div>
                 <div class="card">
                     <h2>Shared expenses</h2>
                     <div id="shared"></div>
-                </div>
-                <div class="card">
-                    <h2>Bills this month</h2>
-                    <div id="bills"></div>
                 </div>
                 <div class="card">
                     <h2>What Penny remembers</h2>
@@ -253,6 +253,7 @@
                 down: '<path d="M12 5v14M19 12l-7 7-7-7"/>',
             };
             const icon = (name) => `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[name]}</svg>`;
+            const shortDate = (iso) => new Date(iso + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" });
             const row = (k, v, cls = "") => `<div class="row ${cls}"><span class="k">${k}</span><span class="v">${v}</span></div>`;
 
             function saveSession(id) {
@@ -342,11 +343,10 @@
                 const srcBadge = (src) => src.startsWith("detected by") ? '<span class="src det">Found by Penny</span>'
                     : src.startsWith("detected,") ? '<span class="src det">Found by Penny · confirmed</span>' : '<span class="src user">Added by you</span>';
                 $("bills").innerHTML = b.bills.map((o) => row(
-                    `<span class="${o.status === "paid" ? "pos" : "muted"}">${icon(o.status === "paid" ? "check" : "circle")}</span> ${esc(o.name)} ${srcBadge(o.source)}`,
+                    `<span class="${o.status === "paid" ? "pos" : "muted"}">${icon(o.status === "paid" ? "check" : "circle")}</span> ${esc(o.name)} ${srcBadge(o.source)}` +
+                        (o.price_change ? ` <span class="pill up" title="Since ${shortDate(o.price_change.on)}">${icon(o.price_change.to > o.price_change.from ? "up" : "down")} was ${usd(o.price_change.from)}</span>` : ""),
                     `${o.estimated ? "~" : ""}${usd(o.amount)} <span class="pill ${o.status === "paid" ? "" : "up"}">${o.status === "paid" ? "paid " + o.paid_on.slice(5) : "due " + o.due}</span>`
                 )).join("");
-
-                const shortDate = (iso) => new Date(iso + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" });
 
                 $("memory").innerHTML = s.memory.length
                     ? s.memory.map((m) => `<div class="notif">${esc(m.text)}</div>`).join("")

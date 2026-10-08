@@ -73,12 +73,21 @@ def _cadence(dates: list[date]) -> tuple[str, float] | None:
 
 
 def _price_change(amounts: list[int], dates: list[date]) -> dict | None:
-    """One clean step from an old fixed amount to a new one (e.g. 10.99 -> 11.99)."""
-    for i in range(1, len(amounts)):
-        before, after = set(amounts[:i]), set(amounts[i:])
-        if len(before) == 1 and len(after) == 1 and before != after and len(amounts[i:]) >= 1:
-            return {"from": amounts[0] / 100, "to": amounts[i] / 100, "on": dates[i].isoformat()}
-    return None
+    """The most recent price change in a stepped series (10.99 -> 11.99 -> 12.99 reports 11.99 -> 12.99).
+
+    A series counts as stepped when it moves between at most 3 fixed amounts in at most
+    3 runs, each held for a while; anything noisier is a variable bill, not a price change.
+    """
+    runs = []
+    for a in amounts:
+        if runs and runs[-1][0] == a:
+            runs[-1][1] += 1
+        else:
+            runs.append([a, 1])
+    if len(runs) < 2 or len(runs) > 3 or len({a for a in amounts}) > 3 or any(n < 2 for _, n in runs[:-1]):
+        return None
+    start = len(amounts) - runs[-1][1]
+    return {"from": runs[-2][0] / 100, "to": runs[-1][0] / 100, "on": dates[start].isoformat()}
 
 
 def _next_due(cadence: str, dates: list[date], today: date) -> date:

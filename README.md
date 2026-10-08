@@ -83,8 +83,8 @@ the single place that decides whether Penny talks to the sandbox or to the real 
 `recurring.py` runs after every sync. It groups bank transactions by merchant (and the user's share of Splitwise
 expenses by description), and calls something recurring when it has at least 3 occurrences with a regular rhythm:
 one per calendar month in consecutive months, or 12–16 / 6–8 day gaps for biweekly / weekly. For each stream it
-works out the typical amount, whether it varies, any **price change** (one clean step from an old amount to a new
-one), the day-of-month window it lands in, the next expected date, and whether it has **stopped** (overdue by
+works out the typical amount, whether it varies, the most recent **price change** (the latest step between fixed
+amounts, so a second increase is caught too), the day-of-month window it lands in, the next expected date, and whether it has **stopped** (overdue by
 more than half a cycle). Habits with irregular amounts, like lunch at the same place about once a month, are
 not bills and are filtered out.
 

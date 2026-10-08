@@ -176,3 +176,13 @@ def test_new_category_only_when_asked_for(conn):
     dupe = call(conn, "add_transaction", account="chase", amount=5, direction="spent", description="Cafe X",
                 new_category="Coffe")
     assert "very close" in dupe["error"]
+
+
+def test_price_change_tag_follows_the_data(conn):
+    spotify = next(b for b in planning.bills_for_month(conn, db.today(conn)) if b["name"] == "Spotify")
+    assert spotify["price_change"] == {"from": 10.99, "to": 11.99, "on": "2026-07-07"}
+    # Spotify raises its price again: the next sync's detection picks up the new step.
+    conn.execute("UPDATE transactions SET amount_cents = -1299 WHERE merchant = 'Spotify' AND date = '2026-09-07'")
+    recurring.detect(conn)
+    spotify = next(b for b in planning.bills_for_month(conn, db.today(conn)) if b["name"] == "Spotify")
+    assert spotify["price_change"] == {"from": 11.99, "to": 12.99, "on": "2026-09-07"}

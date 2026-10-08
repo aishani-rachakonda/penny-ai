@@ -68,14 +68,19 @@ def build(conn) -> list[str]:
 
     # One slot is kept for something Penny can *do*, so its actions are discoverable.
     situational, out = out[:MAX - 1], []
-    if not conn.execute("SELECT 1 FROM transactions WHERE source = 'manual'").fetchone():
-        add("I just spent $30 at Zara.")
-    if not conn.execute("SELECT 1 FROM shared_expenses WHERE link_source = 'user'").fetchone():
-        friends = [r[0] for r in conn.execute(
-            """SELECT s.person FROM shared_shares s JOIN shared_expenses x USING (expense_id)
-               WHERE s.person != 'me' AND x.paid_by = 'me' GROUP BY s.person ORDER BY COUNT(*) DESC LIMIT 2""")]
-        if len(friends) == 2:
-            add(f"I paid $90 for dinner with {friends[0]} and {friends[1]}. Split it.")
+    # Split a real recent purchase: something the bank can't do. Picks the latest dining or
+    # nightlife charge of $20+ from the last 3 days that hasn't been split, and the friends
+    # the user splits with most often.
+    recent = conn.execute(
+        """SELECT t.amount_cents, t.merchant FROM transactions t
+           WHERE t.kind = 'purchase' AND t.category IN ('Dining', 'Nightlife') AND t.amount_cents <= -2000
+           AND t.date >= ? AND t.txn_id NOT IN (SELECT txn_id FROM shared_expenses WHERE txn_id IS NOT NULL)
+           ORDER BY t.date DESC, t.amount_cents LIMIT 1""", ((today - timedelta(days=3)).isoformat(),)).fetchone()
+    friends = [r[0] for r in conn.execute(
+        """SELECT s.person FROM shared_shares s JOIN shared_expenses x USING (expense_id)
+           WHERE s.person != 'me' AND x.paid_by = 'me' GROUP BY s.person ORDER BY COUNT(*) DESC LIMIT 2""")]
+    if recent and len(friends) == 2:
+        add(f"Split my ${-recent[0] / 100:.2f} at {recent[1]} with {friends[0]} and {friends[1]}.")
 
     actions = out[:1]
     out = situational

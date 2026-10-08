@@ -50,6 +50,12 @@ def _series_for(conn, match: str) -> dict | None:
     return None
 
 
+def _recent_change(series: dict | None, today: date) -> dict | None:
+    """A detected price change worth showing: one that happened in the last ~4 months."""
+    pc = series and series["price_change"]
+    return pc if pc and (today - date.fromisoformat(pc["on"])).days <= 120 else None
+
+
 def bills_for_month(conn, as_of: date) -> list[dict]:
     """Every expected bill this month: from the plan (user-provided or confirmed) and detected ones not in the plan."""
     month = ensure_plan(conn, month_key(as_of))
@@ -82,7 +88,8 @@ def bills_for_month(conn, as_of: date) -> list[dict]:
                     "estimated": amount is None and not is_paid, "due": f"{lo}-{hi}" if lo != hi else str(lo),
                     "due_day_start": lo, "due_day_end": hi, "paid_on": row[1] if is_paid else None,
                     "source": "you told Penny" if source == "user" else "detected, confirmed by you",
-                    "in_plan": True, "detected_match": series["label"] if series else None})
+                    "in_plan": True, "detected_match": series["label"] if series else None,
+                    "price_change": _recent_change(series, db.today(conn))})
 
     for sr in recurring.series(conn, include_stopped=False):
         if sr["series_key"] in claimed or sr["dismissed"] or sr["direction"] != "out" \
@@ -99,7 +106,7 @@ def bills_for_month(conn, as_of: date) -> list[dict]:
                     "estimated": bool(sr["variable"]) and not is_paid, "due": str(due_day),
                     "due_day_start": due_day, "due_day_end": due_day, "paid_on": row[1] if is_paid else None,
                     "source": "detected by Penny", "in_plan": False, "detected_match": sr["label"],
-                    "series_key": sr["series_key"]})
+                    "series_key": sr["series_key"], "price_change": _recent_change(sr, db.today(conn))})
     return out
 
 
