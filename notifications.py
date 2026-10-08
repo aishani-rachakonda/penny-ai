@@ -3,8 +3,8 @@
 In production a scheduled job (e.g. Cloud Scheduler -> Cloud Run job, daily per
 user and after every sync) evaluates these rules, stores each notification once,
 and delivers it by Web Push, mobile push (FCM/APNs) or email. In this demo the
-same rules run whenever the dashboard refreshes and show up in the notification
-feed; new ones are highlighted after "Next day".
+same rules run when the day advances, and new reminders appear in that day's
+message in the chat.
 
 Every notification says where its facts came from (synced, detected, or the user's plan).
 """

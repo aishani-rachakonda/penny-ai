@@ -113,8 +113,8 @@ corrections become rules that apply to future transactions.
 Nothing in the interface is hard-coded to the demo user. The welcome text is built from the linked accounts and
 the current plan, and the suggested questions are chosen by `suggestions.py` from the current situation (a
 category over target, someone who owes money, a bill Penny found that isn't in the plan, the next month to
-plan), recomputed after every chat turn and every new day. Alerts work the same way: `notifications.py` rules
-re-run against the latest data on every refresh.
+plan), recomputed after every chat turn and every new day. When a day passes, `notifications.py` rules run
+against the new data and any new reminders (a bill coming due, a new recurring charge) appear in that day's message.
 
 ## Architecture
 
@@ -185,7 +185,7 @@ Splitwise friends. Friends: Alex, Jordan, Priya, Sam.` or `2026-12-01 is in the 
 | Splitwise | Splitwise-format sandbox | Splitwise OAuth 2; poll `get_expenses?updated_after=` (Splitwise has no webhooks) |
 | More sources | — | Each new source is one connector writing the same schema (Venmo, credit cards, ...); `source` + `external_id` keep syncs idempotent |
 | Database | SQLite, one copy per session | Postgres with `user_id` on every row, row-level security, access tokens encrypted with a KMS |
-| Reminders | `notifications.py` rules, shown in an in-app feed | The same rules in a scheduled job (Cloud Scheduler → Cloud Run job) after each sync, stored once per notification and delivered by Web Push, FCM or email, with user preferences and quiet hours |
+| Reminders | `notifications.py` rules; new reminders appear in the message for each new day, the way a push notification would | The same rules in a scheduled job (Cloud Scheduler → Cloud Run job) after each sync, stored once per notification and delivered by Web Push, FCM or email, with user preferences and quiet hours |
 | Memory | Per-session notes and conversation | Persistent per user, with long conversations summarized |
 | Auth | Cloud Run IAP (Columbia accounts) | Real user accounts; each user sees only their own data |
 | Time | Simulated date + "Next day" | Real time and provider webhooks |
@@ -217,4 +217,4 @@ Set `PENNY_MODEL` to use a different LiteLLM model (default `vertex_ai/gemini-3.
 | `simulation.py` | The simulated clock: advance a day, then sync |
 | `db.py` | Schema (every row records its source) and per-session copies |
 | `generate_sandbox.py` | Writes Maya's sandbox fixtures |
-| `index.html` | Dashboard, alerts, and chat with tool calls shown |
+| `index.html` | Dashboard and chat with tool calls shown |

@@ -107,15 +107,8 @@
             .pill.up { background: var(--neg-soft); color: var(--neg); }
             .src.user { background: var(--accent-soft); color: var(--accent); }
             .src.det { background: #eef0f4; color: #3d4a5f; }
-            .count { background: var(--neg); color: #fff; border-radius: 3px; padding: 0 0.4rem; font-size: 0.68rem; letter-spacing: 0; }
-            .count:empty { display: none; }
             .notif { display: flex; gap: 0.55rem; padding: 0.55rem 0; border-top: 1px solid var(--line); font-size: 0.84rem; }
             .notif:first-child { border-top: none; padding-top: 0.1rem; }
-            .notif .ic { color: var(--accent); padding-top: 0.1rem; }
-            .notif.warn .ic { color: var(--neg); }
-            .notif .t { font-weight: 600; }
-            .notif .d { color: var(--muted); font-size: 0.78rem; }
-            .notif.new { background: var(--accent-soft); border-radius: 4px; padding-left: 0.5rem; padding-right: 0.5rem; }
             .muted { color: var(--muted); }
             .flag {
                 display: flex; gap: 0.5rem; background: var(--neg-soft); color: var(--neg);
@@ -198,10 +191,6 @@
                 <div class="card">
                     <h2 id="month-title">This month</h2>
                     <div id="month"></div>
-                </div>
-                <div class="card">
-                    <h2>Coming up & alerts <span class="count" id="notif-count"></span></h2>
-                    <div id="notifications"></div>
                 </div>
                 <div class="card">
                     <h2>Flexible budget by category</h2>
@@ -380,12 +369,6 @@
                     `${esc(c.institution)}${c.masks.length ? ` <span class="muted">${c.masks.map((m) => "···" + m).join(", ")}</span>` : ""}`,
                     `<span class="hint">Updated ${c.last_synced ? shortDate(c.last_synced) : "never"}</span>`)).join("");
 
-                const seen = window.seenNotifs || new Set();
-                $("notifications").innerHTML = s.notifications.length ? s.notifications.map((n) =>
-                    `<div class="notif ${n.severity} ${window.seenNotifs && !seen.has(n.id) ? "new" : ""}"><span class="ic">${icon(n.severity === "warn" ? "alert" : "bell")}</span><div><div class="t">${esc(n.title)}</div><div class="d">${esc(n.detail)}</div></div></div>`).join("")
-                    : '<p class="hint" style="margin:0">Nothing needs your attention.</p>';
-                $("notif-count").textContent = s.notifications.length || "";
-                window.seenNotifs = new Set(s.notifications.map((n) => n.id));
             }
 
             function addMessage(cls, html) {
