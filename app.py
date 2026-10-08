@@ -83,6 +83,7 @@ def run_agent(messages: list[dict], conn) -> tuple[str, list[dict]]:
             vertex_location="global",
             messages=messages,
             tools=TOOLS,
+            num_retries=4,  # back off and retry on rate limits (HTTP 429) instead of failing the turn
         ).choices[0].message
 
         # Append assistant's reply (text, tool calls, or both) to the context.

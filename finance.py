@@ -181,6 +181,10 @@ def shared_balances(conn, as_of: date | None = None) -> dict:
                 "days_open": (as_of - date.fromisoformat(since)).days if since else 0,
                 "items": items_since[-6:],
             })
+    balance_of = {p["person"]: p["balance"] for p in people}
+    for m in flags:
+        if m["type"] == "recorded_but_not_received":
+            m["balance_if_it_never_arrived"] = round(balance_of.get(m["person"], 0) + m["amount"], 2)
     people.sort(key=lambda p: -p["balance"])
     owed = sum(p["balance"] for p in people if p["balance"] > 0)
     owe = -sum(p["balance"] for p in people if p["balance"] < 0)

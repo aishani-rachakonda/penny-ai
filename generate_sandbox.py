@@ -361,6 +361,13 @@ payment(date(2026, 9, 17), "Maya", "Sam", -round(pairwise["Sam"], 2), "Apartment
 while done < len(timeline):
     timeline[done][1](); done += 1
 
+# An Amazon order Maya returned: the refund comes back as money in (a negative Plaid amount).
+# Generated last so it doesn't shift any of the random draws above.
+buy(date(2026, 9, 2), "AMAZON MKTPL*5R2KD1 AMZN.COM/BILL WA", "Amazon", 42.99, "GENERAL_MERCHANDISE_ONLINE_MARKETPLACES",
+    "online")
+txn("chase", date(2026, 9, 10), -42.99, "AMAZON MKTPL*RETURN 5R2KD1 AMZN.COM/BILL WA", "Amazon",
+    "GENERAL_MERCHANDISE_ONLINE_MARKETPLACES", "online")
+
 # --- Write the fixtures --------------------------------------------------------------
 
 OUT.mkdir(parents=True, exist_ok=True)

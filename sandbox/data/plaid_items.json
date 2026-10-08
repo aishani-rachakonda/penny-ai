@@ -5707,6 +5707,24 @@
      "_sandbox_has_pending_phase": true
     },
     {
+     "transaction_id": "ENraY4Uo6czKLTA5Lqkom2CHVWenmiAKhvQ7H",
+     "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
+     "amount": 42.99,
+     "iso_currency_code": "USD",
+     "authorized_date": "2026-09-02",
+     "date": "2026-09-03",
+     "name": "AMAZON MKTPL*5R2KD1 AMZN.COM/BILL WA",
+     "merchant_name": "Amazon",
+     "payment_channel": "online",
+     "personal_finance_category": {
+      "primary": "GENERAL_MERCHANDISE",
+      "detailed": "GENERAL_MERCHANDISE_ONLINE_MARKETPLACES",
+      "confidence_level": "VERY_HIGH"
+     },
+     "counterparties": [],
+     "_sandbox_has_pending_phase": true
+    },
+    {
      "transaction_id": "GHEXCiMVMrVQTv0xr2RMtmI2wtvi6QAxTS0Wy",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
      "amount": 2.9,
@@ -6004,6 +6022,24 @@
      "personal_finance_category": {
       "primary": "PERSONAL_CARE",
       "detailed": "PERSONAL_CARE_HAIR_AND_BEAUTY",
+      "confidence_level": "VERY_HIGH"
+     },
+     "counterparties": [],
+     "_sandbox_has_pending_phase": true
+    },
+    {
+     "transaction_id": "MmBiBhgwJN3XH5NBUIOFus8IRReM9FWtjpSdv",
+     "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
+     "amount": -42.99,
+     "iso_currency_code": "USD",
+     "authorized_date": "2026-09-10",
+     "date": "2026-09-11",
+     "name": "AMAZON MKTPL*RETURN 5R2KD1 AMZN.COM/BILL WA",
+     "merchant_name": "Amazon",
+     "payment_channel": "online",
+     "personal_finance_category": {
+      "primary": "GENERAL_MERCHANDISE",
+      "detailed": "GENERAL_MERCHANDISE_ONLINE_MARKETPLACES",
       "confidence_level": "VERY_HIGH"
      },
      "counterparties": [],
