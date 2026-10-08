@@ -162,3 +162,17 @@ def test_familiar_merchant_keeps_its_usual_category(conn):
     r = call(conn, "add_transaction", account="chase", amount=6, direction="spent", description="Blue Bottle",
              category="Dining")
     assert "Blue Bottle Coffee" in r["recorded"] and "Coffee" in r["recorded"] and "note" in r
+
+
+def test_new_category_only_when_asked_for(conn):
+    err = call(conn, "add_transaction", account="chase", amount=85, direction="spent", description="Riverside Vet",
+               category="Pets")
+    assert "new_category" in err["error"] and "Pets" not in [r[0] for r in conn.execute("SELECT name FROM categories")]
+    r = call(conn, "add_transaction", account="chase", amount=85, direction="spent", description="Riverside Vet",
+             new_category="Pets")
+    assert r["new_category_created"] == "Pets" and "budget_note" in r
+    again = call(conn, "add_transaction", account="chase", amount=20, direction="spent", description="Riverside Vet")
+    assert "category Pets" in again["recorded"]  # remembered for this merchant
+    dupe = call(conn, "add_transaction", account="chase", amount=5, direction="spent", description="Cafe X",
+                new_category="Coffe")
+    assert "very close" in dupe["error"]

@@ -361,7 +361,8 @@ def update_memory(conn, add_note=None, remove_note_id=None) -> dict:
                       conn.execute("SELECT note_id, text, created_on FROM memory_notes ORDER BY note_id")]}
 
 
-def add_transaction(conn, account, amount, direction, description, category=None, person=None, to_account=None) -> dict:
+def add_transaction(conn, account, amount, direction, description, category=None, person=None, to_account=None,
+                    new_category=None) -> dict:
     """Manual entries: what the user did before the bank reports it. Payments with friends also go to Splitwise."""
     acct = _account(conn, account)
     cents = _amount(amount)
@@ -418,24 +419,49 @@ def add_transaction(conn, account, amount, direction, description, category=None
                         ((known[0] if known else description).lower(),)).fetchone()
     merchant = known[0] if known else description
     usual = rule[0] if rule else (known[1] if known else None)
-    note = None
-    if usual:
+    note, created = None, None
+    if new_category:
+        # The user agreed to (or asked for) a new category. Refuse near-duplicates of existing ones.
+        existing = {c.lower(): c for c in db.categories(conn)}
+        name = new_category.strip().title()
+        if name.lower() in existing:
+            cat = existing[name.lower()]
+        else:
+            close = difflib.get_close_matches(name.lower(), existing, n=1, cutoff=0.75)
+            if close:
+                raise ToolError(f"'{name}' is very close to the existing category '{existing[close[0]]}'. Use that "
+                                f"one (category='{existing[close[0]]}'), or pick a clearly different name.")
+            cat = created = db.ensure_category(conn, name, source="user")
+        conn.execute("INSERT OR REPLACE INTO merchant_rules VALUES (?, ?, 'user')", (merchant.lower(), cat))
+    elif usual:
         if category and _category(conn, category) != usual:
             note = (f"Filed under {usual}, like your earlier {merchant} purchases. If it should be "
                     f"{_category(conn, category)} from now on, use recategorize_merchant.")
         cat = usual
     elif category:
-        cat = _category(conn, category)
+        try:
+            cat = _category(conn, category)
+        except ToolError:
+            raise ToolError(f"'{category}' isn't one of the user's categories ({', '.join(db.categories(conn))}). "
+                            f"If one of those fits, use it. If not, ask the user whether to create a new "
+                            f"'{category.strip().title()}' category; if they agree, call again with "
+                            f"new_category='{category.strip().title()}'.")
     else:
         # Unfamiliar merchant: don't guess "Other". Ask the model to choose; it knows what Zara is.
         raise ToolError(f"Penny hasn't seen '{description}' before, so it can't tell what kind of purchase this "
-                        f"is. Call add_transaction again with category set to one of: "
-                        f"{', '.join(db.categories(conn, 'flexible'))} (or a bill category).")
+                        f"is. If one of the user's categories fits, call again with category set to it: "
+                        f"{', '.join(db.categories(conn, 'flexible'))}. If none fits, don't force it: ask the user "
+                        f"whether to create a new category (suggest a name), then call again with new_category.")
     txn = insert(acct, -cents, description, merchant, cat, "purchase")
     status = finance.budget_status(conn)
     c = next((x for x in status["categories"] if x["category"] == cat), None)
     return {"recorded": f"${cents / 100:.2f} at {merchant} from {acct}, category {cat}. It counts now and will be "
                         "matched to the bank's transaction when it syncs.", **({"note": note} if note else {}),
+            **({"new_category_created": created,
+                "budget_note": f"{created} has no monthly target yet, so this counts as unplanned spending and "
+                               f"shrinks the room left in other categories. Offer to set a monthly amount for "
+                               f"{created} with update_plan. Future purchases at {merchant} will go to {created}."}
+               if created else {}),
             "transaction_id": txn, "category_now": c, "month_spent_so_far": status["spent_so_far"],
             "flexible_left_this_month": status["flexible_left"]}
 
@@ -589,7 +615,8 @@ TOOLS = [
          "amount": {"type": "number", "description": "Positive amount in dollars."},
          "direction": {"type": "string", "enum": ["spent", "received", "transfer"]},
          "description": {"type": "string", "description": "Merchant or short note, e.g. 'Zara'."},
-         "category": {"type": "string", "description": "Category for purchases. Required for a merchant the user hasn't bought from before; for a familiar merchant it can be omitted."},
+         "category": {"type": "string", "description": "An existing category for the purchase. Required for a merchant the user hasn't bought from before; for a familiar merchant it can be omitted."},
+         "new_category": {"type": "string", "description": "Create this category and file the purchase (and future ones at this merchant) under it. Only after the user agreed to the new category or named it themselves."},
          "person": {"type": "string", "description": "The friend paid or paying back, if any."},
          "to_account": {"type": "string", "description": "Destination account for transfers."}},
         ["account", "amount", "direction", "description"]),
