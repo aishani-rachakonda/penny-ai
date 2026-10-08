@@ -312,9 +312,11 @@
 
                 const p = s.position;
                 $("accounts").innerHTML =
-                    p.accounts.map((a) => row(`${a.institution} <span class="muted">···${a.mask}</span>`, usd(a.balance)) +
-                        (a.pending || a.told_penny ? `<div class="hint" style="margin:0 0 0.3rem">Bank says ${usd(a.bank_balance)}` +
-                            (a.pending ? ` · ${usd(a.pending)} pending` : "") + (a.told_penny ? ` · ${usd(a.told_penny)} added manually` : "") + `</div>` : "")).join("") +
+                    p.accounts.map((a) => row(`${a.institution} <span class="muted">···${a.mask}</span>`,
+                            `${usd(a.balance)} <span class="muted" style="font-weight:400">available</span>`) +
+                        (a.pending || a.told_penny ? `<div class="hint" style="margin:0 0 0.3rem">Posted ${usd(a.bank_balance)}` +
+                            (a.pending ? ` · Pending ${usd(a.pending)}` : "") +
+                            (a.told_penny ? ` · Added manually ${usd(a.told_penny)}` : "") + `</div>` : "")).join("") +
                     row("Total cash", usd(p.cash_total), "strong") +
                     row("+ Owed to you", `<span class="pos">${usd(p.owed_to_you)}</span>`) +
                     row("− You owe", `<span class="${p.you_owe > 0 ? "neg" : ""}">${usd(p.you_owe)}</span>`) +
