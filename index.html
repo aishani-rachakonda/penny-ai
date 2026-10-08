@@ -5,172 +5,173 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Penny · Personal Finance Agent</title>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+            href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
             rel="stylesheet"
         />
         <style>
             :root {
-                --bg: #f6f5f1;
+                --navy: #0b2545;
+                --navy-2: #13315c;
+                --accent: #1a4d8f;
+                --accent-soft: #e8eef7;
+                --bg: #f4f6f9;
                 --panel: #ffffff;
-                --ink: #1d1d1b;
-                --muted: #6f6d66;
-                --line: #e7e4dc;
-                --accent: #1f6f5c;
-                --accent-soft: #e3f0ec;
-                --warn: #b5562b;
-                --warn-soft: #fbece4;
-                --ok: #2f7d4f;
-                --tool: #f4f2ec;
-                --bar: #ebe8e0;
-            }
-            @media (prefers-color-scheme: dark) {
-                :root {
-                    --bg: #151614;
-                    --panel: #1e1f1c;
-                    --ink: #ecebe6;
-                    --muted: #a19f97;
-                    --line: #2f302c;
-                    --accent: #5cc3a6;
-                    --accent-soft: #1d3530;
-                    --warn: #ee9a70;
-                    --warn-soft: #3a261d;
-                    --ok: #7ccf9a;
-                    --tool: #262724;
-                    --bar: #2f302c;
-                }
+                --ink: #0f172a;
+                --muted: #5b6576;
+                --line: #e3e7ed;
+                --line-strong: #cfd6e0;
+                --pos: #13795b;
+                --pos-soft: #e7f4ef;
+                --neg: #b42318;
+                --neg-soft: #fdecea;
+                --bar: #e6eaf0;
+                --tool: #f7f9fb;
+                --radius: 6px;
             }
             * { box-sizing: border-box; margin: 0; padding: 0; }
             body {
-                font-family: Inter, system-ui, sans-serif;
+                font-family: "IBM Plex Sans", system-ui, sans-serif;
                 background: var(--bg);
                 color: var(--ink);
                 font-size: 14px;
                 line-height: 1.45;
+                -webkit-font-smoothing: antialiased;
             }
+            .icon { width: 14px; height: 14px; vertical-align: -2px; flex-shrink: 0; }
+            .pos { color: var(--pos); }
+            .neg { color: var(--neg); }
+
+            /* Header: solid navy app bar */
             header {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                gap: 1rem;
-                flex-wrap: wrap;
-                padding: 1rem 1.5rem;
-                border-bottom: 1px solid var(--line);
-                background: var(--panel);
+                display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+                padding: 0.85rem 1.5rem; background: var(--navy); color: #fff;
+                border-bottom: 3px solid var(--accent);
             }
-            .brand { display: flex; align-items: baseline; gap: 0.75rem; flex-wrap: wrap; }
-            .brand h1 { font-size: 1.35rem; letter-spacing: -0.02em; }
-            .brand h1 span { color: var(--accent); }
-            .brand p { color: var(--muted); }
-            .sim {
-                display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
-                background: var(--bg); border: 1px solid var(--line);
-                border-radius: 999px; padding: 0.3rem 0.4rem 0.3rem 0.9rem;
-            }
-            .sim .date { font-weight: 600; font-variant-numeric: tabular-nums; }
-            .sim .label { color: var(--muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+            .brand { display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+            .brand h1 { font-size: 1.3rem; font-weight: 700; letter-spacing: 0.01em; }
+            .brand h1 span { color: #7fa7dd; }
+            .brand p { color: #b7c4d8; font-size: 0.85rem; }
+            .sim { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+            .sim .label { color: #b7c4d8; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+            .sim .date { font-weight: 600; font-variant-numeric: tabular-nums; margin-right: 0.3rem; }
             button {
-                font: inherit; cursor: pointer; border: 1px solid var(--line);
-                background: var(--panel); color: var(--ink);
-                border-radius: 999px; padding: 0.35rem 0.85rem;
+                font: inherit; font-weight: 500; cursor: pointer; border: 1px solid var(--line-strong);
+                background: var(--panel); color: var(--ink); border-radius: 4px; padding: 0.4rem 0.9rem;
             }
+            button:hover { border-color: var(--accent); }
             button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+            button.primary:hover { background: var(--navy-2); }
+            header button { background: transparent; color: #fff; border-color: rgba(255, 255, 255, 0.45); }
+            header button:hover { border-color: #fff; }
+            header button.primary { background: #fff; color: var(--navy); border-color: #fff; }
+            header button.primary:hover { background: #e8eef7; }
             button:disabled { opacity: 0.4; cursor: default; }
+
+            /* Layout */
             main {
-                display: grid;
-                grid-template-columns: minmax(300px, 400px) 1fr;
-                gap: 1.25rem;
-                padding: 1.25rem 1.5rem;
-                max-width: 1400px;
-                margin: 0 auto;
-                height: calc(100vh - 70px);
+                display: grid; grid-template-columns: minmax(300px, 400px) 1fr; gap: 1.25rem;
+                padding: 1.25rem 1.5rem; max-width: 1400px; margin: 0 auto; height: calc(100vh - 66px);
             }
             #dash, #chat { min-width: 0; }
-            #dash { overflow-y: auto; display: flex; flex-direction: column; gap: 1rem; padding-bottom: 1rem; }
-            .card {
-                background: var(--panel); border: 1px solid var(--line);
-                border-radius: 14px; padding: 1rem 1.1rem;
-            }
+            #dash { overflow-y: auto; display: flex; flex-direction: column; gap: 0.9rem; padding-bottom: 1rem; }
+
+            /* Cards */
+            .card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 1rem 1.1rem; }
             .card h2 {
-                font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em;
-                color: var(--muted); font-weight: 600; margin-bottom: 0.6rem;
+                font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted);
+                font-weight: 600; margin: -0.1rem 0 0.7rem; padding-bottom: 0.55rem; border-bottom: 1px solid var(--line);
+                display: flex; align-items: center; gap: 0.4rem;
             }
-            .big { font-size: 1.7rem; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
-            .row { display: flex; justify-content: space-between; gap: 0.5rem; padding: 0.22rem 0; font-variant-numeric: tabular-nums; }
+            .big { font-size: 1.75rem; font-weight: 600; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+            .row { display: flex; justify-content: space-between; gap: 0.5rem; padding: 0.28rem 0; font-variant-numeric: tabular-nums; }
             .row .k { color: var(--muted); }
+            .row .v { font-weight: 500; }
+            .row.strong { border-top: 1px solid var(--line); margin-top: 0.2rem; padding-top: 0.45rem; }
             .row.strong .k, .row.strong .v { color: var(--ink); font-weight: 600; }
             .hint { color: var(--muted); font-size: 0.78rem; margin-top: 0.4rem; }
-            .meter { height: 10px; background: var(--bar); border-radius: 99px; overflow: hidden; margin: 0.5rem 0 0.35rem; }
-            .meter > div { height: 100%; background: var(--accent); border-radius: 99px; }
-            .meter.over > div { background: var(--warn); }
-            .cat { margin: 0.55rem 0; }
+            .meter { height: 6px; background: var(--bar); border-radius: 2px; overflow: hidden; margin: 0.55rem 0 0.4rem; }
+            .meter > div { height: 100%; background: var(--accent); border-radius: 2px; }
+            .meter.over > div { background: var(--neg); }
+            .cat { margin: 0.6rem 0; }
             .cat .top { display: flex; justify-content: space-between; font-size: 0.85rem; font-variant-numeric: tabular-nums; }
             .cat .top .amt { color: var(--muted); }
-            .cat .meter { height: 6px; margin: 0.25rem 0 0; }
-            .cat.over .top .name::after { content: " · over"; color: var(--warn); font-weight: 600; }
-            .pill { display: inline-block; font-size: 0.72rem; padding: 0.05rem 0.5rem; border-radius: 99px; background: var(--accent-soft); color: var(--accent); font-weight: 600; }
-            .pill.up { background: var(--warn-soft); color: var(--warn); }
-            .src { display: inline-block; font-size: 0.68rem; padding: 0.02rem 0.45rem; border-radius: 99px; font-weight: 600; white-space: nowrap; }
+            .cat .meter { height: 4px; margin: 0.3rem 0 0; }
+            .cat.over .top .name::after { content: " · over"; color: var(--neg); font-weight: 600; }
+            .pill, .src {
+                display: inline-block; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.02em;
+                padding: 0.05rem 0.4rem; border-radius: 3px; white-space: nowrap;
+            }
+            .pill { background: var(--accent-soft); color: var(--accent); }
+            .pill.up { background: var(--neg-soft); color: var(--neg); }
             .src.user { background: var(--accent-soft); color: var(--accent); }
-            .src.det { background: #ece6fb; color: #5b3fb0; }
-            .src.sync { background: var(--tool); color: var(--muted); }
-            @media (prefers-color-scheme: dark) { .src.det { background: #2c2445; color: #b9a5f5; } }
-            .count { background: var(--warn); color: #fff; border-radius: 99px; padding: 0 0.45rem; margin-left: 0.3rem; font-size: 0.68rem; }
+            .src.det { background: #eef0f4; color: #3d4a5f; }
+            .count { background: var(--neg); color: #fff; border-radius: 3px; padding: 0 0.4rem; font-size: 0.68rem; letter-spacing: 0; }
             .count:empty { display: none; }
-            .notif { padding: 0.45rem 0; border-top: 1px solid var(--line); font-size: 0.84rem; }
-            .notif:first-child { border-top: none; }
+            .notif { display: flex; gap: 0.55rem; padding: 0.55rem 0; border-top: 1px solid var(--line); font-size: 0.84rem; }
+            .notif:first-child { border-top: none; padding-top: 0.1rem; }
+            .notif .ic { color: var(--accent); padding-top: 0.1rem; }
+            .notif.warn .ic { color: var(--neg); }
             .notif .t { font-weight: 600; }
             .notif .d { color: var(--muted); font-size: 0.78rem; }
-            .notif.warn .t::before { content: "⚠ "; color: var(--warn); }
-            .notif.new { background: var(--accent-soft); border-radius: 8px; padding-left: 0.5rem; }
+            .notif.new { background: var(--accent-soft); border-radius: 4px; padding-left: 0.5rem; padding-right: 0.5rem; }
             .muted { color: var(--muted); }
-            .flag { background: var(--warn-soft); color: var(--warn); border-radius: 10px; padding: 0.5rem 0.7rem; margin-top: 0.5rem; font-size: 0.82rem; }
-
-            #chat {
-                background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
-                display: flex; flex-direction: column; min-height: 0;
+            .flag {
+                display: flex; gap: 0.5rem; background: var(--neg-soft); color: var(--neg);
+                border-left: 3px solid var(--neg); border-radius: 0 4px 4px 0; padding: 0.5rem 0.7rem; margin-top: 0.55rem; font-size: 0.82rem;
             }
-            #messages { flex: 1; overflow-y: auto; padding: 1.25rem 1.4rem; display: flex; flex-direction: column; gap: 1rem; }
-            .welcome h2 { font-size: 1.2rem; letter-spacing: -0.01em; margin-bottom: 0.4rem; }
-            .welcome p { color: var(--muted); max-width: 60ch; margin-bottom: 0.9rem; }
+            .flag .icon { margin-top: 0.15rem; }
+
+            /* Chat */
+            #chat { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); display: flex; flex-direction: column; min-height: 0; }
+            #messages { flex: 1; overflow-y: auto; padding: 1.4rem 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
+            .welcome h2 { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.45rem; color: var(--navy); }
+            .welcome p { color: var(--muted); max-width: 62ch; margin-bottom: 1rem; }
             .chips { display: flex; flex-wrap: wrap; gap: 0.45rem; }
             .chip {
-                border-radius: 999px; border: 1px solid var(--line); background: var(--bg);
-                padding: 0.4rem 0.8rem; font-size: 0.82rem; text-align: left;
+                border-radius: 4px; border: 1px solid var(--line-strong); background: var(--panel); color: var(--accent);
+                padding: 0.4rem 0.75rem; font-size: 0.82rem; text-align: left;
             }
-            .chip:hover { border-color: var(--accent); color: var(--accent); }
+            .chip:hover { background: var(--accent-soft); border-color: var(--accent); }
             .followups { padding: 0.6rem 1rem 0; border-top: 1px solid var(--line); flex-wrap: nowrap; overflow-x: auto; }
             .followups:empty { display: none; }
-            .followups .chip { white-space: nowrap; font-size: 0.78rem; padding: 0.3rem 0.7rem; }
-            .group-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin: 0.8rem 0 0.35rem; }
+            .followups { scrollbar-width: none; padding-bottom: 0.1rem; }
+            .followups::-webkit-scrollbar { display: none; }
+            .followups .chip { white-space: nowrap; font-size: 0.78rem; padding: 0.3rem 0.65rem; }
+            .group-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); font-weight: 600; margin: 0.9rem 0 0.45rem; }
             .msg { max-width: 82%; }
-            .msg.user { align-self: flex-end; background: var(--accent); color: #fff; padding: 0.6rem 0.9rem; border-radius: 16px 16px 4px 16px; }
+            .msg.user { align-self: flex-end; background: var(--navy); color: #fff; padding: 0.6rem 0.9rem; border-radius: var(--radius); }
             .msg.bot { align-self: flex-start; }
-            .msg.bot .content { background: var(--bg); padding: 0.7rem 0.95rem; border-radius: 16px 16px 16px 4px; }
+            .msg.bot .content { background: var(--bg); border: 1px solid var(--line); padding: 0.75rem 0.95rem; border-radius: var(--radius); }
             .msg.bot .content p + p, .msg.bot .content ul { margin-top: 0.45rem; }
             .msg.bot .content ul { padding-left: 1.2rem; }
             .msg.loading .content { color: var(--muted); }
-            .msg.note { align-self: center; color: var(--muted); font-size: 0.8rem; text-align: center; max-width: 90%; }
-            details.tool {
-                font-size: 0.78rem; background: var(--tool); border-radius: 10px;
-                margin-bottom: 0.4rem; border-left: 3px solid var(--accent);
+            .msg.note {
+                align-self: stretch; max-width: none; color: var(--muted); font-size: 0.8rem; display: flex; gap: 0.45rem;
+                justify-content: center; align-items: center; padding: 0.35rem 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
             }
-            details.tool summary { cursor: pointer; padding: 0.4rem 0.7rem; font-family: ui-monospace, monospace; color: var(--muted); }
-            details.tool summary b { color: var(--accent); font-weight: 600; }
-            details.tool.err { border-left-color: var(--warn); }
-            details.tool pre { padding: 0 0.7rem 0.6rem; white-space: pre-wrap; word-break: break-word; max-height: 280px; overflow-y: auto; font-size: 0.74rem; }
+            details.tool {
+                font-size: 0.76rem; background: var(--tool); border: 1px solid var(--line); border-left: 3px solid var(--accent);
+                border-radius: 0 4px 4px 0; margin-bottom: 0.4rem;
+            }
+            details.tool summary { cursor: pointer; padding: 0.4rem 0.7rem; font-family: "IBM Plex Mono", ui-monospace, monospace; color: var(--muted); }
+            details.tool summary b { color: var(--accent); font-weight: 500; }
+            details.tool.err { border-left-color: var(--neg); }
+            details.tool pre { padding: 0 0.7rem 0.6rem; white-space: pre-wrap; word-break: break-word; max-height: 280px; overflow-y: auto; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.72rem; }
             #input-area { display: flex; gap: 0.6rem; padding: 0.9rem 1rem; border-top: 1px solid var(--line); }
             #user-input {
-                flex: 1; font: inherit; color: var(--ink); background: var(--bg);
-                border: 1px solid var(--line); border-radius: 999px; padding: 0.6rem 1rem; outline: none;
+                flex: 1; font: inherit; color: var(--ink); background: var(--panel);
+                border: 1px solid var(--line-strong); border-radius: 4px; padding: 0.6rem 0.85rem; outline: none;
             }
-            #user-input:focus { border-color: var(--accent); }
+            #user-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
 
             @media (max-width: 900px) {
                 main { grid-template-columns: 1fr; height: auto; padding: 1rem; }
                 #chat { height: 80vh; order: -1; }
                 #dash { overflow: visible; }
                 .msg { max-width: 95%; }
+                .brand p { display: none; }
             }
         </style>
     </head>
@@ -231,7 +232,7 @@
             <section id="chat">
                 <div id="messages">
                     <div class="welcome" id="welcome">
-                        <h2>Hi, I'm Penny 👋</h2>
+                        <h2>Hi, I'm Penny</h2>
                         <p id="welcome-text"></p>
                         <div class="group-label">Try asking</div>
                         <div class="chips" id="suggest-welcome"></div>
@@ -256,6 +257,17 @@
             const usd = (n) => (n < 0 ? "−$" : "$") + Math.abs(n).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
             const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
             const fmtDate = (iso) => new Date(iso + "T12:00:00").toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric", year: "numeric" });
+            const ICONS = {
+                calendar: '<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',
+                bell: '<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>',
+                alert: '<path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/>',
+                check: '<path d="M20 6 9 17l-5-5"/>',
+                circle: '<circle cx="12" cy="12" r="8"/>',
+                code: '<path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/>',
+                up: '<path d="M12 19V5M5 12l7-7 7 7"/>',
+                down: '<path d="M12 5v14M19 12l-7 7-7-7"/>',
+            };
+            const icon = (name) => `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[name]}</svg>`;
             const row = (k, v, cls = "") => `<div class="row ${cls}"><span class="k">${k}</span><span class="v">${v}</span></div>`;
 
             function saveSession(id) {
@@ -300,12 +312,12 @@
 
                 const p = s.position;
                 $("accounts").innerHTML =
-                    p.accounts.map((a) => row(`${a.institution} <span class="muted">...${a.mask}</span>`, usd(a.balance)) +
+                    p.accounts.map((a) => row(`${a.institution} <span class="muted">···${a.mask}</span>`, usd(a.balance)) +
                         (a.pending || a.told_penny ? `<div class="hint" style="margin:0 0 0.3rem">Bank says ${usd(a.bank_balance)}` +
                             (a.pending ? ` · ${usd(a.pending)} pending` : "") + (a.told_penny ? ` · ${usd(a.told_penny)} added manually` : "") + `</div>` : "")).join("") +
                     row("Total cash", usd(p.cash_total), "strong") +
-                    row("+ Owed to you", usd(p.owed_to_you)) +
-                    row("− You owe", usd(p.you_owe)) +
+                    row("+ Owed to you", `<span class="pos">${usd(p.owed_to_you)}</span>`) +
+                    row("− You owe", `<span class="${p.you_owe > 0 ? "neg" : ""}">${usd(p.you_owe)}</span>`) +
                     row("Net position", usd(p.net_position), "strong") +
                     `<p class="hint">Spendable cash <b>${usd(p.spendable_cash)}</b>: cash minus bills still due and what you owe. Money owed to you isn't counted until it arrives.</p>`;
 
@@ -315,10 +327,10 @@
                 $("month").innerHTML =
                     `<div class="big">${usd(b.spent_so_far)} <span style="font-size:0.9rem;color:var(--muted);font-weight:500">of ${usd(b.monthly_cap)}</span></div>` +
                     `<div class="meter ${b.over_cap_by > 0 ? "over" : ""}"><div style="width:${pct}%"></div></div>` +
-                    row("Flexible money left", `<b>${usd(b.flexible_left)}</b>`) +
+                    row("Flexible money left", `<b class="${b.flexible_left > 0 ? "pos" : "neg"}">${usd(b.flexible_left)}</b>`) +
                     row("Bills still due", usd(b.bills_still_expected)) +
                     row("Days left", b.days_left_including_today) +
-                    (b.over_cap_by > 0 ? `<div class="flag">Over the monthly cap by ${usd(b.over_cap_by)}.</div>` : "");
+                    (b.over_cap_by > 0 ? `<div class="flag">${icon("alert")}<span>Over the monthly cap by ${usd(b.over_cap_by)}.</span></div>` : "");
 
                 $("categories").innerHTML = b.categories
                     .filter((c) => c.target > 0 || c.spent > 0)
@@ -326,7 +338,7 @@
                     .map((c) => {
                         const over = c.over_by > 0;
                         const w = c.target ? Math.min(100, (c.spent / c.target) * 100) : 100;
-                        const left = over ? `${usd(c.over_by)} over` : `${usd(c.adjusted_room_left)} left`;
+                        const left = over ? `<span class="neg">${usd(c.over_by)} over</span>` : `<span class="pos">${usd(c.adjusted_room_left)} left</span>`;
                         return `<div class="cat ${over ? "over" : ""}"><div class="top"><span class="name">${esc(c.category)}${c.target_set_by === "you" ? ' <span class="src user">yours</span>' : ""}</span>` +
                             `<span class="amt">${usd(c.spent)} / ${usd(c.target)} · ${left}</span></div>` +
                             `<div class="meter ${over ? "over" : ""}"><div style="width:${w}%"></div></div></div>`;
@@ -334,16 +346,16 @@
 
                 const sh = s.shared;
                 $("shared").innerHTML =
-                    row("Owed to you", usd(sh.total_owed_to_you), "strong") +
-                    row("You owe", usd(sh.total_you_owe)) +
+                    row("Owed to you", `<span class="pos">${usd(sh.total_owed_to_you)}</span>`, "strong") +
+                    row("You owe", `<span class="${sh.total_you_owe > 0 ? "neg" : ""}">${usd(sh.total_you_owe)}</span>`) +
                     sh.people.map((x) => row(`${esc(x.person)} <span class="pill ${x.balance < 0 ? "up" : ""}">${x.direction}</span>`,
-                        `${usd(Math.abs(x.balance))}${x.days_open >= 14 ? ` · ${x.days_open}d` : ""}`)).join("") +
-                    sh.mismatches.map((m) => `<div class="flag">⚠ ${esc(m.detail)}</div>`).join("");
+                        `<span class="${x.balance < 0 ? "neg" : "pos"}">${usd(Math.abs(x.balance))}</span>${x.days_open >= 14 ? ` <span class="muted">· ${x.days_open}d</span>` : ""}`)).join("") +
+                    sh.mismatches.map((m) => `<div class="flag">${icon("alert")}<span>${esc(m.detail)}</span></div>`).join("");
 
                 const srcBadge = (src) => src.startsWith("detected by") ? '<span class="src det">Found by Penny</span>'
                     : src.startsWith("detected,") ? '<span class="src det">Found by Penny · confirmed</span>' : '<span class="src user">Added by you</span>';
                 $("bills").innerHTML = b.bills.map((o) => row(
-                    `${o.status === "paid" ? "✓" : "○"} ${esc(o.name)} ${srcBadge(o.source)}`,
+                    `<span class="${o.status === "paid" ? "pos" : "muted"}">${icon(o.status === "paid" ? "check" : "circle")}</span> ${esc(o.name)} ${srcBadge(o.source)}`,
                     `${o.estimated ? "~" : ""}${usd(o.amount)} <span class="pill ${o.status === "paid" ? "" : "up"}">${o.status === "paid" ? "paid " + o.paid_on.slice(5) : "due " + o.due}</span>`
                 )).join("");
 
@@ -354,8 +366,8 @@
                     const amt = r.variable ? `~${usd(r.typical_cents / 100)}` : usd(r.last_cents / 100);
                     const when = r.status === "stopped" ? `Stopped after ${monthName(r.last_date)}`
                         : `${rhythm[r.cadence]} since ${monthName(r.first_date)}${r.next_due ? " · next " + shortDate(r.next_due) : ""}`;
-                    const pc = r.price_change ? ` <span class="pill up">↑ was ${usd(r.price_change.from)}</span>` : "";
-                    return `<div class="row"><span class="k">${r.direction === "in" ? "↓ " : ""}${esc(r.label)}${pc}<br><span class="hint">${when}</span></span><span class="v">${amt}</span></div>`;
+                    const pc = r.price_change ? ` <span class="pill up">${icon("up")} was ${usd(r.price_change.from)}</span>` : "";
+                    return `<div class="row"><span class="k">${r.direction === "in" ? `<span class="pos">${icon("down")}</span> ` : ""}${esc(r.label)}${pc}<br><span class="hint">${when}</span></span><span class="v ${r.direction === "in" ? "pos" : ""}">${amt}</span></div>`;
                 }).join("");
 
                 $("memory").innerHTML = s.memory.length
@@ -368,7 +380,7 @@
 
                 const seen = window.seenNotifs || new Set();
                 $("notifications").innerHTML = s.notifications.length ? s.notifications.map((n) =>
-                    `<div class="notif ${n.severity} ${window.seenNotifs && !seen.has(n.id) ? "new" : ""}"><div class="t">${esc(n.title)}</div><div class="d">${esc(n.detail)}</div></div>`).join("")
+                    `<div class="notif ${n.severity} ${window.seenNotifs && !seen.has(n.id) ? "new" : ""}"><span class="ic">${icon(n.severity === "warn" ? "alert" : "bell")}</span><div><div class="t">${esc(n.title)}</div><div class="d">${esc(n.detail)}</div></div></div>`).join("")
                     : '<p class="hint" style="margin:0">Nothing needs your attention.</p>';
                 $("notif-count").textContent = s.notifications.length || "";
                 window.seenNotifs = new Set(s.notifications.map((n) => n.id));
@@ -389,7 +401,7 @@
                 const args = Object.entries(call.args || {}).map(([k, v]) => `${k}=${JSON.stringify(v)}`).join(", ");
                 const d = document.createElement("details");
                 d.className = "tool" + (isErr ? " err" : "");
-                d.innerHTML = `<summary>🔧 <b>${esc(call.name)}</b>(${esc(args)})${isErr ? " · error" : ""}</summary><pre>${esc(pretty)}</pre>`;
+                d.innerHTML = `<summary>${icon("code")} <b>${esc(call.name)}</b>(${esc(args)})${isErr ? " · error" : ""}</summary><pre>${esc(pretty)}</pre>`;
                 return d;
             }
 
@@ -427,7 +439,8 @@
                 $("next-day").disabled = true;
                 const r = await (await fetch("/next-day?session_id=" + sessionId, { method: "POST" })).json();
                 $("welcome").style.display = "none";
-                let note = `📅 ${new Date(r.today + "T12:00:00").toLocaleDateString("en-US", { weekday: "long", month: "short", day: "numeric" })}`;
+                let alerts = "";
+                let note = `${new Date(r.today + "T12:00:00").toLocaleDateString("en-US", { weekday: "long", month: "short", day: "numeric" })}`;
                 if (r.sync) {
                     const parts = r.sync.sources.filter((x) => x.new.length).map((x) => {
                         const items = x.new.slice(0, 3).map((t) => t.merchant ? `${t.merchant} ${usd(Math.abs(t.amount))}` : t.description);
@@ -435,9 +448,9 @@
                         return `${x.institution}: ${items.join(", ")}${more}`;
                     });
                     note += parts.length ? ` · ${parts.join(" · ")}` : " · No new activity.";
-                    if (r.new_notifications && r.new_notifications.length) note += ` · 🔔 ${r.new_notifications.map((n) => n.title).join("; ")}`;
+                    alerts = (r.new_notifications || []).map((n) => n.title).join("; ");
                 }
-                addMessage("note", esc(note));
+                addMessage("note", icon("calendar") + `<span>${esc(note)}${alerts ? ` · ${icon("bell")} ${esc(alerts)}` : ""}</span>`);
                 await refresh();
             });
 
