@@ -13,7 +13,6 @@ from pydantic import BaseModel
 import db
 import finance
 import planning
-import recurring
 import simulation
 import suggestions
 from tools import TOOLS, run_tool
@@ -198,7 +197,6 @@ def state(session_id: str | None = None):
             "position": finance.financial_position(conn),
             "budget": finance.budget_status(conn),
             "shared": finance.shared_balances(conn),
-            "recurring": recurring.series(conn),
             "memory": [{"id": i, "text": t} for i, t in conn.execute("SELECT note_id, text FROM memory_notes")],
             "suggestions": suggestions.build(conn),
         }

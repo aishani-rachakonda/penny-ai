@@ -205,10 +205,6 @@
                     <div id="bills"></div>
                 </div>
                 <div class="card">
-                    <h2>Recurring payments Penny detected</h2>
-                    <div id="recurring"></div>
-                </div>
-                <div class="card">
                     <h2>What Penny remembers</h2>
                     <div id="memory"></div>
                 </div>
@@ -350,16 +346,7 @@
                     `${o.estimated ? "~" : ""}${usd(o.amount)} <span class="pill ${o.status === "paid" ? "" : "up"}">${o.status === "paid" ? "paid " + o.paid_on.slice(5) : "due " + o.due}</span>`
                 )).join("");
 
-                const monthName = (iso) => new Date(iso + "T12:00:00").toLocaleDateString("en-US", { month: "long" });
                 const shortDate = (iso) => new Date(iso + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" });
-                const rhythm = { monthly: "Every month", biweekly: "Every 2 weeks", weekly: "Every week" };
-                $("recurring").innerHTML = s.recurring.map((r) => {
-                    const amt = r.variable ? `~${usd(r.typical_cents / 100)}` : usd(r.last_cents / 100);
-                    const when = r.status === "stopped" ? `Stopped after ${monthName(r.last_date)}`
-                        : `${rhythm[r.cadence]} since ${monthName(r.first_date)}${r.next_due ? " · next " + shortDate(r.next_due) : ""}`;
-                    const pc = r.price_change ? ` <span class="pill up">${icon("up")} was ${usd(r.price_change.from)}</span>` : "";
-                    return `<div class="row"><span class="k">${r.direction === "in" ? `<span class="pos">${icon("down")}</span> ` : ""}${esc(r.label)}${pc}<br><span class="hint">${when}</span></span><span class="v ${r.direction === "in" ? "pos" : ""}">${amt}</span></div>`;
-                }).join("");
 
                 $("memory").innerHTML = s.memory.length
                     ? s.memory.map((m) => `<div class="notif">${esc(m.text)}</div>`).join("")
