@@ -406,17 +406,36 @@ def add_transaction(conn, account, amount, direction, description, category=None
         txn = insert(acct, cents, description, description, "Income", "income")
         return {"recorded": f"${cents / 100:.2f} received in {acct}.", "transaction_id": txn}
 
-    cat = _category(conn, category) if category else None
-    if not cat:
-        rule = conn.execute("SELECT category FROM merchant_rules WHERE merchant = ?", (description.lower(),)).fetchone()
-        seen = conn.execute("SELECT category FROM transactions WHERE lower(merchant) = lower(?) ORDER BY date DESC LIMIT 1",
-                            (description,)).fetchone()
-        cat = db.ensure_category(conn, (rule or seen or ("Other",))[0])
-    txn = insert(acct, -cents, description, description, cat, "purchase")
+    # A merchant the user has bought from before keeps its usual name and category, so "Blue Bottle"
+    # lands in Coffee next to past "Blue Bottle Coffee" purchases instead of wherever the model guessed.
+    key = description.strip().lower()
+    known = conn.execute(
+        """SELECT merchant, category FROM transactions WHERE kind = 'purchase' AND
+           (lower(merchant) = ? OR lower(merchant) LIKE ? OR ? LIKE lower(merchant) || '%')
+           ORDER BY lower(merchant) = ? DESC, date DESC LIMIT 1""", (key, key + "%", key, key)).fetchone() \
+        if len(key) >= 4 else None
+    rule = conn.execute("SELECT category FROM merchant_rules WHERE merchant = ?",
+                        ((known[0] if known else description).lower(),)).fetchone()
+    merchant = known[0] if known else description
+    usual = rule[0] if rule else (known[1] if known else None)
+    note = None
+    if usual:
+        if category and _category(conn, category) != usual:
+            note = (f"Filed under {usual}, like your earlier {merchant} purchases. If it should be "
+                    f"{_category(conn, category)} from now on, use recategorize_merchant.")
+        cat = usual
+    elif category:
+        cat = _category(conn, category)
+    else:
+        # Unfamiliar merchant: don't guess "Other". Ask the model to choose; it knows what Zara is.
+        raise ToolError(f"Penny hasn't seen '{description}' before, so it can't tell what kind of purchase this "
+                        f"is. Call add_transaction again with category set to one of: "
+                        f"{', '.join(db.categories(conn, 'flexible'))} (or a bill category).")
+    txn = insert(acct, -cents, description, merchant, cat, "purchase")
     status = finance.budget_status(conn)
     c = next((x for x in status["categories"] if x["category"] == cat), None)
-    return {"recorded": f"${cents / 100:.2f} at {description} from {acct}, category {cat}. It counts now and will be "
-                        "matched to the bank's transaction when it syncs.",
+    return {"recorded": f"${cents / 100:.2f} at {merchant} from {acct}, category {cat}. It counts now and will be "
+                        "matched to the bank's transaction when it syncs.", **({"note": note} if note else {}),
             "transaction_id": txn, "category_now": c, "month_spent_so_far": status["spent_so_far"],
             "flexible_left_this_month": status["flexible_left"]}
 
@@ -570,7 +589,7 @@ TOOLS = [
          "amount": {"type": "number", "description": "Positive amount in dollars."},
          "direction": {"type": "string", "enum": ["spent", "received", "transfer"]},
          "description": {"type": "string", "description": "Merchant or short note, e.g. 'Zara'."},
-         "category": {"type": "string", "description": "Category for purchases; inferred from the merchant if omitted."},
+         "category": {"type": "string", "description": "Category for purchases. Required for a merchant the user hasn't bought from before; for a familiar merchant it can be omitted."},
          "person": {"type": "string", "description": "The friend paid or paying back, if any."},
          "to_account": {"type": "string", "description": "Destination account for transfers."}},
         ["account", "amount", "direction", "description"]),

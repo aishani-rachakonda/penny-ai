@@ -148,3 +148,17 @@ def test_tools_return_actionable_errors(conn):
     assert "future" in call(conn, "query_transactions", start_date="2026-12-01")["error"]
     assert "Splitwise friends" in call(conn, "get_shared_balances", person="Bob")["error"]
     assert "Unknown tool" in call(conn, "not_a_tool")["error"]
+
+
+def test_unfamiliar_merchant_needs_a_category(conn):
+    err = call(conn, "add_transaction", account="chase", amount=30, direction="spent", description="Zara")
+    assert "category" in err["error"] and "Shopping" in err["error"]
+    assert not conn.execute("SELECT 1 FROM transactions WHERE merchant = 'Zara'").fetchone()
+    ok = call(conn, "add_transaction", account="chase", amount=12, direction="spent", description="Trader Joe's")
+    assert "Groceries" in ok["recorded"]  # a familiar merchant still works without one
+
+
+def test_familiar_merchant_keeps_its_usual_category(conn):
+    r = call(conn, "add_transaction", account="chase", amount=6, direction="spent", description="Blue Bottle",
+             category="Dining")
+    assert "Blue Bottle Coffee" in r["recorded"] and "Coffee" in r["recorded"] and "note" in r
