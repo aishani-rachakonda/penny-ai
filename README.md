@@ -1,6 +1,6 @@
 # Penny
 
-**Your money, explained. Your month, planned.**
+**Smarter spending, every day.**
 
 Penny is a personal finance agent. It connects your bank accounts and Splitwise, keeps track of every bill and
 subscription, plans your month with you, and tells you, in the moment, how much you can actually afford.
