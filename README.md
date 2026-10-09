@@ -45,7 +45,7 @@ Just ask, in your own words.
 
 The demo runs on **Maya**, a fictional grad student in New York, so anyone can try Penny without sharing real
 data. She has a Chase account for everyday spending, a Bank of America account for her paycheck and rent,
-roommates and friends on Splitwise, and a $2,375 monthly limit that includes $1,650 rent. The demo starts on
+roommates and friends on Splitwise, and a $2,925 monthly limit that includes $2,200 rent. The demo starts on
 Friday, September 18; **Next day** moves through the month as new transactions arrive.
 
 **Start with these three:**

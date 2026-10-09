@@ -51,8 +51,9 @@ def days(start: date, end: date):
 
 
 # Everyday prices are scaled by this factor so the demo doesn't mirror anyone's real budget.
-# Ratios between rent, the monthly limit, income and spending are unchanged. Standard
-# published prices (subscriptions, the subway fare) are kept as they are.
+# Standard published prices (subscriptions, the subway fare) are kept as they are. Rent,
+# income and balances are set higher still; the monthly limit is set so the flexible
+# budget left after bills keeps the same relationship to everyday spending.
 SCALE = 1.32
 
 
@@ -74,13 +75,13 @@ items = {
               "access_token": "access-sandbox-chase-" + rid(8).lower(),
               "accounts": [{"account_id": CHASE_ACCT, "name": "TOTAL CHECKING", "official_name": "Chase Total Checking",
                             "mask": "4417", "type": "depository", "subtype": "checking",
-                            "_sandbox_opening_balance": 845.00}],
+                            "_sandbox_opening_balance": 1125.00}],
               "transactions": []},
     "boa": {"item_id": rid(), "institution_id": "ins_127989", "institution_name": "Bank of America",
             "access_token": "access-sandbox-boa-" + rid(8).lower(),
             "accounts": [{"account_id": BOA_ACCT, "name": "Adv Plus Banking", "official_name": "Bank of America Advantage Plus Banking",
                           "mask": "8820", "type": "depository", "subtype": "checking",
-                          "_sandbox_opening_balance": 3760.00}],
+                          "_sandbox_opening_balance": 5015.00}],
             "transactions": []},
 }
 ACCOUNT = {"chase": CHASE_ACCT, "boa": BOA_ACCT}
@@ -124,7 +125,7 @@ def buy(d, name, merchant, amount, pfc, channel="in store", bank="chase"):
 
 d = date(2026, 3, 6)  # biweekly Friday paychecks
 while d <= END:
-    txn("boa", d, -1828.73, "COLUMBIA UNIV DES:PAYROLL ID:10309516 PPD", "Columbia University", "INCOME_WAGES",
+    txn("boa", d, -2438.30, "COLUMBIA UNIV DES:PAYROLL ID:10309516 PPD", "Columbia University", "INCOME_WAGES",
         "other", card=False)
     d += timedelta(days=14)
 
@@ -132,14 +133,14 @@ for month in range(3, 11):
     # Rent is due between the 1st and the 10th; Maya pays on a different day each month.
     rent_day = date(2026, month, rng.choice([1, 2, 3, 5, 6, 8]))
     if rent_day <= END:
-        txn("boa", rent_day, 1650.00, "HARLEM HEIGHTS MGMT DES:WEB PMTS ID:RENT4B", "Harlem Heights Management",
+        txn("boa", rent_day, 2200.00, "HARLEM HEIGHTS MGMT DES:WEB PMTS ID:RENT4B", "Harlem Heights Management",
             "RENT_AND_UTILITIES_RENT", "online", card=False)
     t = date(2026, month, 3)
     if t <= END:
         conf = str(rng.randint(10**7, 10**8))
-        txn("boa", t, 925.00, f"Online Transfer to CHK ...4417 Conf# T{conf}", None,
+        txn("boa", t, 1225.00, f"Online Transfer to CHK ...4417 Conf# T{conf}", None,
             "TRANSFER_OUT_ACCOUNT_TRANSFER", "online", card=False)
-        txn("chase", t, -925.00, "Online Transfer From BOA Checking ...8820", None,
+        txn("chase", t, -1225.00, "Online Transfer From BOA Checking ...8820", None,
             "TRANSFER_IN_ACCOUNT_TRANSFER", "online", card=False)
 
 # --- Subscriptions (never declared anywhere: Penny must detect them) --------------
@@ -396,10 +397,10 @@ json.dump({"_about": "Sandbox fixture in the Splitwise API v3.0 schema (get_curr
 json.dump({"_about": "What Maya told Penny during onboarding. In production this comes from Penny's own onboarding "
                      "chat or form and is stored as user-provided data.",
            "name": "Maya",
-           "monthly_cap": 2375.00,
+           "monthly_cap": 2925.00,
            "cap_includes_bills": True,
            "known_bills": [
-               {"name": "Rent", "amount": 1650.00, "due_day_start": 1, "due_day_end": 10,
+               {"name": "Rent", "amount": 2200.00, "due_day_start": 1, "due_day_end": 10,
                 "pay_from": "Bank of America", "how_paid": "bank", "match": "Harlem Heights"},
                {"name": "Electricity (ConEd), my share", "amount": None, "due_day_start": 14, "due_day_end": 17,
                 "how_paid": "splitwise", "match": "ConEd", "note": "Sam pays it and splits it three ways; it varies."},

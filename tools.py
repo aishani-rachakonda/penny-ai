@@ -254,7 +254,7 @@ def update_plan(conn, month=None, monthly_cap=None, bills_to_set=None, bills_to_
     detected = {s["label"].lower(): s for s in recurring.series(conn)}
     for b in bills_to_set or []:
         if not isinstance(b, dict) or not b.get("name"):
-            raise ToolError("Each bill needs at least a 'name', e.g. {'name': 'Rent', 'amount': 1650, "
+            raise ToolError("Each bill needs at least a 'name', e.g. {'name': 'Rent', 'amount': 2200, "
                             "'due_day_start': 1, 'due_day_end': 10}.")
         name = b["name"].strip()
         existing = conn.execute("SELECT category, amount_cents, due_day_start, due_day_end, how_paid, match, source "

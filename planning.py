@@ -2,7 +2,7 @@
 
 A plan belongs to one month and holds:
     the monthly cap                   user-provided
-    bills (with due windows)          user-provided ("rent is $1,650, due 1st-10th"),
+    bills (with due windows)          user-provided ("rent is $2,200, due 1st-10th"),
                                       or detected payments the user confirmed into the plan
     category targets                  Penny's suggestion from history, or the user's own numbers
 

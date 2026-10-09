@@ -32,7 +32,7 @@ def call(conn, name, **args):
 def test_plaid_sign_convention_and_pending(conn):
     """Plaid reports money out as positive; Penny stores it negative. Friday's card purchases are still pending."""
     rent = conn.execute("SELECT amount_cents FROM transactions WHERE merchant LIKE 'Harlem Heights%' LIMIT 1").fetchone()
-    assert rent[0] == -165000
+    assert rent[0] == -220000
     assert conn.execute("SELECT COUNT(*) FROM transactions WHERE pending = 1 AND source = 'plaid'").fetchone()[0] > 0
 
 
