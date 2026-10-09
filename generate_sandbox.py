@@ -50,8 +50,14 @@ def days(start: date, end: date):
         d += timedelta(days=1)
 
 
+# Everyday prices are scaled by this factor so the demo doesn't mirror anyone's real budget.
+# Ratios between rent, the monthly limit, income and spending are unchanged. Standard
+# published prices (subscriptions, the subway fare) are kept as they are.
+SCALE = 1.32
+
+
 def money(lo: float, hi: float) -> float:
-    return round(rng.uniform(lo, hi), 2)
+    return round(rng.uniform(lo, hi) * SCALE, 2)
 
 
 def next_business_day(d: date) -> date:
@@ -68,13 +74,13 @@ items = {
               "access_token": "access-sandbox-chase-" + rid(8).lower(),
               "accounts": [{"account_id": CHASE_ACCT, "name": "TOTAL CHECKING", "official_name": "Chase Total Checking",
                             "mask": "4417", "type": "depository", "subtype": "checking",
-                            "_sandbox_opening_balance": 640.00}],
+                            "_sandbox_opening_balance": 845.00}],
               "transactions": []},
     "boa": {"item_id": rid(), "institution_id": "ins_127989", "institution_name": "Bank of America",
             "access_token": "access-sandbox-boa-" + rid(8).lower(),
             "accounts": [{"account_id": BOA_ACCT, "name": "Adv Plus Banking", "official_name": "Bank of America Advantage Plus Banking",
                           "mask": "8820", "type": "depository", "subtype": "checking",
-                          "_sandbox_opening_balance": 2850.00}],
+                          "_sandbox_opening_balance": 3760.00}],
             "transactions": []},
 }
 ACCOUNT = {"chase": CHASE_ACCT, "boa": BOA_ACCT}
@@ -118,7 +124,7 @@ def buy(d, name, merchant, amount, pfc, channel="in store", bank="chase"):
 
 d = date(2026, 3, 6)  # biweekly Friday paychecks
 while d <= END:
-    txn("boa", d, -1385.40, "COLUMBIA UNIV DES:PAYROLL ID:10309516 PPD", "Columbia University", "INCOME_WAGES",
+    txn("boa", d, -1828.73, "COLUMBIA UNIV DES:PAYROLL ID:10309516 PPD", "Columbia University", "INCOME_WAGES",
         "other", card=False)
     d += timedelta(days=14)
 
@@ -126,14 +132,14 @@ for month in range(3, 11):
     # Rent is due between the 1st and the 10th; Maya pays on a different day each month.
     rent_day = date(2026, month, rng.choice([1, 2, 3, 5, 6, 8]))
     if rent_day <= END:
-        txn("boa", rent_day, 1250.00, "HARLEM HEIGHTS MGMT DES:WEB PMTS ID:RENT4B", "Harlem Heights Management",
+        txn("boa", rent_day, 1650.00, "HARLEM HEIGHTS MGMT DES:WEB PMTS ID:RENT4B", "Harlem Heights Management",
             "RENT_AND_UTILITIES_RENT", "online", card=False)
     t = date(2026, month, 3)
     if t <= END:
         conf = str(rng.randint(10**7, 10**8))
-        txn("boa", t, 700.00, f"Online Transfer to CHK ...4417 Conf# T{conf}", None,
+        txn("boa", t, 925.00, f"Online Transfer to CHK ...4417 Conf# T{conf}", None,
             "TRANSFER_OUT_ACCOUNT_TRANSFER", "online", card=False)
-        txn("chase", t, -700.00, "Online Transfer From BOA Checking ...8820", None,
+        txn("chase", t, -925.00, "Online Transfer From BOA Checking ...8820", None,
             "TRANSFER_IN_ACCOUNT_TRANSFER", "online", card=False)
 
 # --- Subscriptions (never declared anywhere: Penny must detect them) --------------
@@ -196,17 +202,17 @@ for d in days(START, END):
     if rng.random() < 0.035:
         n, m, pfc, ch = rng.choice(SHOP); buy(d, n, m, money(12, 48), pfc, ch)
     if d.day == 9 and d.month % 2:
-        buy(d, "SQ *HARLEM THREADING NEW YORK NY", "Harlem Threading", 22.00, "PERSONAL_CARE_HAIR_AND_BEAUTY")
+        buy(d, "SQ *HARLEM THREADING NEW YORK NY", "Harlem Threading", 29.00, "PERSONAL_CARE_HAIR_AND_BEAUTY")
     if d.day == 24 and d.month in (4, 6, 8):
-        buy(d, "AMC 84TH ST 6 NEW YORK NY", "AMC Theatres", 17.49, "ENTERTAINMENT_TV_AND_MOVIES")
+        buy(d, "AMC 84TH ST 6 NEW YORK NY", "AMC Theatres", 22.99, "ENTERTAINMENT_TV_AND_MOVIES")
 
 # Demo storyline: a shopping splurge in early September.
-buy(date(2026, 9, 5), "UNIQLO 5TH AVE NEW YORK NY", "Uniqlo", 64.90, "GENERAL_MERCHANDISE_CLOTHING_AND_ACCESSORIES")
-buy(date(2026, 9, 8), "SEPHORA 34TH ST NEW YORK NY", "Sephora", 38.50, "GENERAL_MERCHANDISE_CLOTHING_AND_ACCESSORIES")
+buy(date(2026, 9, 5), "UNIQLO 5TH AVE NEW YORK NY", "Uniqlo", 84.90, "GENERAL_MERCHANDISE_CLOTHING_AND_ACCESSORIES")
+buy(date(2026, 9, 8), "SEPHORA 34TH ST NEW YORK NY", "Sephora", 50.80, "GENERAL_MERCHANDISE_CLOTHING_AND_ACCESSORIES")
 # ...and a normal weekend after the demo's start date, so "Next day" always has something to show.
-buy(date(2026, 9, 19), "SQ *THE HEIGHTS BAR NY", "The Heights Bar", 26.00, "FOOD_AND_DRINK_BEER_WINE_AND_LIQUOR")
-buy(date(2026, 9, 19), "BLUE BOTTLE COFFEE NEW YORK NY", "Blue Bottle Coffee", 5.75, "FOOD_AND_DRINK_COFFEE")
-buy(date(2026, 9, 20), "TRADER JOE S #558 NEW YORK NY", "Trader Joe's", 27.40, "FOOD_AND_DRINK_GROCERIES")
+buy(date(2026, 9, 19), "SQ *THE HEIGHTS BAR NY", "The Heights Bar", 34.00, "FOOD_AND_DRINK_BEER_WINE_AND_LIQUOR")
+buy(date(2026, 9, 19), "BLUE BOTTLE COFFEE NEW YORK NY", "Blue Bottle Coffee", 7.60, "FOOD_AND_DRINK_COFFEE")
+buy(date(2026, 9, 20), "TRADER JOE S #558 NEW YORK NY", "Trader Joe's", 36.17, "FOOD_AND_DRINK_GROCERIES")
 
 # --- Splitwise -----------------------------------------------------------------------
 
@@ -311,20 +317,20 @@ for month in range(3, 11):
             d, "Apartment 4B", "Household supplies", "Household supplies", c, "Maya", split_equal(c, ["Maya", "Sam", "Priya"]))))
 
 for d, desc, name, merchant, cost, people in [
-    (date(2026, 3, 21), "Birthday dinner at Tomo", "SQ *TOMO SUSHI NEW YORK NY", "Tomo Sushi", 142.80, ["Maya", "Jordan", "Alex"]),
-    (date(2026, 4, 18), "Dinner at The Grand Tier", "THE GRAND TIER NEW YORK NY", "The Grand Tier", 118.35, ["Maya", "Jordan", "Alex", "Priya"]),
-    (date(2026, 5, 30), "Dim sum", "JING FONG NEW YORK NY", "Jing Fong", 96.40, ["Maya", "Alex"]),
-    (date(2026, 6, 27), "Rooftop drinks", "SQ *THE HEIGHTS BAR NY", "The Heights Bar", 84.00, ["Maya", "Jordan"]),
-    (date(2026, 7, 25), "Patiala Grill dinner", "PATIALA GRILL NEW YORK NY", "Patiala Grill", 126.90, ["Maya", "Jordan", "Alex"]),
-    (date(2026, 8, 29), "Tomo sushi night", "SQ *TOMO SUSHI NEW YORK NY", "Tomo Sushi", 144.00, ["Maya", "Jordan", "Alex"]),
-    (date(2026, 9, 12), "Brunch at Jacob's Pickles", "JACOBS PICKLES NEW YORK NY", "Jacob's Pickles", 108.60, ["Maya", "Priya", "Alex"]),
+    (date(2026, 3, 21), "Birthday dinner at Tomo", "SQ *TOMO SUSHI NEW YORK NY", "Tomo Sushi", 188.50, ["Maya", "Jordan", "Alex"]),
+    (date(2026, 4, 18), "Dinner at The Grand Tier", "THE GRAND TIER NEW YORK NY", "The Grand Tier", 156.22, ["Maya", "Jordan", "Alex", "Priya"]),
+    (date(2026, 5, 30), "Dim sum", "JING FONG NEW YORK NY", "Jing Fong", 127.25, ["Maya", "Alex"]),
+    (date(2026, 6, 27), "Rooftop drinks", "SQ *THE HEIGHTS BAR NY", "The Heights Bar", 110.90, ["Maya", "Jordan"]),
+    (date(2026, 7, 25), "Patiala Grill dinner", "PATIALA GRILL NEW YORK NY", "Patiala Grill", 167.51, ["Maya", "Jordan", "Alex"]),
+    (date(2026, 8, 29), "Tomo sushi night", "SQ *TOMO SUSHI NEW YORK NY", "Tomo Sushi", 190.10, ["Maya", "Jordan", "Alex"]),
+    (date(2026, 9, 12), "Brunch at Jacob's Pickles", "JACOBS PICKLES NEW YORK NY", "Jacob's Pickles", 143.35, ["Maya", "Priya", "Alex"]),
 ]:
     buy(d, name, merchant, cost, "FOOD_AND_DRINK_RESTAURANT")
     timeline.append((d, lambda d=d, desc=desc, cost=cost, people=people: expense(
         d, group_of(people), desc, "Dining out", cost, "Maya", split_equal(cost, people))))
 
-timeline.append((date(2026, 9, 6), lambda: expense(date(2026, 9, 6), "Apartment 4B", "Movie tickets", "Movies", 52.47,
-                                                   "Priya", split_equal(52.47, ["Maya", "Priya", "Sam"]))))
+timeline.append((date(2026, 9, 6), lambda: expense(date(2026, 9, 6), "Apartment 4B", "Movie tickets", "Movies", 69.26,
+                                                   "Priya", split_equal(69.26, ["Maya", "Priya", "Sam"]))))
 
 # Monthly settle-ups on the 4th-7th: everyone squares up for the previous month.
 # Exceptions build September's story: Jordan never pays for the August 29 dinner,
@@ -351,7 +357,7 @@ for month in range(4, 11):
                 payment(day, "Maya", person, -owed, group)
 while done < len(timeline) and timeline[done][0] <= date(2026, 9, 13):
     timeline[done][1](); done += 1
-sep_brunch = split_equal(108.60, ["Maya", "Priya", "Alex"])
+sep_brunch = split_equal(143.35, ["Maya", "Priya", "Alex"])
 payment(date(2026, 9, 14), "Priya", "Maya", sep_brunch["Priya"], "Friends", zelle_lag=None)  # never arrives
 txn("chase", date(2026, 9, 15), -sep_brunch["Alex"], f"Zelle payment from Alex Moreno {rng.randint(10**10, 10**11)}",
     None, "TRANSFER_IN_ACCOUNT_TRANSFER", "online", ("Alex Moreno", "individual"), card=False)
@@ -363,9 +369,9 @@ while done < len(timeline):
 
 # An Amazon order Maya returned: the refund comes back as money in (a negative Plaid amount).
 # Generated last so it doesn't shift any of the random draws above.
-buy(date(2026, 9, 2), "AMAZON MKTPL*5R2KD1 AMZN.COM/BILL WA", "Amazon", 42.99, "GENERAL_MERCHANDISE_ONLINE_MARKETPLACES",
+buy(date(2026, 9, 2), "AMAZON MKTPL*5R2KD1 AMZN.COM/BILL WA", "Amazon", 56.99, "GENERAL_MERCHANDISE_ONLINE_MARKETPLACES",
     "online")
-txn("chase", date(2026, 9, 10), -42.99, "AMAZON MKTPL*RETURN 5R2KD1 AMZN.COM/BILL WA", "Amazon",
+txn("chase", date(2026, 9, 10), -56.99, "AMAZON MKTPL*RETURN 5R2KD1 AMZN.COM/BILL WA", "Amazon",
     "GENERAL_MERCHANDISE_ONLINE_MARKETPLACES", "online")
 
 # --- Write the fixtures --------------------------------------------------------------
@@ -390,10 +396,10 @@ json.dump({"_about": "Sandbox fixture in the Splitwise API v3.0 schema (get_curr
 json.dump({"_about": "What Maya told Penny during onboarding. In production this comes from Penny's own onboarding "
                      "chat or form and is stored as user-provided data.",
            "name": "Maya",
-           "monthly_cap": 1800.00,
+           "monthly_cap": 2375.00,
            "cap_includes_bills": True,
            "known_bills": [
-               {"name": "Rent", "amount": 1250.00, "due_day_start": 1, "due_day_end": 10,
+               {"name": "Rent", "amount": 1650.00, "due_day_start": 1, "due_day_end": 10,
                 "pay_from": "Bank of America", "how_paid": "bank", "match": "Harlem Heights"},
                {"name": "Electricity (ConEd), my share", "amount": None, "due_day_start": 14, "due_day_end": 17,
                 "how_paid": "splitwise", "match": "ConEd", "note": "Sam pays it and splits it three ways; it varies."},

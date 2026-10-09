@@ -45,7 +45,7 @@ Just ask, in your own words.
 
 The demo runs on **Maya**, a fictional grad student in New York, so anyone can try Penny without sharing real
 data. She has a Chase account for everyday spending, a Bank of America account for her paycheck and rent,
-roommates and friends on Splitwise, and a $1,800 monthly limit that includes $1,250 rent. The demo starts on
+roommates and friends on Splitwise, and a $2,375 monthly limit that includes $1,650 rent. The demo starts on
 Friday, September 18; **Next day** moves through the month as new transactions arrive.
 
 **Start with these three:**
@@ -66,7 +66,7 @@ Friday, September 18; **Next day** moves through the month as new transactions a
 
 **Reasoning.** Penny combines several sources to answer the hard questions.
 - I'm going out for drinks tonight. How much can I spend?
-- Can I afford a $120 concert ticket this weekend without breaking my monthly limit?
+- Can I afford a $190 concert ticket this weekend without breaking my monthly limit?
 - Am I on track to stay under my limit this month? If not, what should I cut?
 - Splitwise says Priya paid me back. Did she actually?
 - Are there subscriptions I've forgotten about?

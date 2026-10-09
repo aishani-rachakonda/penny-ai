@@ -1,12 +1,12 @@
 {
  "_about": "What Maya told Penny during onboarding. In production this comes from Penny's own onboarding chat or form and is stored as user-provided data.",
  "name": "Maya",
- "monthly_cap": 1800.0,
+ "monthly_cap": 2375.0,
  "cap_includes_bills": true,
  "known_bills": [
   {
    "name": "Rent",
-   "amount": 1250.0,
+   "amount": 1650.0,
    "due_day_start": 1,
    "due_day_end": 10,
    "pay_from": "Bank of America",

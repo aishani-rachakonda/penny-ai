@@ -69,7 +69,7 @@
    "group_id": 55120001,
    "description": "Household supplies",
    "payment": false,
-   "cost": "51.00",
+   "cost": "67.32",
    "currency_code": "USD",
    "date": "2026-03-10T12:00:00Z",
    "created_at": "2026-03-10T12:00:00Z",
@@ -87,9 +87,9 @@
       "first_name": "Maya",
       "last_name": "Chen"
      },
-     "paid_share": "51.00",
-     "owed_share": "17.00",
-     "net_balance": "34.00"
+     "paid_share": "67.32",
+     "owed_share": "22.44",
+     "net_balance": "44.88"
     },
     {
      "user_id": 2210002,
@@ -99,8 +99,8 @@
       "last_name": "Okafor"
      },
      "paid_share": "0.00",
-     "owed_share": "17.00",
-     "net_balance": "-17.00"
+     "owed_share": "22.44",
+     "net_balance": "-22.44"
     },
     {
      "user_id": 2210003,
@@ -110,8 +110,8 @@
       "last_name": "Raman"
      },
      "paid_share": "0.00",
-     "owed_share": "17.00",
-     "net_balance": "-17.00"
+     "owed_share": "22.44",
+     "net_balance": "-22.44"
     }
    ]
   },
@@ -120,7 +120,7 @@
    "group_id": 55120001,
    "description": "ConEd electricity",
    "payment": false,
-   "cost": "97.82",
+   "cost": "129.13",
    "currency_code": "USD",
    "date": "2026-03-14T12:00:00Z",
    "created_at": "2026-03-15T20:00:00Z",
@@ -139,8 +139,8 @@
       "last_name": "Chen"
      },
      "paid_share": "0.00",
-     "owed_share": "32.61",
-     "net_balance": "-32.61"
+     "owed_share": "43.05",
+     "net_balance": "-43.05"
     },
     {
      "user_id": 2210002,
@@ -149,9 +149,9 @@
       "first_name": "Sam",
       "last_name": "Okafor"
      },
-     "paid_share": "97.82",
-     "owed_share": "32.61",
-     "net_balance": "65.21"
+     "paid_share": "129.13",
+     "owed_share": "43.04",
+     "net_balance": "86.09"
     },
     {
      "user_id": 2210003,
@@ -161,8 +161,8 @@
       "last_name": "Raman"
      },
      "paid_share": "0.00",
-     "owed_share": "32.60",
-     "net_balance": "-32.60"
+     "owed_share": "43.04",
+     "net_balance": "-43.04"
     }
    ]
   },
@@ -222,7 +222,7 @@
    "group_id": 55120002,
    "description": "Birthday dinner at Tomo",
    "payment": false,
-   "cost": "142.80",
+   "cost": "188.50",
    "currency_code": "USD",
    "date": "2026-03-21T12:00:00Z",
    "created_at": "2026-03-21T12:00:00Z",
@@ -240,9 +240,9 @@
       "first_name": "Maya",
       "last_name": "Chen"
      },
-     "paid_share": "142.80",
-     "owed_share": "47.60",
-     "net_balance": "95.20"
+     "paid_share": "188.50",
+     "owed_share": "62.84",
+     "net_balance": "125.66"
     },
     {
      "user_id": 2210004,
@@ -252,8 +252,8 @@
       "last_name": "Lee"
      },
      "paid_share": "0.00",
-     "owed_share": "47.60",
-     "net_balance": "-47.60"
+     "owed_share": "62.83",
+     "net_balance": "-62.83"
     },
     {
      "user_id": 2210005,
@@ -263,8 +263,8 @@
       "last_name": "Moreno"
      },
      "paid_share": "0.00",
-     "owed_share": "47.60",
-     "net_balance": "-47.60"
+     "owed_share": "62.83",
+     "net_balance": "-62.83"
     }
    ]
   },
@@ -273,7 +273,7 @@
    "group_id": 55120001,
    "description": "Payment",
    "payment": true,
-   "cost": "37.28",
+   "cost": "42.28",
    "currency_code": "USD",
    "date": "2026-04-04T12:00:00Z",
    "created_at": "2026-04-04T12:00:00Z",
@@ -291,9 +291,9 @@
       "first_name": "Maya",
       "last_name": "Chen"
      },
-     "paid_share": "37.28",
+     "paid_share": "42.28",
      "owed_share": "0.00",
-     "net_balance": "37.28"
+     "net_balance": "42.28"
     },
     {
      "user_id": 2210002,
@@ -303,8 +303,8 @@
       "last_name": "Okafor"
      },
      "paid_share": "0.00",
-     "owed_share": "37.28",
-     "net_balance": "-37.28"
+     "owed_share": "42.28",
+     "net_balance": "-42.28"
     }
    ]
   },
@@ -313,7 +313,7 @@
    "group_id": 55120001,
    "description": "Payment",
    "payment": true,
-   "cost": "17.00",
+   "cost": "22.44",
    "currency_code": "USD",
    "date": "2026-04-04T12:00:00Z",
    "created_at": "2026-04-04T12:00:00Z",
@@ -331,9 +331,9 @@
       "first_name": "Priya",
       "last_name": "Raman"
      },
-     "paid_share": "17.00",
+     "paid_share": "22.44",
      "owed_share": "0.00",
-     "net_balance": "17.00"
+     "net_balance": "22.44"
     },
     {
      "user_id": 2210001,
@@ -343,8 +343,8 @@
       "last_name": "Chen"
      },
      "paid_share": "0.00",
-     "owed_share": "17.00",
-     "net_balance": "-17.00"
+     "owed_share": "22.44",
+     "net_balance": "-22.44"
     }
    ]
   },
@@ -353,7 +353,7 @@
    "group_id": 55120002,
    "description": "Payment",
    "payment": true,
-   "cost": "47.60",
+   "cost": "62.83",
    "currency_code": "USD",
    "date": "2026-04-05T12:00:00Z",
    "created_at": "2026-04-05T12:00:00Z",
@@ -371,9 +371,9 @@
       "first_name": "Jordan",
       "last_name": "Lee"
      },
-     "paid_share": "47.60",
+     "paid_share": "62.83",
      "owed_share": "0.00",
-     "net_balance": "47.60"
+     "net_balance": "62.83"
     },
     {
      "user_id": 2210001,
@@ -383,8 +383,8 @@
       "last_name": "Chen"
      },
      "paid_share": "0.00",
-     "owed_share": "47.60",
-     "net_balance": "-47.60"
+     "owed_share": "62.83",
+     "net_balance": "-62.83"
     }
    ]
   },
@@ -393,7 +393,7 @@
    "group_id": 55120002,
    "description": "Payment",
    "payment": true,
-   "cost": "47.60",
+   "cost": "62.83",
    "currency_code": "USD",
    "date": "2026-04-06T12:00:00Z",
    "created_at": "2026-04-06T12:00:00Z",
@@ -411,9 +411,9 @@
       "first_name": "Alex",
       "last_name": "Moreno"
      },
-     "paid_share": "47.60",
+     "paid_share": "62.83",
      "owed_share": "0.00",
-     "net_balance": "47.60"
+     "net_balance": "62.83"
     },
     {
      "user_id": 2210001,
@@ -423,8 +423,8 @@
       "last_name": "Chen"
      },
      "paid_share": "0.00",
-     "owed_share": "47.60",
-     "net_balance": "-47.60"
+     "owed_share": "62.83",
+     "net_balance": "-62.83"
     }
    ]
   },
@@ -433,7 +433,7 @@
    "group_id": 55120001,
    "description": "Household supplies",
    "payment": false,
-   "cost": "42.21",
+   "cost": "55.72",
    "currency_code": "USD",
    "date": "2026-04-10T12:00:00Z",
    "created_at": "2026-04-10T12:00:00Z",
@@ -451,9 +451,9 @@
       "first_name": "Maya",
       "last_name": "Chen"
      },
-     "paid_share": "42.21",
-     "owed_share": "14.07",
-     "net_balance": "28.14"
+     "paid_share": "55.72",
+     "owed_share": "18.58",
+     "net_balance": "37.14"
     },
     {
      "user_id": 2210002,
@@ -463,8 +463,8 @@
       "last_name": "Okafor"
      },
      "paid_share": "0.00",
-     "owed_share": "14.07",
-     "net_balance": "-14.07"
+     "owed_share": "18.57",
+     "net_balance": "-18.57"
     },
     {
      "user_id": 2210003,
@@ -474,8 +474,8 @@
       "last_name": "Raman"
      },
      "paid_share": "0.00",
-     "owed_share": "14.07",
-     "net_balance": "-14.07"
+     "owed_share": "18.57",
+     "net_balance": "-18.57"
     }
    ]
   },
@@ -484,7 +484,7 @@
    "group_id": 55120001,
    "description": "ConEd electricity",
    "payment": false,
-   "cost": "97.21",
+   "cost": "128.31",
    "currency_code": "USD",
    "date": "2026-04-14T12:00:00Z",
    "created_at": "2026-04-15T20:00:00Z",
@@ -503,8 +503,8 @@
       "last_name": "Chen"
      },
      "paid_share": "0.00",
-     "owed_share": "32.41",
-     "net_balance": "-32.41"
+     "owed_share": "42.77",
+     "net_balance": "-42.77"
     },
     {
      "user_id": 2210002,
@@ -513,9 +513,9 @@
       "first_name": "Sam",
       "last_name": "Okafor"
      },
-     "paid_share": "97.21",
-     "owed_share": "32.40",
-     "net_balance": "64.81"
+     "paid_share": "128.31",
+     "owed_share": "42.77",
+     "net_balance": "85.54"
     },
     {
      "user_id": 2210003,
@@ -525,8 +525,8 @@
       "last_name": "Raman"
      },
      "paid_share": "0.00",
-     "owed_share": "32.40",
-     "net_balance": "-32.40"
+     "owed_share": "42.77",
+     "net_balance": "-42.77"
     }
    ]
   },
@@ -586,7 +586,7 @@
    "group_id": 55120002,
    "description": "Dinner at The Grand Tier",
    "payment": false,
-   "cost": "118.35",
+   "cost": "156.22",
    "currency_code": "USD",
    "date": "2026-04-18T12:00:00Z",
    "created_at": "2026-04-18T12:00:00Z",
@@ -604,9 +604,9 @@
       "first_name": "Maya",
       "last_name": "Chen"
      },
-     "paid_share": "118.35",
-     "owed_share": "29.59",
-     "net_balance": "88.76"
+     "paid_share": "156.22",
+     "owed_share": "39.06",
+     "net_balance": "117.16"
     },
     {
      "user_id": 2210004,
@@ -616,8 +616,8 @@
       "last_name": "Lee"
      },
      "paid_share": "0.00",
-     "owed_share": "29.59",
-     "net_balance": "-29.59"
+     "owed_share": "39.06",
+     "net_balance": "-39.06"
     },
     {
      "user_id": 2210005,
@@ -627,8 +627,8 @@
       "last_name": "Moreno"
      },
      "paid_share": "0.00",
-     "owed_share": "29.59",
-     "net_balance": "-29.59"
+     "owed_share": "39.05",
+     "net_balance": "-39.05"
     },
     {
      "user_id": 2210003,
@@ -638,8 +638,8 @@
       "last_name": "Raman"
      },
      "paid_share": "0.00",
-     "owed_share": "29.58",
-     "net_balance": "-29.58"
+     "owed_share": "39.05",
+     "net_balance": "-39.05"
     }
    ]
   },
@@ -648,7 +648,7 @@
    "group_id": 55120001,
    "description": "Payment",
    "payment": true,
-   "cost": "43.65",
+   "cost": "57.62",
    "currency_code": "USD",
    "date": "2026-05-04T12:00:00Z",
    "created_at": "2026-05-04T12:00:00Z",
@@ -666,9 +666,9 @@
       "first_name": "Priya",
       "last_name": "Raman"
      },
-     "paid_share": "43.65",
+     "paid_share": "57.62",
      "owed_share": "0.00",
-     "net_balance": "43.65"
+     "net_balance": "57.62"
     },
     {
      "user_id": 2210001,
@@ -678,8 +678,8 @@
       "last_name": "Chen"
      },
      "paid_share": "0.00",
-     "owed_share": "43.65",
-     "net_balance": "-43.65"
+     "owed_share": "57.62",
+     "net_balance": "-57.62"
     }
    ]
   },
@@ -688,7 +688,7 @@
    "group_id": 55120002,
    "description": "Payment",
    "payment": true,
-   "cost": "29.59",
+   "cost": "39.06",
    "currency_code": "USD",
    "date": "2026-05-04T12:00:00Z",
    "created_at": "2026-05-04T12:00:00Z",
@@ -706,9 +706,9 @@
       "first_name": "Jordan",
       "last_name": "Lee"
      },
-     "paid_share": "29.59",
+     "paid_share": "39.06",
      "owed_share": "0.00",
-     "net_balance": "29.59"
+     "net_balance": "39.06"
     },
     {
      "user_id": 2210001,
@@ -718,8 +718,8 @@
       "last_name": "Chen"
      },
      "paid_share": "0.00",
-     "owed_share": "29.59",
-     "net_balance": "-29.59"
+     "owed_share": "39.06",
+     "net_balance": "-39.06"
     }
    ]
   },
@@ -728,7 +728,7 @@
    "group_id": 55120002,
    "description": "Payment",
    "payment": true,
-   "cost": "29.59",
+   "cost": "39.05",
    "currency_code": "USD",
    "date": "2026-05-04T12:00:00Z",
    "created_at": "2026-05-04T12:00:00Z",
@@ -746,9 +746,9 @@
       "first_name": "Alex",
       "last_name": "Moreno"
      },
-     "paid_share": "29.59",
+     "paid_share": "39.05",
      "owed_share": "0.00",
-     "net_balance": "29.59"
+     "net_balance": "39.05"
     },
     {
      "user_id": 2210001,
@@ -758,8 +758,8 @@
       "last_name": "Chen"
      },
      "paid_share": "0.00",
-     "owed_share": "29.59",
-     "net_balance": "-29.59"
+     "owed_share": "39.05",
+     "net_balance": "-39.05"
     }
    ]
   },
@@ -768,7 +768,7 @@
    "group_id": 55120001,
    "description": "Payment",
    "payment": true,
-   "cost": "40.01",
+   "cost": "45.87",
    "currency_code": "USD",
    "date": "2026-05-05T12:00:00Z",
    "created_at": "2026-05-05T12:00:00Z",
@@ -786,9 +786,9 @@
       "first_name": "Maya",
       "last_name": "Chen"
      },
-     "paid_share": "40.01",
+     "paid_share": "45.87",
      "owed_share": "0.00",
-     "net_balance": "40.01"
+     "net_balance": "45.87"
     },
     {
      "user_id": 2210002,
@@ -798,8 +798,8 @@
       "last_name": "Okafor"
      },
      "paid_share": "0.00",
-     "owed_share": "40.01",
-     "net_balance": "-40.01"
+     "owed_share": "45.87",
+     "net_balance": "-45.87"
     }
    ]
   },
@@ -808,7 +808,7 @@
    "group_id": 55120001,
    "description": "Household supplies",
    "payment": false,
-   "cost": "38.91",
+   "cost": "51.36",
    "currency_code": "USD",
    "date": "2026-05-10T12:00:00Z",
    "created_at": "2026-05-10T12:00:00Z",
@@ -826,9 +826,9 @@
       "first_name": "Maya",
       "last_name": "Chen"
      },
-     "paid_share": "38.91",
-     "owed_share": "12.97",
-     "net_balance": "25.94"
+     "paid_share": "51.36",
+     "owed_share": "17.12",
+     "net_balance": "34.24"
     },
     {
      "user_id": 2210002,
@@ -838,8 +838,8 @@
       "last_name": "Okafor"
      },
      "paid_share": "0.00",
-     "owed_share": "12.97",
-     "net_balance": "-12.97"
+     "owed_share": "17.12",
+     "net_balance": "-17.12"
     },
     {
      "user_id": 2210003,
@@ -849,8 +849,8 @@
       "last_name": "Raman"
      },
      "paid_share": "0.00",
-     "owed_share": "12.97",
-     "net_balance": "-12.97"
+     "owed_share": "17.12",
+     "net_balance": "-17.12"
     }
    ]
   },
@@ -859,7 +859,7 @@
    "group_id": 55120001,
    "description": "ConEd electricity",
    "payment": false,
-   "cost": "87.18",
+   "cost": "115.07",
    "currency_code": "USD",
    "date": "2026-05-14T12:00:00Z",
    "created_at": "2026-05-15T20:00:00Z",
@@ -878,8 +878,8 @@
       "last_name": "Chen"
      },
      "paid_share": "0.00",
-     "owed_share": "29.06",
-     "net_balance": "-29.06"
+     "owed_share": "38.36",
+     "net_balance": "-38.36"
     },
     {
      "user_id": 2210002,
@@ -888,9 +888,9 @@
       "first_name": "Sam",
       "last_name": "Okafor"
      },
-     "paid_share": "87.18",
-     "owed_share": "29.06",
-     "net_balance": "58.12"
+     "paid_share": "115.07",
+     "owed_share": "38.36",
+     "net_balance": "76.71"
     },
     {
      "user_id": 2210003,
@@ -900,8 +900,8 @@
       "last_name": "Raman"
      },
      "paid_share": "0.00",
-     "owed_share": "29.06",
-     "net_balance": "-29.06"
+     "owed_share": "38.35",
+     "net_balance": "-38.35"
     }
    ]
   },
@@ -961,7 +961,7 @@
    "group_id": 55120002,
    "description": "Dim sum",
    "payment": false,
-   "cost": "96.40",
+   "cost": "127.25",
    "currency_code": "USD",
    "date": "2026-05-30T12:00:00Z",
    "created_at": "2026-05-30T12:00:00Z",
@@ -979,9 +979,9 @@
       "first_name": "Maya",
       "last_name": "Chen"
      },
-     "paid_share": "96.40",
-     "owed_share": "48.20",
-     "net_balance": "48.20"
+     "paid_share": "127.25",
+     "owed_share": "63.63",
+     "net_balance": "63.62"
     },
     {
      "user_id": 2210005,
@@ -991,8 +991,8 @@
       "last_name": "Moreno"
      },
      "paid_share": "0.00",
-     "owed_share": "48.20",
-     "net_balance": "-48.20"
+     "owed_share": "63.62",
+     "net_balance": "-63.62"
     }
    ]
   },
@@ -1001,7 +1001,7 @@
    "group_id": 55120002,
    "description": "Payment",
    "payment": true,
-   "cost": "48.20",
+   "cost": "63.62",
    "currency_code": "USD",
    "date": "2026-06-04T12:00:00Z",
    "created_at": "2026-06-04T12:00:00Z",
@@ -1019,9 +1019,9 @@
       "first_name": "Alex",
       "last_name": "Moreno"
      },
-     "paid_share": "48.20",
+     "paid_share": "63.62",
      "owed_share": "0.00",
-     "net_balance": "48.20"
+     "net_balance": "63.62"
     },
     {
      "user_id": 2210001,
@@ -1031,8 +1031,8 @@
       "last_name": "Chen"
      },
      "paid_share": "0.00",
-     "owed_share": "48.20",
-     "net_balance": "-48.20"
+     "owed_share": "63.62",
+     "net_balance": "-63.62"
     }
    ]
   },
@@ -1041,7 +1041,7 @@
    "group_id": 55120001,
    "description": "Payment",
    "payment": true,
-   "cost": "37.76",
+   "cost": "42.91",
    "currency_code": "USD",
    "date": "2026-06-05T12:00:00Z",
    "created_at": "2026-06-05T12:00:00Z",
@@ -1059,9 +1059,9 @@
       "first_name": "Maya",
       "last_name": "Chen"
      },
-     "paid_share": "37.76",
+     "paid_share": "42.91",
      "owed_share": "0.00",
-     "net_balance": "37.76"
+     "net_balance": "42.91"
     },
     {
      "user_id": 2210002,
@@ -1071,8 +1071,8 @@
       "last_name": "Okafor"
      },
      "paid_share": "0.00",
-     "owed_share": "37.76",
-     "net_balance": "-37.76"
+     "owed_share": "42.91",
+     "net_balance": "-42.91"
     }
    ]
   },
@@ -1081,7 +1081,7 @@
    "group_id": 55120001,
    "description": "Payment",
    "payment": true,
-   "cost": "12.97",
+   "cost": "17.12",
    "currency_code": "USD",
    "date": "2026-06-06T12:00:00Z",
    "created_at": "2026-06-06T12:00:00Z",
@@ -1099,9 +1099,9 @@
       "first_name": "Priya",
       "last_name": "Raman"
      },
-     "paid_share": "12.97",
+     "paid_share": "17.12",
      "owed_share": "0.00",
-     "net_balance": "12.97"
+     "net_balance": "17.12"
     },
     {
      "user_id": 2210001,
@@ -1111,8 +1111,8 @@
       "last_name": "Chen"
      },
      "paid_share": "0.00",
-     "owed_share": "12.97",
-     "net_balance": "-12.97"
+     "owed_share": "17.12",
+     "net_balance": "-17.12"
     }
    ]
   },
@@ -1121,7 +1121,7 @@
    "group_id": 55120001,
    "description": "Household supplies",
    "payment": false,
-   "cost": "55.69",
+   "cost": "73.51",
    "currency_code": "USD",
    "date": "2026-06-10T12:00:00Z",
    "created_at": "2026-06-10T12:00:00Z",
@@ -1139,9 +1139,9 @@
       "first_name": "Maya",
       "last_name": "Chen"
      },
-     "paid_share": "55.69",
-     "owed_share": "18.57",
-     "net_balance": "37.12"
+     "paid_share": "73.51",
+     "owed_share": "24.51",
+     "net_balance": "49.00"
     },
     {
      "user_id": 2210002,
@@ -1151,8 +1151,8 @@
       "last_name": "Okafor"
      },
      "paid_share": "0.00",
-     "owed_share": "18.56",
-     "net_balance": "-18.56"
+     "owed_share": "24.50",
+     "net_balance": "-24.50"
     },
     {
      "user_id": 2210003,
@@ -1162,8 +1162,8 @@
       "last_name": "Raman"
      },
      "paid_share": "0.00",
-     "owed_share": "18.56",
-     "net_balance": "-18.56"
+     "owed_share": "24.50",
+     "net_balance": "-24.50"
     }
    ]
   },
@@ -1172,7 +1172,7 @@
    "group_id": 55120001,
    "description": "ConEd electricity",
    "payment": false,
-   "cost": "87.88",
+   "cost": "116.00",
    "currency_code": "USD",
    "date": "2026-06-14T12:00:00Z",
    "created_at": "2026-06-15T20:00:00Z",
@@ -1191,8 +1191,8 @@
       "last_name": "Chen"
      },
      "paid_share": "0.00",
-     "owed_share": "29.30",
-     "net_balance": "-29.30"
+     "owed_share": "38.67",
+     "net_balance": "-38.67"
     },
     {
      "user_id": 2210002,
@@ -1201,9 +1201,9 @@
       "first_name": "Sam",
       "last_name": "Okafor"
      },
-     "paid_share": "87.88",
-     "owed_share": "29.29",
-     "net_balance": "58.59"
+     "paid_share": "116.00",
+     "owed_share": "38.67",
+     "net_balance": "77.33"
     },
     {
      "user_id": 2210003,
@@ -1213,8 +1213,8 @@
       "last_name": "Raman"
      },
      "paid_share": "0.00",
-     "owed_share": "29.29",
-     "net_balance": "-29.29"
+     "owed_share": "38.66",
+     "net_balance": "-38.66"
     }
    ]
   },
@@ -1274,7 +1274,7 @@
    "group_id": 55120002,
    "description": "Rooftop drinks",
    "payment": false,
-   "cost": "84.00",
+   "cost": "110.90",
    "currency_code": "USD",
    "date": "2026-06-27T12:00:00Z",
    "created_at": "2026-06-27T12:00:00Z",
@@ -1292,9 +1292,9 @@
       "first_name": "Maya",
       "last_name": "Chen"
      },
-     "paid_share": "84.00",
-     "owed_share": "42.00",
-     "net_balance": "42.00"
+     "paid_share": "110.90",
+     "owed_share": "55.45",
+     "net_balance": "55.45"
     },
     {
      "user_id": 2210004,
@@ -1304,8 +1304,8 @@
       "last_name": "Lee"
      },
      "paid_share": "0.00",
-     "owed_share": "42.00",
-     "net_balance": "-42.00"
+     "owed_share": "55.45",
+     "net_balance": "-55.45"
     }
    ]
   },
@@ -1314,7 +1314,7 @@
    "group_id": 55120001,
    "description": "Payment",
    "payment": true,
-   "cost": "32.41",
+   "cost": "35.84",
    "currency_code": "USD",
    "date": "2026-07-05T12:00:00Z",
    "created_at": "2026-07-05T12:00:00Z",
@@ -1332,9 +1332,9 @@
       "first_name": "Maya",
       "last_name": "Chen"
      },
-     "paid_share": "32.41",
+     "paid_share": "35.84",
      "owed_share": "0.00",
-     "net_balance": "32.41"
+     "net_balance": "35.84"
     },
     {
      "user_id": 2210002,
@@ -1344,8 +1344,8 @@
       "last_name": "Okafor"
      },
      "paid_share": "0.00",
-     "owed_share": "32.41",
-     "net_balance": "-32.41"
+     "owed_share": "35.84",
+     "net_balance": "-35.84"
     }
    ]
   },
@@ -1354,7 +1354,7 @@
    "group_id": 55120001,
    "description": "Payment",
    "payment": true,
-   "cost": "18.56",
+   "cost": "24.50",
    "currency_code": "USD",
    "date": "2026-07-05T12:00:00Z",
    "created_at": "2026-07-05T12:00:00Z",
@@ -1372,9 +1372,9 @@
       "first_name": "Priya",
       "last_name": "Raman"
      },
-     "paid_share": "18.56",
+     "paid_share": "24.50",
      "owed_share": "0.00",
-     "net_balance": "18.56"
+     "net_balance": "24.50"
     },
     {
      "user_id": 2210001,
@@ -1384,8 +1384,8 @@
       "last_name": "Chen"
      },
      "paid_share": "0.00",
-     "owed_share": "18.56",
-     "net_balance": "-18.56"
+     "owed_share": "24.50",
+     "net_balance": "-24.50"
     }
    ]
   },
@@ -1394,7 +1394,7 @@
    "group_id": 55120002,
    "description": "Payment",
    "payment": true,
-   "cost": "42.00",
+   "cost": "55.45",
    "currency_code": "USD",
    "date": "2026-07-05T12:00:00Z",
    "created_at": "2026-07-05T12:00:00Z",
@@ -1412,9 +1412,9 @@
       "first_name": "Jordan",
       "last_name": "Lee"
      },
-     "paid_share": "42.00",
+     "paid_share": "55.45",
      "owed_share": "0.00",
-     "net_balance": "42.00"
+     "net_balance": "55.45"
     },
     {
      "user_id": 2210001,
@@ -1424,8 +1424,8 @@
       "last_name": "Chen"
      },
      "paid_share": "0.00",
-     "owed_share": "42.00",
-     "net_balance": "-42.00"
+     "owed_share": "55.45",
+     "net_balance": "-55.45"
     }
    ]
   },
@@ -1434,7 +1434,7 @@
    "group_id": 55120001,
    "description": "Household supplies",
    "payment": false,
-   "cost": "47.63",
+   "cost": "62.88",
    "currency_code": "USD",
    "date": "2026-07-10T12:00:00Z",
    "created_at": "2026-07-10T12:00:00Z",
@@ -1452,9 +1452,9 @@
       "first_name": "Maya",
       "last_name": "Chen"
      },
-     "paid_share": "47.63",
-     "owed_share": "15.88",
-     "net_balance": "31.75"
+     "paid_share": "62.88",
+     "owed_share": "20.96",
+     "net_balance": "41.92"
     },
     {
      "user_id": 2210002,
@@ -1464,8 +1464,8 @@
       "last_name": "Okafor"
      },
      "paid_share": "0.00",
-     "owed_share": "15.88",
-     "net_balance": "-15.88"
+     "owed_share": "20.96",
+     "net_balance": "-20.96"
     },
     {
      "user_id": 2210003,
@@ -1475,8 +1475,8 @@
       "last_name": "Raman"
      },
      "paid_share": "0.00",
-     "owed_share": "15.87",
-     "net_balance": "-15.87"
+     "owed_share": "20.96",
+     "net_balance": "-20.96"
     }
    ]
   },
@@ -1485,7 +1485,7 @@
    "group_id": 55120001,
    "description": "ConEd electricity",
    "payment": false,
-   "cost": "143.36",
+   "cost": "189.24",
    "currency_code": "USD",
    "date": "2026-07-14T12:00:00Z",
    "created_at": "2026-07-15T20:00:00Z",
@@ -1504,8 +1504,8 @@
       "last_name": "Chen"
      },
      "paid_share": "0.00",
-     "owed_share": "47.79",
-     "net_balance": "-47.79"
+     "owed_share": "63.08",
+     "net_balance": "-63.08"
     },
     {
      "user_id": 2210002,
@@ -1514,9 +1514,9 @@
       "first_name": "Sam",
       "last_name": "Okafor"
      },
-     "paid_share": "143.36",
-     "owed_share": "47.79",
-     "net_balance": "95.57"
+     "paid_share": "189.24",
+     "owed_share": "63.08",
+     "net_balance": "126.16"
     },
     {
      "user_id": 2210003,
@@ -1526,8 +1526,8 @@
       "last_name": "Raman"
      },
      "paid_share": "0.00",
-     "owed_share": "47.78",
-     "net_balance": "-47.78"
+     "owed_share": "63.08",
+     "net_balance": "-63.08"
     }
    ]
   },
@@ -1587,7 +1587,7 @@
    "group_id": 55120002,
    "description": "Patiala Grill dinner",
    "payment": false,
-   "cost": "126.90",
+   "cost": "167.51",
    "currency_code": "USD",
    "date": "2026-07-25T12:00:00Z",
    "created_at": "2026-07-25T12:00:00Z",
@@ -1605,9 +1605,9 @@
       "first_name": "Maya",
       "last_name": "Chen"
      },
-     "paid_share": "126.90",
-     "owed_share": "42.30",
-     "net_balance": "84.60"
+     "paid_share": "167.51",
+     "owed_share": "55.84",
+     "net_balance": "111.67"
     },
     {
      "user_id": 2210004,
@@ -1617,8 +1617,8 @@
       "last_name": "Lee"
      },
      "paid_share": "0.00",
-     "owed_share": "42.30",
-     "net_balance": "-42.30"
+     "owed_share": "55.84",
+     "net_balance": "-55.84"
     },
     {
      "user_id": 2210005,
@@ -1628,8 +1628,8 @@
       "last_name": "Moreno"
      },
      "paid_share": "0.00",
-     "owed_share": "42.30",
-     "net_balance": "-42.30"
+     "owed_share": "55.83",
+     "net_balance": "-55.83"
     }
    ]
   },
@@ -1638,7 +1638,7 @@
    "group_id": 55120002,
    "description": "Payment",
    "payment": true,
-   "cost": "42.30",
+   "cost": "55.84",
    "currency_code": "USD",
    "date": "2026-08-04T12:00:00Z",
    "created_at": "2026-08-04T12:00:00Z",
@@ -1656,9 +1656,9 @@
       "first_name": "Jordan",
       "last_name": "Lee"
      },
-     "paid_share": "42.30",
+     "paid_share": "55.84",
      "owed_share": "0.00",
-     "net_balance": "42.30"
+     "net_balance": "55.84"
     },
     {
      "user_id": 2210001,
@@ -1668,8 +1668,8 @@
       "last_name": "Chen"
      },
      "paid_share": "0.00",
-     "owed_share": "42.30",
-     "net_balance": "-42.30"
+     "owed_share": "55.84",
+     "net_balance": "-55.84"
     }
    ]
   },
@@ -1678,7 +1678,7 @@
    "group_id": 55120001,
    "description": "Payment",
    "payment": true,
-   "cost": "15.87",
+   "cost": "20.96",
    "currency_code": "USD",
    "date": "2026-08-05T12:00:00Z",
    "created_at": "2026-08-05T12:00:00Z",
@@ -1696,9 +1696,9 @@
       "first_name": "Priya",
       "last_name": "Raman"
      },
-     "paid_share": "15.87",
+     "paid_share": "20.96",
      "owed_share": "0.00",
-     "net_balance": "15.87"
+     "net_balance": "20.96"
     },
     {
      "user_id": 2210001,
@@ -1708,8 +1708,8 @@
       "last_name": "Chen"
      },
      "paid_share": "0.00",
-     "owed_share": "15.87",
-     "net_balance": "-15.87"
+     "owed_share": "20.96",
+     "net_balance": "-20.96"
     }
    ]
   },
@@ -1718,7 +1718,7 @@
    "group_id": 55120001,
    "description": "Payment",
    "payment": true,
-   "cost": "53.58",
+   "cost": "63.79",
    "currency_code": "USD",
    "date": "2026-08-07T12:00:00Z",
    "created_at": "2026-08-07T12:00:00Z",
@@ -1736,9 +1736,9 @@
       "first_name": "Maya",
       "last_name": "Chen"
      },
-     "paid_share": "53.58",
+     "paid_share": "63.79",
      "owed_share": "0.00",
-     "net_balance": "53.58"
+     "net_balance": "63.79"
     },
     {
      "user_id": 2210002,
@@ -1748,8 +1748,8 @@
       "last_name": "Okafor"
      },
      "paid_share": "0.00",
-     "owed_share": "53.58",
-     "net_balance": "-53.58"
+     "owed_share": "63.79",
+     "net_balance": "-63.79"
     }
    ]
   },
@@ -1758,7 +1758,7 @@
    "group_id": 55120002,
    "description": "Payment",
    "payment": true,
-   "cost": "42.30",
+   "cost": "55.83",
    "currency_code": "USD",
    "date": "2026-08-07T12:00:00Z",
    "created_at": "2026-08-07T12:00:00Z",
@@ -1776,9 +1776,9 @@
       "first_name": "Alex",
       "last_name": "Moreno"
      },
-     "paid_share": "42.30",
+     "paid_share": "55.83",
      "owed_share": "0.00",
-     "net_balance": "42.30"
+     "net_balance": "55.83"
     },
     {
      "user_id": 2210001,
@@ -1788,8 +1788,8 @@
       "last_name": "Chen"
      },
      "paid_share": "0.00",
-     "owed_share": "42.30",
-     "net_balance": "-42.30"
+     "owed_share": "55.83",
+     "net_balance": "-55.83"
     }
    ]
   },
@@ -1798,7 +1798,7 @@
    "group_id": 55120001,
    "description": "Household supplies",
    "payment": false,
-   "cost": "51.86",
+   "cost": "68.45",
    "currency_code": "USD",
    "date": "2026-08-10T12:00:00Z",
    "created_at": "2026-08-10T12:00:00Z",
@@ -1816,9 +1816,9 @@
       "first_name": "Maya",
       "last_name": "Chen"
      },
-     "paid_share": "51.86",
-     "owed_share": "17.29",
-     "net_balance": "34.57"
+     "paid_share": "68.45",
+     "owed_share": "22.82",
+     "net_balance": "45.63"
     },
     {
      "user_id": 2210002,
@@ -1828,8 +1828,8 @@
       "last_name": "Okafor"
      },
      "paid_share": "0.00",
-     "owed_share": "17.29",
-     "net_balance": "-17.29"
+     "owed_share": "22.82",
+     "net_balance": "-22.82"
     },
     {
      "user_id": 2210003,
@@ -1839,8 +1839,8 @@
       "last_name": "Raman"
      },
      "paid_share": "0.00",
-     "owed_share": "17.28",
-     "net_balance": "-17.28"
+     "owed_share": "22.81",
+     "net_balance": "-22.81"
     }
    ]
   },
@@ -1849,7 +1849,7 @@
    "group_id": 55120001,
    "description": "ConEd electricity",
    "payment": false,
-   "cost": "126.06",
+   "cost": "166.40",
    "currency_code": "USD",
    "date": "2026-08-14T12:00:00Z",
    "created_at": "2026-08-15T20:00:00Z",
@@ -1868,8 +1868,8 @@
       "last_name": "Chen"
      },
      "paid_share": "0.00",
-     "owed_share": "42.02",
-     "net_balance": "-42.02"
+     "owed_share": "55.47",
+     "net_balance": "-55.47"
     },
     {
      "user_id": 2210002,
@@ -1878,9 +1878,9 @@
       "first_name": "Sam",
       "last_name": "Okafor"
      },
-     "paid_share": "126.06",
-     "owed_share": "42.02",
-     "net_balance": "84.04"
+     "paid_share": "166.40",
+     "owed_share": "55.47",
+     "net_balance": "110.93"
     },
     {
      "user_id": 2210003,
@@ -1890,8 +1890,8 @@
       "last_name": "Raman"
      },
      "paid_share": "0.00",
-     "owed_share": "42.02",
-     "net_balance": "-42.02"
+     "owed_share": "55.46",
+     "net_balance": "-55.46"
     }
    ]
   },
@@ -1951,7 +1951,7 @@
    "group_id": 55120002,
    "description": "Tomo sushi night",
    "payment": false,
-   "cost": "144.00",
+   "cost": "190.10",
    "currency_code": "USD",
    "date": "2026-08-29T12:00:00Z",
    "created_at": "2026-08-29T12:00:00Z",
@@ -1969,9 +1969,9 @@
       "first_name": "Maya",
       "last_name": "Chen"
      },
-     "paid_share": "144.00",
-     "owed_share": "48.00",
-     "net_balance": "96.00"
+     "paid_share": "190.10",
+     "owed_share": "63.37",
+     "net_balance": "126.73"
     },
     {
      "user_id": 2210004,
@@ -1981,8 +1981,8 @@
       "last_name": "Lee"
      },
      "paid_share": "0.00",
-     "owed_share": "48.00",
-     "net_balance": "-48.00"
+     "owed_share": "63.37",
+     "net_balance": "-63.37"
     },
     {
      "user_id": 2210005,
@@ -1992,8 +1992,8 @@
       "last_name": "Moreno"
      },
      "paid_share": "0.00",
-     "owed_share": "48.00",
-     "net_balance": "-48.00"
+     "owed_share": "63.36",
+     "net_balance": "-63.36"
     }
    ]
   },
@@ -2002,7 +2002,7 @@
    "group_id": 55120001,
    "description": "Payment",
    "payment": true,
-   "cost": "46.40",
+   "cost": "54.32",
    "currency_code": "USD",
    "date": "2026-09-04T12:00:00Z",
    "created_at": "2026-09-04T12:00:00Z",
@@ -2020,9 +2020,9 @@
       "first_name": "Maya",
       "last_name": "Chen"
      },
-     "paid_share": "46.40",
+     "paid_share": "54.32",
      "owed_share": "0.00",
-     "net_balance": "46.40"
+     "net_balance": "54.32"
     },
     {
      "user_id": 2210002,
@@ -2032,8 +2032,8 @@
       "last_name": "Okafor"
      },
      "paid_share": "0.00",
-     "owed_share": "46.40",
-     "net_balance": "-46.40"
+     "owed_share": "54.32",
+     "net_balance": "-54.32"
     }
    ]
   },
@@ -2042,7 +2042,7 @@
    "group_id": 55120002,
    "description": "Payment",
    "payment": true,
-   "cost": "48.00",
+   "cost": "63.36",
    "currency_code": "USD",
    "date": "2026-09-04T12:00:00Z",
    "created_at": "2026-09-04T12:00:00Z",
@@ -2060,9 +2060,9 @@
       "first_name": "Alex",
       "last_name": "Moreno"
      },
-     "paid_share": "48.00",
+     "paid_share": "63.36",
      "owed_share": "0.00",
-     "net_balance": "48.00"
+     "net_balance": "63.36"
     },
     {
      "user_id": 2210001,
@@ -2072,8 +2072,8 @@
       "last_name": "Chen"
      },
      "paid_share": "0.00",
-     "owed_share": "48.00",
-     "net_balance": "-48.00"
+     "owed_share": "63.36",
+     "net_balance": "-63.36"
     }
    ]
   },
@@ -2082,7 +2082,7 @@
    "group_id": 55120001,
    "description": "Payment",
    "payment": true,
-   "cost": "17.28",
+   "cost": "22.81",
    "currency_code": "USD",
    "date": "2026-09-05T12:00:00Z",
    "created_at": "2026-09-05T12:00:00Z",
@@ -2100,9 +2100,9 @@
       "first_name": "Priya",
       "last_name": "Raman"
      },
-     "paid_share": "17.28",
+     "paid_share": "22.81",
      "owed_share": "0.00",
-     "net_balance": "17.28"
+     "net_balance": "22.81"
     },
     {
      "user_id": 2210001,
@@ -2112,8 +2112,8 @@
       "last_name": "Chen"
      },
      "paid_share": "0.00",
-     "owed_share": "17.28",
-     "net_balance": "-17.28"
+     "owed_share": "22.81",
+     "net_balance": "-22.81"
     }
    ]
   },
@@ -2122,7 +2122,7 @@
    "group_id": 55120001,
    "description": "Movie tickets",
    "payment": false,
-   "cost": "52.47",
+   "cost": "69.26",
    "currency_code": "USD",
    "date": "2026-09-06T12:00:00Z",
    "created_at": "2026-09-06T12:00:00Z",
@@ -2141,8 +2141,8 @@
       "last_name": "Chen"
      },
      "paid_share": "0.00",
-     "owed_share": "17.49",
-     "net_balance": "-17.49"
+     "owed_share": "23.09",
+     "net_balance": "-23.09"
     },
     {
      "user_id": 2210003,
@@ -2151,9 +2151,9 @@
       "first_name": "Priya",
       "last_name": "Raman"
      },
-     "paid_share": "52.47",
-     "owed_share": "17.49",
-     "net_balance": "34.98"
+     "paid_share": "69.26",
+     "owed_share": "23.09",
+     "net_balance": "46.17"
     },
     {
      "user_id": 2210002,
@@ -2163,8 +2163,8 @@
       "last_name": "Okafor"
      },
      "paid_share": "0.00",
-     "owed_share": "17.49",
-     "net_balance": "-17.49"
+     "owed_share": "23.08",
+     "net_balance": "-23.08"
     }
    ]
   },
@@ -2173,7 +2173,7 @@
    "group_id": 55120001,
    "description": "Household supplies",
    "payment": false,
-   "cost": "37.00",
+   "cost": "48.84",
    "currency_code": "USD",
    "date": "2026-09-10T12:00:00Z",
    "created_at": "2026-09-10T12:00:00Z",
@@ -2191,9 +2191,9 @@
       "first_name": "Maya",
       "last_name": "Chen"
      },
-     "paid_share": "37.00",
-     "owed_share": "12.34",
-     "net_balance": "24.66"
+     "paid_share": "48.84",
+     "owed_share": "16.28",
+     "net_balance": "32.56"
     },
     {
      "user_id": 2210002,
@@ -2203,8 +2203,8 @@
       "last_name": "Okafor"
      },
      "paid_share": "0.00",
-     "owed_share": "12.33",
-     "net_balance": "-12.33"
+     "owed_share": "16.28",
+     "net_balance": "-16.28"
     },
     {
      "user_id": 2210003,
@@ -2214,8 +2214,8 @@
       "last_name": "Raman"
      },
      "paid_share": "0.00",
-     "owed_share": "12.33",
-     "net_balance": "-12.33"
+     "owed_share": "16.28",
+     "net_balance": "-16.28"
     }
    ]
   },
@@ -2224,7 +2224,7 @@
    "group_id": 55120002,
    "description": "Brunch at Jacob's Pickles",
    "payment": false,
-   "cost": "108.60",
+   "cost": "143.35",
    "currency_code": "USD",
    "date": "2026-09-12T12:00:00Z",
    "created_at": "2026-09-12T12:00:00Z",
@@ -2242,9 +2242,9 @@
       "first_name": "Maya",
       "last_name": "Chen"
      },
-     "paid_share": "108.60",
-     "owed_share": "36.20",
-     "net_balance": "72.40"
+     "paid_share": "143.35",
+     "owed_share": "47.79",
+     "net_balance": "95.56"
     },
     {
      "user_id": 2210003,
@@ -2254,8 +2254,8 @@
       "last_name": "Raman"
      },
      "paid_share": "0.00",
-     "owed_share": "36.20",
-     "net_balance": "-36.20"
+     "owed_share": "47.78",
+     "net_balance": "-47.78"
     },
     {
      "user_id": 2210005,
@@ -2265,8 +2265,8 @@
       "last_name": "Moreno"
      },
      "paid_share": "0.00",
-     "owed_share": "36.20",
-     "net_balance": "-36.20"
+     "owed_share": "47.78",
+     "net_balance": "-47.78"
     }
    ]
   },
@@ -2275,7 +2275,7 @@
    "group_id": 55120002,
    "description": "Payment",
    "payment": true,
-   "cost": "36.20",
+   "cost": "47.78",
    "currency_code": "USD",
    "date": "2026-09-14T12:00:00Z",
    "created_at": "2026-09-14T12:00:00Z",
@@ -2293,9 +2293,9 @@
       "first_name": "Priya",
       "last_name": "Raman"
      },
-     "paid_share": "36.20",
+     "paid_share": "47.78",
      "owed_share": "0.00",
-     "net_balance": "36.20"
+     "net_balance": "47.78"
     },
     {
      "user_id": 2210001,
@@ -2305,8 +2305,8 @@
       "last_name": "Chen"
      },
      "paid_share": "0.00",
-     "owed_share": "36.20",
-     "net_balance": "-36.20"
+     "owed_share": "47.78",
+     "net_balance": "-47.78"
     }
    ]
   },
@@ -2315,7 +2315,7 @@
    "group_id": 55120001,
    "description": "ConEd electricity",
    "payment": false,
-   "cost": "83.16",
+   "cost": "109.77",
    "currency_code": "USD",
    "date": "2026-09-14T12:00:00Z",
    "created_at": "2026-09-15T20:00:00Z",
@@ -2334,8 +2334,8 @@
       "last_name": "Chen"
      },
      "paid_share": "0.00",
-     "owed_share": "27.72",
-     "net_balance": "-27.72"
+     "owed_share": "36.59",
+     "net_balance": "-36.59"
     },
     {
      "user_id": 2210002,
@@ -2344,9 +2344,9 @@
       "first_name": "Sam",
       "last_name": "Okafor"
      },
-     "paid_share": "83.16",
-     "owed_share": "27.72",
-     "net_balance": "55.44"
+     "paid_share": "109.77",
+     "owed_share": "36.59",
+     "net_balance": "73.18"
     },
     {
      "user_id": 2210003,
@@ -2356,8 +2356,8 @@
       "last_name": "Raman"
      },
      "paid_share": "0.00",
-     "owed_share": "27.72",
-     "net_balance": "-27.72"
+     "owed_share": "36.59",
+     "net_balance": "-36.59"
     }
    ]
   },
@@ -2417,7 +2417,7 @@
    "group_id": 55120001,
    "description": "Payment",
    "payment": true,
-   "cost": "37.06",
+   "cost": "41.98",
    "currency_code": "USD",
    "date": "2026-09-17T12:00:00Z",
    "created_at": "2026-09-17T12:00:00Z",
@@ -2435,9 +2435,9 @@
       "first_name": "Maya",
       "last_name": "Chen"
      },
-     "paid_share": "37.06",
+     "paid_share": "41.98",
      "owed_share": "0.00",
-     "net_balance": "37.06"
+     "net_balance": "41.98"
     },
     {
      "user_id": 2210002,
@@ -2447,8 +2447,8 @@
       "last_name": "Okafor"
      },
      "paid_share": "0.00",
-     "owed_share": "37.06",
-     "net_balance": "-37.06"
+     "owed_share": "41.98",
+     "net_balance": "-41.98"
     }
    ]
   }

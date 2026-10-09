@@ -14,7 +14,7 @@
      "mask": "4417",
      "type": "depository",
      "subtype": "checking",
-     "_sandbox_opening_balance": 640.0
+     "_sandbox_opening_balance": 845.0
     }
    ],
    "transactions": [
@@ -93,7 +93,7 @@
     {
      "transaction_id": "bOLz9shdDjP62HdIzdqhjmU8w5cn0u5gb16jc",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": -700.0,
+     "amount": -925.0,
      "iso_currency_code": "USD",
      "authorized_date": "2026-03-03",
      "date": "2026-03-03",
@@ -111,7 +111,7 @@
     {
      "transaction_id": "tuehaxa0kEIUpEcdrhWI41xjolLx9Ibg63D1H",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 5.54,
+     "amount": 7.32,
      "iso_currency_code": "USD",
      "authorized_date": "2026-03-04",
      "date": "2026-03-05",
@@ -147,7 +147,7 @@
     {
      "transaction_id": "8pxkQpNxkanoBf4oiSp9TePzzrZTdEsDKcaed",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 4.51,
+     "amount": 5.96,
      "iso_currency_code": "USD",
      "authorized_date": "2026-03-05",
      "date": "2026-03-06",
@@ -201,7 +201,7 @@
     {
      "transaction_id": "9PNlWDDSfm41preSiA2GbI4QuXwZXCZDkjMXj",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 34.13,
+     "amount": 45.05,
      "iso_currency_code": "USD",
      "authorized_date": "2026-03-06",
      "date": "2026-03-09",
@@ -237,7 +237,7 @@
     {
      "transaction_id": "yVj8XwJMmgZgCCCItVzehdJm5gIU7nUKZnv1T",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 23.45,
+     "amount": 30.96,
      "iso_currency_code": "USD",
      "authorized_date": "2026-03-07",
      "date": "2026-03-09",
@@ -255,7 +255,7 @@
     {
      "transaction_id": "u3soBmeQ9pyxlkOuDleKhounx1YJ0rPCk8sHM",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 22.0,
+     "amount": 29.0,
      "iso_currency_code": "USD",
      "authorized_date": "2026-03-09",
      "date": "2026-03-10",
@@ -273,7 +273,7 @@
     {
      "transaction_id": "IUwwx4Zgu7v10YIH9GyBIJWgAxrPDr1VbmvAb",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 51.0,
+     "amount": 67.32,
      "iso_currency_code": "USD",
      "authorized_date": "2026-03-10",
      "date": "2026-03-11",
@@ -399,7 +399,7 @@
     {
      "transaction_id": "0bgUFZqGLIeU7PAQYPcwR9VTlukAQpXsPDqHd",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 35.53,
+     "amount": 46.9,
      "iso_currency_code": "USD",
      "authorized_date": "2026-03-13",
      "date": "2026-03-16",
@@ -417,7 +417,7 @@
     {
      "transaction_id": "OO9IeJdvmXasj6ewizq0NwPrwm3yFhchtXE6k",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 22.82,
+     "amount": 30.12,
      "iso_currency_code": "USD",
      "authorized_date": "2026-03-14",
      "date": "2026-03-16",
@@ -489,7 +489,7 @@
     {
      "transaction_id": "mrt3DPvCZcOiNw3xDIgSO06ukUkmxr0UPT4Jq",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 4.36,
+     "amount": 5.75,
      "iso_currency_code": "USD",
      "authorized_date": "2026-03-17",
      "date": "2026-03-18",
@@ -525,7 +525,7 @@
     {
      "transaction_id": "DRYrmmC3EMzwluqjNeN36VT96AN7M9vHvwe6P",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 30.59,
+     "amount": 40.38,
      "iso_currency_code": "USD",
      "authorized_date": "2026-03-19",
      "date": "2026-03-20",
@@ -597,7 +597,7 @@
     {
      "transaction_id": "jeDoAsKFf2bpyVk2G5h6CON53s4keRC7Er7R5",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 31.1,
+     "amount": 41.06,
      "iso_currency_code": "USD",
      "authorized_date": "2026-03-21",
      "date": "2026-03-23",
@@ -615,7 +615,7 @@
     {
      "transaction_id": "gtuhQT2OStRjHKOCiPSCoJ84R7IR3yDpP0NiH",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 142.8,
+     "amount": 188.5,
      "iso_currency_code": "USD",
      "authorized_date": "2026-03-21",
      "date": "2026-03-23",
@@ -633,7 +633,7 @@
     {
      "transaction_id": "DwAaI1oOEtJANgdXDnoq7n6eqfBAijaABhuRi",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 21.63,
+     "amount": 28.56,
      "iso_currency_code": "USD",
      "authorized_date": "2026-03-21",
      "date": "2026-03-23",
@@ -651,7 +651,7 @@
     {
      "transaction_id": "z86LG6GhJPMnhQ0WRyZFX9ZdkPsOTr02Fp2pw",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 27.48,
+     "amount": 36.27,
      "iso_currency_code": "USD",
      "authorized_date": "2026-03-21",
      "date": "2026-03-23",
@@ -669,7 +669,7 @@
     {
      "transaction_id": "w0t0Z7ETKkPk12Yr5iVYwvIysuFgvWDGbO1EV",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 25.74,
+     "amount": 33.98,
      "iso_currency_code": "USD",
      "authorized_date": "2026-03-22",
      "date": "2026-03-23",
@@ -741,7 +741,7 @@
     {
      "transaction_id": "tNczS1sE02yyarfIoTPQqJtbyYEcmelZig763",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 13.81,
+     "amount": 18.23,
      "iso_currency_code": "USD",
      "authorized_date": "2026-03-25",
      "date": "2026-03-26",
@@ -831,7 +831,7 @@
     {
      "transaction_id": "Vjb9dOzZoLLoqbZBvn4MclbYAtNNRwtzyEkGz",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 27.25,
+     "amount": 35.96,
      "iso_currency_code": "USD",
      "authorized_date": "2026-03-27",
      "date": "2026-03-30",
@@ -921,7 +921,7 @@
     {
      "transaction_id": "1Pw1rZfJkoRoaYcEoy4xFZgvRs74Xd8fUlA3x",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 6.56,
+     "amount": 8.66,
      "iso_currency_code": "USD",
      "authorized_date": "2026-04-02",
      "date": "2026-04-03",
@@ -939,7 +939,7 @@
     {
      "transaction_id": "sW2EyiZN9b0NfRU1SVjkIk2fyV5rwDCGoy1dB",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 26.7,
+     "amount": 35.24,
      "iso_currency_code": "USD",
      "authorized_date": "2026-04-02",
      "date": "2026-04-03",
@@ -1011,7 +1011,7 @@
     {
      "transaction_id": "zm5OfORbfBYVqrzZuK1d6IniB6ZlkqBFpbI3d",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": -700.0,
+     "amount": -925.0,
      "iso_currency_code": "USD",
      "authorized_date": "2026-04-03",
      "date": "2026-04-03",
@@ -1029,7 +1029,7 @@
     {
      "transaction_id": "npKcWuNovJ6anrc3NF5GIwHluYW9bUyIPRpFP",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 35.52,
+     "amount": 46.89,
      "iso_currency_code": "USD",
      "authorized_date": "2026-04-03",
      "date": "2026-04-06",
@@ -1047,7 +1047,7 @@
     {
      "transaction_id": "xpJUJYcuyye0EHkb9uRJFUILxYWUfbesamyoV",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": -17.0,
+     "amount": -22.44,
      "iso_currency_code": "USD",
      "authorized_date": "2026-04-04",
      "date": "2026-04-04",
@@ -1070,7 +1070,7 @@
     {
      "transaction_id": "776F5CmJLbhVmLrbJ5qrTn0SW4GR6fqX7Qz6t",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 37.28,
+     "amount": 42.28,
      "iso_currency_code": "USD",
      "authorized_date": "2026-04-04",
      "date": "2026-04-04",
@@ -1093,7 +1093,7 @@
     {
      "transaction_id": "jfiifii0OYFltahkxszvOsFPXAN2BXje9I6HD",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": -47.6,
+     "amount": -62.83,
      "iso_currency_code": "USD",
      "authorized_date": "2026-04-05",
      "date": "2026-04-05",
@@ -1116,7 +1116,7 @@
     {
      "transaction_id": "otgxabsZFoiinJRFTFg6NzJiUZlow1prpETsb",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 5.9,
+     "amount": 7.78,
      "iso_currency_code": "USD",
      "authorized_date": "2026-04-06",
      "date": "2026-04-07",
@@ -1152,7 +1152,7 @@
     {
      "transaction_id": "eXY6JL792Cjz6tvpaOUPa6uUR0EkXHgr5DLOz",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 5.04,
+     "amount": 6.66,
      "iso_currency_code": "USD",
      "authorized_date": "2026-04-07",
      "date": "2026-04-08",
@@ -1170,7 +1170,7 @@
     {
      "transaction_id": "s4A8VAwqY2vuTGNhPaf9DJtRFC6O52has5Xdv",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 25.9,
+     "amount": 34.19,
      "iso_currency_code": "USD",
      "authorized_date": "2026-04-07",
      "date": "2026-04-08",
@@ -1188,7 +1188,7 @@
     {
      "transaction_id": "d3Sx2TUFjdAXMSkyTvnPdXlfxxMu5iwyPJA7a",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 15.38,
+     "amount": 20.3,
      "iso_currency_code": "USD",
      "authorized_date": "2026-04-07",
      "date": "2026-04-08",
@@ -1260,7 +1260,7 @@
     {
      "transaction_id": "SdJ12j76aPN0ODvIH9stJYuBs9bXDsGqlEe1m",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": -47.6,
+     "amount": -62.83,
      "iso_currency_code": "USD",
      "authorized_date": "2026-04-07",
      "date": "2026-04-07",
@@ -1301,7 +1301,7 @@
     {
      "transaction_id": "WeiyfW6kgUYRLBUmOB5zxRDzehWxlOKGPqPRi",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 32.77,
+     "amount": 43.25,
      "iso_currency_code": "USD",
      "authorized_date": "2026-04-10",
      "date": "2026-04-13",
@@ -1319,7 +1319,7 @@
     {
      "transaction_id": "0ZXro8pFllQ60EBEM5pczIF521zVHC8dDK7kb",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 4.67,
+     "amount": 6.17,
      "iso_currency_code": "USD",
      "authorized_date": "2026-04-10",
      "date": "2026-04-13",
@@ -1355,7 +1355,7 @@
     {
      "transaction_id": "WN6LRRc4JCnnnPpSfa4jeDFRYIaMp4zhPoziy",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 32.24,
+     "amount": 42.56,
      "iso_currency_code": "USD",
      "authorized_date": "2026-04-10",
      "date": "2026-04-13",
@@ -1373,7 +1373,7 @@
     {
      "transaction_id": "FwbPnJugLPRxH3QsPq0bMetyzGsugnLM2looJ",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 42.21,
+     "amount": 55.72,
      "iso_currency_code": "USD",
      "authorized_date": "2026-04-10",
      "date": "2026-04-13",
@@ -1391,7 +1391,7 @@
     {
      "transaction_id": "OBheAV6nMzIVtL6z23UDBJlt6JxH2h3X9EXt8",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 18.65,
+     "amount": 24.62,
      "iso_currency_code": "USD",
      "authorized_date": "2026-04-11",
      "date": "2026-04-13",
@@ -1409,7 +1409,7 @@
     {
      "transaction_id": "Ok2zYW712LLPlUzvsW6lBtsW8kkJk8M1z4fiT",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 23.95,
+     "amount": 31.62,
      "iso_currency_code": "USD",
      "authorized_date": "2026-04-11",
      "date": "2026-04-13",
@@ -1445,7 +1445,7 @@
     {
      "transaction_id": "uADYcuaK4af4YWiYG1ey3kpwrOKcEz2CSBUQ8",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 6.81,
+     "amount": 8.99,
      "iso_currency_code": "USD",
      "authorized_date": "2026-04-13",
      "date": "2026-04-14",
@@ -1499,7 +1499,7 @@
     {
      "transaction_id": "qomeMGBNKoSFe2HTyZef5qQFpiYLX4YXLcCQc",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 22.6,
+     "amount": 29.84,
      "iso_currency_code": "USD",
      "authorized_date": "2026-04-14",
      "date": "2026-04-15",
@@ -1517,7 +1517,7 @@
     {
      "transaction_id": "5etBb8pKm4bKDGVNMasju7uiQqSTPGDZkj1fJ",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 33.71,
+     "amount": 44.49,
      "iso_currency_code": "USD",
      "authorized_date": "2026-04-14",
      "date": "2026-04-15",
@@ -1625,7 +1625,7 @@
     {
      "transaction_id": "M1DPCdD6XtMRX0dgZo7HrBPXfmcL93eljWWK1",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 15.88,
+     "amount": 20.96,
      "iso_currency_code": "USD",
      "authorized_date": "2026-04-17",
      "date": "2026-04-20",
@@ -1643,7 +1643,7 @@
     {
      "transaction_id": "ApWomXUF8t4jQuIa5nSUDo0A0WOu9RLQBiq3x",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 118.35,
+     "amount": 156.22,
      "iso_currency_code": "USD",
      "authorized_date": "2026-04-18",
      "date": "2026-04-20",
@@ -1661,7 +1661,7 @@
     {
      "transaction_id": "6IpLmzAOQmz8Tt9tpRb5Y2WdQNdTrh0nZlGAg",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 14.18,
+     "amount": 18.71,
      "iso_currency_code": "USD",
      "authorized_date": "2026-04-19",
      "date": "2026-04-20",
@@ -1679,7 +1679,7 @@
     {
      "transaction_id": "Q6aZYvCltk0MVutOrioye68qWgT2K1q4jLSGe",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 33.95,
+     "amount": 44.81,
      "iso_currency_code": "USD",
      "authorized_date": "2026-04-20",
      "date": "2026-04-21",
@@ -1769,7 +1769,7 @@
     {
      "transaction_id": "qGqhRnmsIa15GgunHSHyGfMmMxQ1hMWtaSKCj",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 17.49,
+     "amount": 22.99,
      "iso_currency_code": "USD",
      "authorized_date": "2026-04-24",
      "date": "2026-04-27",
@@ -1787,7 +1787,7 @@
     {
      "transaction_id": "OuINuBlgKHXtpyCY4oQxinDmDqGp1BDsHacYH",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 4.31,
+     "amount": 5.69,
      "iso_currency_code": "USD",
      "authorized_date": "2026-04-24",
      "date": "2026-04-27",
@@ -1823,7 +1823,7 @@
     {
      "transaction_id": "H1kqfJ8FxgEuuG5QpOdSQdDG0L3C2SXzrUbvH",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 16.14,
+     "amount": 21.3,
      "iso_currency_code": "USD",
      "authorized_date": "2026-04-25",
      "date": "2026-04-27",
@@ -1859,7 +1859,7 @@
     {
      "transaction_id": "KVW5c9nR4uFX0VLHZZ9dR1Ys2ezap4zKHIsuD",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 6.41,
+     "amount": 8.46,
      "iso_currency_code": "USD",
      "authorized_date": "2026-04-26",
      "date": "2026-04-27",
@@ -1967,7 +1967,7 @@
     {
      "transaction_id": "KSrQJ1DsySNwiCW0cGn3rvj3OvpjYPgyyzsSs",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 15.25,
+     "amount": 20.13,
      "iso_currency_code": "USD",
      "authorized_date": "2026-04-30",
      "date": "2026-05-01",
@@ -2021,7 +2021,7 @@
     {
      "transaction_id": "9LgisoUtHwWjelk8qtarv51iS42bzAhGBYJDq",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 6.36,
+     "amount": 8.4,
      "iso_currency_code": "USD",
      "authorized_date": "2026-04-30",
      "date": "2026-05-01",
@@ -2039,7 +2039,7 @@
     {
      "transaction_id": "IKl2QAVdt7JCJ7UmDx7on1qTfykjWEytUhO9L",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 25.13,
+     "amount": 33.17,
      "iso_currency_code": "USD",
      "authorized_date": "2026-05-01",
      "date": "2026-05-04",
@@ -2093,7 +2093,7 @@
     {
      "transaction_id": "9YZ8tMEls1oPGsxT2rmzHykyCWibqXEgpVA2a",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": -700.0,
+     "amount": -925.0,
      "iso_currency_code": "USD",
      "authorized_date": "2026-05-03",
      "date": "2026-05-03",
@@ -2111,7 +2111,7 @@
     {
      "transaction_id": "5pn6nP9Cr4UY6y8HYQiuSB6h0xXgzgcfCS5pM",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 5.7,
+     "amount": 7.52,
      "iso_currency_code": "USD",
      "authorized_date": "2026-05-04",
      "date": "2026-05-05",
@@ -2129,7 +2129,7 @@
     {
      "transaction_id": "9xiiAoENqoxN3rb1GNi1s4vxbp08EvrJBdtVC",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 17.35,
+     "amount": 22.9,
      "iso_currency_code": "USD",
      "authorized_date": "2026-05-04",
      "date": "2026-05-05",
@@ -2147,7 +2147,7 @@
     {
      "transaction_id": "kkCkyeCDUF8TAWwS9ZgMUwZuWIsrGVa5vgGgz",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": -29.59,
+     "amount": -39.05,
      "iso_currency_code": "USD",
      "authorized_date": "2026-05-04",
      "date": "2026-05-04",
@@ -2170,7 +2170,7 @@
     {
      "transaction_id": "AZ1br84djt1Q6kgTtOb7KRFhY8IvNZnDOZL0v",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": -43.65,
+     "amount": -57.62,
      "iso_currency_code": "USD",
      "authorized_date": "2026-05-04",
      "date": "2026-05-04",
@@ -2211,7 +2211,7 @@
     {
      "transaction_id": "ppZ0YKDzXpbMRGGEXmx2VBPSKiGENmAw6TMjM",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": -29.59,
+     "amount": -39.06,
      "iso_currency_code": "USD",
      "authorized_date": "2026-05-05",
      "date": "2026-05-05",
@@ -2234,7 +2234,7 @@
     {
      "transaction_id": "JXJFPEAk10aJwLevIvhs8TeauVcypsASHJD4p",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 40.01,
+     "amount": 45.87,
      "iso_currency_code": "USD",
      "authorized_date": "2026-05-05",
      "date": "2026-05-05",
@@ -2293,7 +2293,7 @@
     {
      "transaction_id": "JKLOn1QMHLqzk2D2w7jdpjESqEQGMulf8VWIq",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 7.02,
+     "amount": 9.26,
      "iso_currency_code": "USD",
      "authorized_date": "2026-05-07",
      "date": "2026-05-08",
@@ -2311,7 +2311,7 @@
     {
      "transaction_id": "MUfcVnqTslJkkXzU9bKAUPyOtvpbR1XIruV4e",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 15.4,
+     "amount": 20.32,
      "iso_currency_code": "USD",
      "authorized_date": "2026-05-07",
      "date": "2026-05-08",
@@ -2347,7 +2347,7 @@
     {
      "transaction_id": "29znrKwgIcKLk8kq39Jvue8WCOwfOEQXOCqNh",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 22.0,
+     "amount": 29.0,
      "iso_currency_code": "USD",
      "authorized_date": "2026-05-09",
      "date": "2026-05-11",
@@ -2365,7 +2365,7 @@
     {
      "transaction_id": "CRM7JbBnMF3DYahTsoOOVbeDgbpDTHRXR8Wta",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 38.91,
+     "amount": 51.36,
      "iso_currency_code": "USD",
      "authorized_date": "2026-05-10",
      "date": "2026-05-11",
@@ -2383,7 +2383,7 @@
     {
      "transaction_id": "t9ho1R1vQlikLYpYXlp51EhQY6OhZW03Wfye4",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 5.3,
+     "amount": 7.0,
      "iso_currency_code": "USD",
      "authorized_date": "2026-05-11",
      "date": "2026-05-12",
@@ -2419,7 +2419,7 @@
     {
      "transaction_id": "6gra0JmGLe5nmC4yigwHFeqI5mi0A58xrpbha",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 5.95,
+     "amount": 7.85,
      "iso_currency_code": "USD",
      "authorized_date": "2026-05-14",
      "date": "2026-05-15",
@@ -2473,7 +2473,7 @@
     {
      "transaction_id": "8zeyxYWlzv6w1skGbIQexO62FSm4iaQMAtvyA",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 22.58,
+     "amount": 29.8,
      "iso_currency_code": "USD",
      "authorized_date": "2026-05-14",
      "date": "2026-05-15",
@@ -2491,7 +2491,7 @@
     {
      "transaction_id": "GJbplQQ2ibkXnRrZwNajyjeLXjjeQTkWxtZvI",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 5.58,
+     "amount": 7.36,
      "iso_currency_code": "USD",
      "authorized_date": "2026-05-15",
      "date": "2026-05-18",
@@ -2509,7 +2509,7 @@
     {
      "transaction_id": "e7mbFEQOXFmCuY7ZnphSt9mD8x0LofcAM2q7z",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 30.47,
+     "amount": 40.21,
      "iso_currency_code": "USD",
      "authorized_date": "2026-05-17",
      "date": "2026-05-18",
@@ -2563,7 +2563,7 @@
     {
      "transaction_id": "YoyOrsOzUa9WhiAs1QPSFZrv0VEj7LeUWN5kR",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 12.79,
+     "amount": 16.88,
      "iso_currency_code": "USD",
      "authorized_date": "2026-05-19",
      "date": "2026-05-20",
@@ -2599,7 +2599,7 @@
     {
      "transaction_id": "QLjQPRe9nVXLfbNaswXX2ZRcLkIkrO0GuRzPj",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 6.24,
+     "amount": 8.24,
      "iso_currency_code": "USD",
      "authorized_date": "2026-05-21",
      "date": "2026-05-22",
@@ -2707,7 +2707,7 @@
     {
      "transaction_id": "8vsvFNKZGGE74ejDBxZhwFGQnJFp74YTOPvSc",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 6.4,
+     "amount": 8.45,
      "iso_currency_code": "USD",
      "authorized_date": "2026-05-26",
      "date": "2026-05-27",
@@ -2725,7 +2725,7 @@
     {
      "transaction_id": "U3ed3i7RjcI8siLlmdovo4kbhooiT6WeiOzFc",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 42.97,
+     "amount": 56.72,
      "iso_currency_code": "USD",
      "authorized_date": "2026-05-26",
      "date": "2026-05-27",
@@ -2761,7 +2761,7 @@
     {
      "transaction_id": "eLM51Q0Y1AHxtPYxcPvCMdvxGhqNeYr9T7UKo",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 11.86,
+     "amount": 15.65,
      "iso_currency_code": "USD",
      "authorized_date": "2026-05-28",
      "date": "2026-05-29",
@@ -2815,7 +2815,7 @@
     {
      "transaction_id": "bUAKyRlHZyPAClysesmJXxFPKfFrnV7woDDWp",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 19.66,
+     "amount": 25.96,
      "iso_currency_code": "USD",
      "authorized_date": "2026-05-29",
      "date": "2026-06-01",
@@ -2833,7 +2833,7 @@
     {
      "transaction_id": "8xlGuvsY8pQ3oomjN0cOURNloz2wZJcOuubXJ",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 96.4,
+     "amount": 127.25,
      "iso_currency_code": "USD",
      "authorized_date": "2026-05-30",
      "date": "2026-06-01",
@@ -2851,7 +2851,7 @@
     {
      "transaction_id": "S0QiXdAxogYuL4Bn2XxnPUuEq9i0YMhrfxjJn",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 17.72,
+     "amount": 23.39,
      "iso_currency_code": "USD",
      "authorized_date": "2026-05-30",
      "date": "2026-06-01",
@@ -2869,7 +2869,7 @@
     {
      "transaction_id": "UjypwWz5cuMBsYWuIQ5CftcjSisfMkLiWUudR",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 17.34,
+     "amount": 22.89,
      "iso_currency_code": "USD",
      "authorized_date": "2026-05-30",
      "date": "2026-06-01",
@@ -2887,7 +2887,7 @@
     {
      "transaction_id": "18IL3CMGfMGCkp1YqfhnslQDXOmtEA76Npf74",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 15.33,
+     "amount": 20.24,
      "iso_currency_code": "USD",
      "authorized_date": "2026-05-31",
      "date": "2026-06-01",
@@ -2923,7 +2923,7 @@
     {
      "transaction_id": "E8N9hGGuOiYMMhqPko8LjvjavGxokWrdsqb4G",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 30.69,
+     "amount": 40.51,
      "iso_currency_code": "USD",
      "authorized_date": "2026-06-02",
      "date": "2026-06-03",
@@ -2941,7 +2941,7 @@
     {
      "transaction_id": "lPOQzTFkZk6NuEuUyeLf05ssk06GmpTCuzkYF",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 5.44,
+     "amount": 7.18,
      "iso_currency_code": "USD",
      "authorized_date": "2026-06-03",
      "date": "2026-06-04",
@@ -2995,7 +2995,7 @@
     {
      "transaction_id": "PseptfcyBFSOZsPTqlXejhWbvjVWsdRTQOHuM",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": -700.0,
+     "amount": -925.0,
      "iso_currency_code": "USD",
      "authorized_date": "2026-06-03",
      "date": "2026-06-03",
@@ -3049,7 +3049,7 @@
     {
      "transaction_id": "n7J310SAVszHTceBVNviNNihwQjenuJssqBYl",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 5.04,
+     "amount": 6.65,
      "iso_currency_code": "USD",
      "authorized_date": "2026-06-05",
      "date": "2026-06-08",
@@ -3085,7 +3085,7 @@
     {
      "transaction_id": "nRDdp8AEYqRq26qX3GBS34pYOYgtG5Uf3miFL",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 32.94,
+     "amount": 43.48,
      "iso_currency_code": "USD",
      "authorized_date": "2026-06-05",
      "date": "2026-06-08",
@@ -3103,7 +3103,7 @@
     {
      "transaction_id": "7SKERkXWFELtxdQeQw4cp7I8HkfCX2SZa2n6r",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": -48.2,
+     "amount": -63.62,
      "iso_currency_code": "USD",
      "authorized_date": "2026-06-05",
      "date": "2026-06-05",
@@ -3126,7 +3126,7 @@
     {
      "transaction_id": "lyYel32CSKJrdF4oF8tO4NzrpJxtK9ghumph7",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 37.76,
+     "amount": 42.91,
      "iso_currency_code": "USD",
      "authorized_date": "2026-06-05",
      "date": "2026-06-05",
@@ -3149,7 +3149,7 @@
     {
      "transaction_id": "fZvKBWrWWoTPgRzDoQ4Y40B8j8ROJV5ZqIFuY",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 20.1,
+     "amount": 26.53,
      "iso_currency_code": "USD",
      "authorized_date": "2026-06-06",
      "date": "2026-06-08",
@@ -3185,7 +3185,7 @@
     {
      "transaction_id": "VSXn28bC5txrYPNnmE9JkofGzAJx3Tj3zy5Ff",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": -12.97,
+     "amount": -17.12,
      "iso_currency_code": "USD",
      "authorized_date": "2026-06-07",
      "date": "2026-06-07",
@@ -3262,7 +3262,7 @@
     {
      "transaction_id": "LCADqvUNSeR6mGbLQ8fXVTHGqArjx3IVXvzXv",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 55.69,
+     "amount": 73.51,
      "iso_currency_code": "USD",
      "authorized_date": "2026-06-10",
      "date": "2026-06-11",
@@ -3370,7 +3370,7 @@
     {
      "transaction_id": "5Y0Ewb1jESeIHs3RVhahNsNnDGkuohFeusm7y",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 5.3,
+     "amount": 6.99,
      "iso_currency_code": "USD",
      "authorized_date": "2026-06-16",
      "date": "2026-06-17",
@@ -3406,7 +3406,7 @@
     {
      "transaction_id": "QyETTgjUxAHrVVZukn9B1LMV1V7re6ezCpIeJ",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 14.95,
+     "amount": 19.73,
      "iso_currency_code": "USD",
      "authorized_date": "2026-06-17",
      "date": "2026-06-18",
@@ -3460,7 +3460,7 @@
     {
      "transaction_id": "m3FVd4CGhxqvTBkwTo5NUMMSRiUxcqHRJKRHA",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 26.62,
+     "amount": 35.14,
      "iso_currency_code": "USD",
      "authorized_date": "2026-06-20",
      "date": "2026-06-22",
@@ -3496,7 +3496,7 @@
     {
      "transaction_id": "URJ8tzSkPKETn5VicDIBe5rDGYDFbZLtm5lo1",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 21.01,
+     "amount": 27.73,
      "iso_currency_code": "USD",
      "authorized_date": "2026-06-21",
      "date": "2026-06-22",
@@ -3550,7 +3550,7 @@
     {
      "transaction_id": "6WFlAngZ2I2SDX5j9DAtj0WH3S3BPbslZoUtY",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 17.49,
+     "amount": 22.99,
      "iso_currency_code": "USD",
      "authorized_date": "2026-06-24",
      "date": "2026-06-25",
@@ -3604,7 +3604,7 @@
     {
      "transaction_id": "tXHle9sFJuuh2wxRdhFh4nFPeovq9qEroizlT",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 6.1,
+     "amount": 8.05,
      "iso_currency_code": "USD",
      "authorized_date": "2026-06-25",
      "date": "2026-06-26",
@@ -3658,7 +3658,7 @@
     {
      "transaction_id": "ekuVaW9zSSKCs7mvTuykQDoelKkDqSzvnBSfF",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 30.46,
+     "amount": 40.2,
      "iso_currency_code": "USD",
      "authorized_date": "2026-06-25",
      "date": "2026-06-26",
@@ -3712,7 +3712,7 @@
     {
      "transaction_id": "5eFfLdL03LMkf8uLpSBTK4L0ZrmMEJEbPd6pZ",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 84.0,
+     "amount": 110.9,
      "iso_currency_code": "USD",
      "authorized_date": "2026-06-27",
      "date": "2026-06-29",
@@ -3730,7 +3730,7 @@
     {
      "transaction_id": "Tev8w7iOYrtYeQJh3bAS7zcYrU9hr9CG6ioW9",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 21.97,
+     "amount": 29.01,
      "iso_currency_code": "USD",
      "authorized_date": "2026-06-28",
      "date": "2026-06-29",
@@ -3748,7 +3748,7 @@
     {
      "transaction_id": "mq51N8moHt9HF2mIYqw5pkz9L5HsLQSdq7Eod",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 14.05,
+     "amount": 18.54,
      "iso_currency_code": "USD",
      "authorized_date": "2026-06-29",
      "date": "2026-06-30",
@@ -3802,7 +3802,7 @@
     {
      "transaction_id": "QxcB5fJpoA7CqYRJsV5ZkAgt8xfebZ2uxzyEi",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 6.11,
+     "amount": 8.06,
      "iso_currency_code": "USD",
      "authorized_date": "2026-07-01",
      "date": "2026-07-02",
@@ -3820,7 +3820,7 @@
     {
      "transaction_id": "PHjwammynOxhYc6cT3lbTknDn9vG8wNoNQqFK",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": -700.0,
+     "amount": -925.0,
      "iso_currency_code": "USD",
      "authorized_date": "2026-07-03",
      "date": "2026-07-03",
@@ -3838,7 +3838,7 @@
     {
      "transaction_id": "F4ocvMICMBulPfYEyipTfi91zc9BCVDVyuCZH",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 22.62,
+     "amount": 29.86,
      "iso_currency_code": "USD",
      "authorized_date": "2026-07-04",
      "date": "2026-07-06",
@@ -3856,7 +3856,7 @@
     {
      "transaction_id": "Xg2n8UXFragcQ44rCnpDvyPs0jAJ2GSYKkZ2E",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 32.41,
+     "amount": 35.84,
      "iso_currency_code": "USD",
      "authorized_date": "2026-07-05",
      "date": "2026-07-05",
@@ -3897,7 +3897,7 @@
     {
      "transaction_id": "z1vrZUHrkiIU19yNwClLVEHRJwaKsXjKcP7lC",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 22.52,
+     "amount": 29.73,
      "iso_currency_code": "USD",
      "authorized_date": "2026-07-06",
      "date": "2026-07-07",
@@ -3915,7 +3915,7 @@
     {
      "transaction_id": "NUkCmxYD7zXybeNDN3B8wrbRQoLFJERZFT3tc",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": -42.0,
+     "amount": -55.45,
      "iso_currency_code": "USD",
      "authorized_date": "2026-07-06",
      "date": "2026-07-06",
@@ -3938,7 +3938,7 @@
     {
      "transaction_id": "qFWddpi50dGFLuG697ZxbMZVEUVmfNsveHRdC",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": -18.56,
+     "amount": -24.5,
      "iso_currency_code": "USD",
      "authorized_date": "2026-07-06",
      "date": "2026-07-06",
@@ -3961,7 +3961,7 @@
     {
      "transaction_id": "Kq7CDpXSNbQVnz4wdCGvD7iLKyBfgHE5Pucll",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 5.87,
+     "amount": 7.74,
      "iso_currency_code": "USD",
      "authorized_date": "2026-07-07",
      "date": "2026-07-08",
@@ -4051,7 +4051,7 @@
     {
      "transaction_id": "8n5Kkj2OFa2hf3Nle1dRAubv3PPUblO57l8J6",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 22.0,
+     "amount": 29.0,
      "iso_currency_code": "USD",
      "authorized_date": "2026-07-09",
      "date": "2026-07-10",
@@ -4069,7 +4069,7 @@
     {
      "transaction_id": "gCbhZezzs0GcfPFjwAsua8NIWSPpFBeqTKtd2",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 6.63,
+     "amount": 8.76,
      "iso_currency_code": "USD",
      "authorized_date": "2026-07-10",
      "date": "2026-07-13",
@@ -4087,7 +4087,7 @@
     {
      "transaction_id": "XPpRNlYF4GIovmHCl964p0MMtc7GE8inVTuew",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 47.63,
+     "amount": 62.88,
      "iso_currency_code": "USD",
      "authorized_date": "2026-07-10",
      "date": "2026-07-13",
@@ -4105,7 +4105,7 @@
     {
      "transaction_id": "5sVhCSbwRs8nikyNyrFn4Vv7Dg86rX4DHYXdn",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 15.7,
+     "amount": 20.72,
      "iso_currency_code": "USD",
      "authorized_date": "2026-07-11",
      "date": "2026-07-13",
@@ -4159,7 +4159,7 @@
     {
      "transaction_id": "Z5LS99EGKRHsJfJ3Nh8oBSari7IeWacvpBSME",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 4.53,
+     "amount": 5.98,
      "iso_currency_code": "USD",
      "authorized_date": "2026-07-14",
      "date": "2026-07-15",
@@ -4177,7 +4177,7 @@
     {
      "transaction_id": "hpValVppyUflqsh1jcdTkI5yTKyQOeXSx2DJW",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 15.67,
+     "amount": 20.69,
      "iso_currency_code": "USD",
      "authorized_date": "2026-07-14",
      "date": "2026-07-15",
@@ -4195,7 +4195,7 @@
     {
      "transaction_id": "fxJ8d7UJAvigVptSe5S8wkqJzku67cVsHue5C",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 5.56,
+     "amount": 7.35,
      "iso_currency_code": "USD",
      "authorized_date": "2026-07-15",
      "date": "2026-07-16",
@@ -4267,7 +4267,7 @@
     {
      "transaction_id": "aLf6spPBHwRfEmvXlekb3Qores0HXgukB2QKl",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 35.42,
+     "amount": 46.76,
      "iso_currency_code": "USD",
      "authorized_date": "2026-07-17",
      "date": "2026-07-20",
@@ -4285,7 +4285,7 @@
     {
      "transaction_id": "aLjdtkw6IML1YSjfC00T1lTfjvdOByAJQT9o1",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 32.29,
+     "amount": 42.62,
      "iso_currency_code": "USD",
      "authorized_date": "2026-07-17",
      "date": "2026-07-20",
@@ -4303,7 +4303,7 @@
     {
      "transaction_id": "1My5jns18h2itjswzHad6EH0I7BeWTsXI0c4m",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 5.89,
+     "amount": 7.77,
      "iso_currency_code": "USD",
      "authorized_date": "2026-07-20",
      "date": "2026-07-21",
@@ -4375,7 +4375,7 @@
     {
      "transaction_id": "8R8lWWK2gxunPgkEG0lwAhNtM9SK5wiAuG7N6",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 28.84,
+     "amount": 38.07,
      "iso_currency_code": "USD",
      "authorized_date": "2026-07-22",
      "date": "2026-07-23",
@@ -4393,7 +4393,7 @@
     {
      "transaction_id": "lGv75KEXMVMm2ZHO1bufRwtxllRwyzp8ZWeqm",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 5.55,
+     "amount": 7.33,
      "iso_currency_code": "USD",
      "authorized_date": "2026-07-23",
      "date": "2026-07-24",
@@ -4483,7 +4483,7 @@
     {
      "transaction_id": "jrikeej2KgDZQflYnrWxSUDBlCI1XWzvlBw5o",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 25.77,
+     "amount": 34.02,
      "iso_currency_code": "USD",
      "authorized_date": "2026-07-24",
      "date": "2026-07-27",
@@ -4501,7 +4501,7 @@
     {
      "transaction_id": "GuhIuwzAmGYYBH0Aw1p7CIPxFRJ8omAy9A9yG",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 126.9,
+     "amount": 167.51,
      "iso_currency_code": "USD",
      "authorized_date": "2026-07-25",
      "date": "2026-07-27",
@@ -4519,7 +4519,7 @@
     {
      "transaction_id": "F6sE3THVKBiUCdq3bkg5aRBselBUYkYUkGzfG",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 21.49,
+     "amount": 28.37,
      "iso_currency_code": "USD",
      "authorized_date": "2026-07-25",
      "date": "2026-07-27",
@@ -4555,7 +4555,7 @@
     {
      "transaction_id": "TgzTbqiUMaZQngdqwjL4Both3LkfNq90v8dR7",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 6.37,
+     "amount": 8.41,
      "iso_currency_code": "USD",
      "authorized_date": "2026-07-27",
      "date": "2026-07-28",
@@ -4591,7 +4591,7 @@
     {
      "transaction_id": "Lp2C9ufyBD35FUmT3E59a5Xqq4FZ81u1IPHkv",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 26.22,
+     "amount": 34.61,
      "iso_currency_code": "USD",
      "authorized_date": "2026-07-29",
      "date": "2026-07-30",
@@ -4627,7 +4627,7 @@
     {
      "transaction_id": "lvYzvvP7bNJGLNRcaQ3lDfiXs8HUiberP9R4y",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 5.32,
+     "amount": 7.02,
      "iso_currency_code": "USD",
      "authorized_date": "2026-07-31",
      "date": "2026-08-03",
@@ -4645,7 +4645,7 @@
     {
      "transaction_id": "qz8Ds6yqPQjYTo9sX5zrHi3P2cYA69Z76QTF7",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 28.78,
+     "amount": 37.99,
      "iso_currency_code": "USD",
      "authorized_date": "2026-07-31",
      "date": "2026-08-03",
@@ -4663,7 +4663,7 @@
     {
      "transaction_id": "8feva71Vtb460G0KsQgEWamu0jvUdsBwDppLo",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 30.46,
+     "amount": 40.21,
      "iso_currency_code": "USD",
      "authorized_date": "2026-08-02",
      "date": "2026-08-03",
@@ -4681,7 +4681,7 @@
     {
      "transaction_id": "BFO9r13kl8Bwr0RkCwwLehpc6RLlbo0fFeWaV",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": -700.0,
+     "amount": -925.0,
      "iso_currency_code": "USD",
      "authorized_date": "2026-08-03",
      "date": "2026-08-03",
@@ -4717,7 +4717,7 @@
     {
      "transaction_id": "asixKmYNWN8Mrk9AX0XBT5Tg03HsfpdaaWW1i",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": -42.3,
+     "amount": -55.84,
      "iso_currency_code": "USD",
      "authorized_date": "2026-08-04",
      "date": "2026-08-04",
@@ -4758,7 +4758,7 @@
     {
      "transaction_id": "JUq08uv0vuUAJ5d7Jf3UHyraQhuAc812Iocol",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": -15.87,
+     "amount": -20.96,
      "iso_currency_code": "USD",
      "authorized_date": "2026-08-05",
      "date": "2026-08-05",
@@ -4799,7 +4799,7 @@
     {
      "transaction_id": "7Pe6Wm8q9zmtvzCAQgnYTZqXI95jClLQKgf7V",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 15.04,
+     "amount": 19.86,
      "iso_currency_code": "USD",
      "authorized_date": "2026-08-06",
      "date": "2026-08-07",
@@ -4853,7 +4853,7 @@
     {
      "transaction_id": "QKtdbH57fCcWtjfdfH2u3JHWFN3SL1Kvg0Rk5",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 14.86,
+     "amount": 19.62,
      "iso_currency_code": "USD",
      "authorized_date": "2026-08-07",
      "date": "2026-08-10",
@@ -4871,7 +4871,7 @@
     {
      "transaction_id": "Nq5QL1DF55bV9wTKMW8aeeisyK9sbW6skY0Aj",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 53.58,
+     "amount": 63.79,
      "iso_currency_code": "USD",
      "authorized_date": "2026-08-07",
      "date": "2026-08-07",
@@ -4894,7 +4894,7 @@
     {
      "transaction_id": "w9pJHTfzbvz6T5rmIWqG1XgMfc4YeRkmbFwbz",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 20.84,
+     "amount": 27.51,
      "iso_currency_code": "USD",
      "authorized_date": "2026-08-08",
      "date": "2026-08-10",
@@ -4912,7 +4912,7 @@
     {
      "transaction_id": "U8uu69zkIN3DzpSUzDvEj8mYFZQLP9x3ZFB2N",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 44.82,
+     "amount": 59.16,
      "iso_currency_code": "USD",
      "authorized_date": "2026-08-08",
      "date": "2026-08-10",
@@ -4930,7 +4930,7 @@
     {
      "transaction_id": "6EPxfrG4VBSrrHZXl78G1UJBFd1tqedo9RmqA",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 4.84,
+     "amount": 6.38,
      "iso_currency_code": "USD",
      "authorized_date": "2026-08-08",
      "date": "2026-08-10",
@@ -4948,7 +4948,7 @@
     {
      "transaction_id": "bXLjmKibYS2qsrboSsn8752GFz1GFpBn7aGfv",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": -42.3,
+     "amount": -55.83,
      "iso_currency_code": "USD",
      "authorized_date": "2026-08-08",
      "date": "2026-08-08",
@@ -4971,7 +4971,7 @@
     {
      "transaction_id": "drOprtJ7fhophFSdbF6zeTJIr5T1PhbSkDjE6",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 20.83,
+     "amount": 27.5,
      "iso_currency_code": "USD",
      "authorized_date": "2026-08-09",
      "date": "2026-08-10",
@@ -5025,7 +5025,7 @@
     {
      "transaction_id": "CIMajtQ54w226jW5XcotH6bEeah78gyBKmRs9",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 51.86,
+     "amount": 68.45,
      "iso_currency_code": "USD",
      "authorized_date": "2026-08-10",
      "date": "2026-08-11",
@@ -5079,7 +5079,7 @@
     {
      "transaction_id": "fGya8fTPNjDBW4QWrKL035gCzEVbHnOHjOfQV",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 4.76,
+     "amount": 6.28,
      "iso_currency_code": "USD",
      "authorized_date": "2026-08-12",
      "date": "2026-08-13",
@@ -5169,7 +5169,7 @@
     {
      "transaction_id": "axxAP1zeVSgKFRXtwaXoqPJwwhayOIzba6a5d",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 22.78,
+     "amount": 30.07,
      "iso_currency_code": "USD",
      "authorized_date": "2026-08-14",
      "date": "2026-08-17",
@@ -5187,7 +5187,7 @@
     {
      "transaction_id": "xKbDZwCq7pJ5kDotzq4hSaZ4rsj3TuvU6WA0R",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 21.56,
+     "amount": 28.45,
      "iso_currency_code": "USD",
      "authorized_date": "2026-08-15",
      "date": "2026-08-17",
@@ -5259,7 +5259,7 @@
     {
      "transaction_id": "CaekTkc5VyYe1u1mIwIgodwcqcJ3uUFznqnaY",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 15.35,
+     "amount": 20.26,
      "iso_currency_code": "USD",
      "authorized_date": "2026-08-19",
      "date": "2026-08-20",
@@ -5331,7 +5331,7 @@
     {
      "transaction_id": "9nikwD9khMweg5BHq7iL9BRyNP1t14lcFzimU",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 24.04,
+     "amount": 31.74,
      "iso_currency_code": "USD",
      "authorized_date": "2026-08-21",
      "date": "2026-08-24",
@@ -5349,7 +5349,7 @@
     {
      "transaction_id": "aB3hUYQFHGiKSJLQxFJT8arKDn9ULBtDTYGUJ",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 16.68,
+     "amount": 22.02,
      "iso_currency_code": "USD",
      "authorized_date": "2026-08-22",
      "date": "2026-08-24",
@@ -5367,7 +5367,7 @@
     {
      "transaction_id": "KvikETFZsH1IujR4bNng9zU4r8VoQwtcRPqUV",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 17.49,
+     "amount": 22.99,
      "iso_currency_code": "USD",
      "authorized_date": "2026-08-24",
      "date": "2026-08-25",
@@ -5421,7 +5421,7 @@
     {
      "transaction_id": "WYL1xzsAHdX7McAOvBwRr6tWMF0noTztOOf9X",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 30.55,
+     "amount": 40.33,
      "iso_currency_code": "USD",
      "authorized_date": "2026-08-25",
      "date": "2026-08-26",
@@ -5493,7 +5493,7 @@
     {
      "transaction_id": "nQrj4dA8bpr8pD28Ub2aRHrhdfXhwC4uODR6a",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 27.55,
+     "amount": 36.37,
      "iso_currency_code": "USD",
      "authorized_date": "2026-08-26",
      "date": "2026-08-27",
@@ -5511,7 +5511,7 @@
     {
      "transaction_id": "EGrDjDS2YZGnwaO3myqnAdYdyb4nnGVp8ryBd",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 14.63,
+     "amount": 19.31,
      "iso_currency_code": "USD",
      "authorized_date": "2026-08-27",
      "date": "2026-08-28",
@@ -5565,7 +5565,7 @@
     {
      "transaction_id": "IogQWaeuncLPIzCDITlbg9pwWTl4ixJJeTmVS",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 7.19,
+     "amount": 9.49,
      "iso_currency_code": "USD",
      "authorized_date": "2026-08-28",
      "date": "2026-08-31",
@@ -5583,7 +5583,7 @@
     {
      "transaction_id": "JDPg01j2DbWMMo6MyEVMqessdmsV2lk9VnTaV",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 27.15,
+     "amount": 35.84,
      "iso_currency_code": "USD",
      "authorized_date": "2026-08-28",
      "date": "2026-08-31",
@@ -5601,7 +5601,7 @@
     {
      "transaction_id": "dnNPevx80VzvYNZL0AXAEWBjHJScMol6wXCBM",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 6.5,
+     "amount": 8.58,
      "iso_currency_code": "USD",
      "authorized_date": "2026-08-29",
      "date": "2026-08-31",
@@ -5619,7 +5619,7 @@
     {
      "transaction_id": "iv0V2tFMIewk5c0KTVeJPDisRoiHB0CGiSGg4",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 144.0,
+     "amount": 190.1,
      "iso_currency_code": "USD",
      "authorized_date": "2026-08-29",
      "date": "2026-08-31",
@@ -5637,7 +5637,7 @@
     {
      "transaction_id": "B1rIYpy4HV7NTdPXzXqK8hzn4b4tEHJ47IyMM",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 29.75,
+     "amount": 39.27,
      "iso_currency_code": "USD",
      "authorized_date": "2026-08-30",
      "date": "2026-08-31",
@@ -5673,7 +5673,7 @@
     {
      "transaction_id": "FIwFSchWOlCdgnVbcdbaXzfURYBLcOQpEW5FS",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 5.08,
+     "amount": 6.7,
      "iso_currency_code": "USD",
      "authorized_date": "2026-09-01",
      "date": "2026-09-02",
@@ -5709,7 +5709,7 @@
     {
      "transaction_id": "ENraY4Uo6czKLTA5Lqkom2CHVWenmiAKhvQ7H",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 42.99,
+     "amount": 56.99,
      "iso_currency_code": "USD",
      "authorized_date": "2026-09-02",
      "date": "2026-09-03",
@@ -5745,7 +5745,7 @@
     {
      "transaction_id": "OOuvNeOhlyjwdu0dVyFU2Mbx8saNcc2jBXIk3",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 43.16,
+     "amount": 56.97,
      "iso_currency_code": "USD",
      "authorized_date": "2026-09-02",
      "date": "2026-09-03",
@@ -5781,7 +5781,7 @@
     {
      "transaction_id": "p1Jf7tSgtRa1eePdjJYM6mgv4I3ERxy2aV7yg",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": -700.0,
+     "amount": -925.0,
      "iso_currency_code": "USD",
      "authorized_date": "2026-09-03",
      "date": "2026-09-03",
@@ -5835,7 +5835,7 @@
     {
      "transaction_id": "cglzCqS2aNOxdjYHM2e8HW9y6da60ptyvZA8X",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 46.4,
+     "amount": 54.32,
      "iso_currency_code": "USD",
      "authorized_date": "2026-09-04",
      "date": "2026-09-04",
@@ -5858,7 +5858,7 @@
     {
      "transaction_id": "efgrr4isHZAnM61vAtbsivWPvq86048hrmCmc",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 64.9,
+     "amount": 84.9,
      "iso_currency_code": "USD",
      "authorized_date": "2026-09-05",
      "date": "2026-09-07",
@@ -5876,7 +5876,7 @@
     {
      "transaction_id": "uLZ5UhKbOGtzIgHokyZ1wo6Q1jK8UNFFBbAox",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": -48.0,
+     "amount": -63.36,
      "iso_currency_code": "USD",
      "authorized_date": "2026-09-05",
      "date": "2026-09-05",
@@ -5899,7 +5899,7 @@
     {
      "transaction_id": "T15y6arPA56aCABJyX10h0vmUVK9kbPjZMnpZ",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": -17.28,
+     "amount": -22.81,
      "iso_currency_code": "USD",
      "authorized_date": "2026-09-06",
      "date": "2026-09-06",
@@ -5958,7 +5958,7 @@
     {
      "transaction_id": "KQNgCdBEosrvdYVvZ2MZCAQHt6IUqvdfdEFjq",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 22.2,
+     "amount": 29.31,
      "iso_currency_code": "USD",
      "authorized_date": "2026-09-08",
      "date": "2026-09-09",
@@ -5976,7 +5976,7 @@
     {
      "transaction_id": "9Kr74wh5OLEX1IgW8DbfYKXHV6rP1i2x2HSTe",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 38.5,
+     "amount": 50.8,
      "iso_currency_code": "USD",
      "authorized_date": "2026-09-08",
      "date": "2026-09-09",
@@ -6012,7 +6012,7 @@
     {
      "transaction_id": "YsTcDmADxYxM7PX6PMFBaBAV0MrqEO94Gz11q",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 22.0,
+     "amount": 29.0,
      "iso_currency_code": "USD",
      "authorized_date": "2026-09-09",
      "date": "2026-09-10",
@@ -6030,7 +6030,7 @@
     {
      "transaction_id": "MmBiBhgwJN3XH5NBUIOFus8IRReM9FWtjpSdv",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": -42.99,
+     "amount": -56.99,
      "iso_currency_code": "USD",
      "authorized_date": "2026-09-10",
      "date": "2026-09-11",
@@ -6066,7 +6066,7 @@
     {
      "transaction_id": "kDysMv0Zfri3gEKcwgYjxYZmRNLAKkNlsA47y",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 37.0,
+     "amount": 48.84,
      "iso_currency_code": "USD",
      "authorized_date": "2026-09-10",
      "date": "2026-09-11",
@@ -6120,7 +6120,7 @@
     {
      "transaction_id": "1aJA6OBObYJWpSO64rYr4t05HfKHOG99SWEnV",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 108.6,
+     "amount": 143.35,
      "iso_currency_code": "USD",
      "authorized_date": "2026-09-12",
      "date": "2026-09-14",
@@ -6156,7 +6156,7 @@
     {
      "transaction_id": "3fE9MDoJ8NIFLlj1y7NPgFbudTKuMPbLmPTSk",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 4.27,
+     "amount": 5.64,
      "iso_currency_code": "USD",
      "authorized_date": "2026-09-15",
      "date": "2026-09-16",
@@ -6174,7 +6174,7 @@
     {
      "transaction_id": "Bnti6FkYBvuIdooxWLPp5OTMi1PuxzyYxQqDR",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": -36.2,
+     "amount": -47.78,
      "iso_currency_code": "USD",
      "authorized_date": "2026-09-15",
      "date": "2026-09-15",
@@ -6233,7 +6233,7 @@
     {
      "transaction_id": "7JoBol3GHd7mHGJSQ5LFEf2X61NZGfyBaEf9o",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 37.06,
+     "amount": 41.98,
      "iso_currency_code": "USD",
      "authorized_date": "2026-09-17",
      "date": "2026-09-17",
@@ -6274,7 +6274,7 @@
     {
      "transaction_id": "TAK0fAGExsahapSubKLXLtIMfLg8Hck0NLMDv",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 23.55,
+     "amount": 31.09,
      "iso_currency_code": "USD",
      "authorized_date": "2026-09-18",
      "date": "2026-09-21",
@@ -6292,7 +6292,7 @@
     {
      "transaction_id": "t6YZtl5Fh6M4bK1bQsTg9iq4YlTuaw47u3FGo",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 12.2,
+     "amount": 16.1,
      "iso_currency_code": "USD",
      "authorized_date": "2026-09-18",
      "date": "2026-09-21",
@@ -6310,7 +6310,7 @@
     {
      "transaction_id": "uLZWAGbfMFhg5JaH6fAJxqQOeZXTXb5LizRGc",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 5.75,
+     "amount": 7.6,
      "iso_currency_code": "USD",
      "authorized_date": "2026-09-19",
      "date": "2026-09-21",
@@ -6328,7 +6328,7 @@
     {
      "transaction_id": "SQNAvokZN7T779pg05C7d5n2fDWAndVTWGAW4",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 26.0,
+     "amount": 34.0,
      "iso_currency_code": "USD",
      "authorized_date": "2026-09-19",
      "date": "2026-09-21",
@@ -6346,7 +6346,7 @@
     {
      "transaction_id": "q1cKIWvbAW43tMHMSCIZavV5CKqM8e9qRHafj",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 27.4,
+     "amount": 36.17,
      "iso_currency_code": "USD",
      "authorized_date": "2026-09-20",
      "date": "2026-09-21",
@@ -6400,7 +6400,7 @@
     {
      "transaction_id": "47IBmH3hR8sw0PXcnrq3egaqMAo980UBoX3Cz",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 27.15,
+     "amount": 35.84,
      "iso_currency_code": "USD",
      "authorized_date": "2026-09-22",
      "date": "2026-09-23",
@@ -6454,7 +6454,7 @@
     {
      "transaction_id": "Vvl7Mv8HkXI2U9YkvATDliM2YbUxXzr7yIhqm",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 4.61,
+     "amount": 6.09,
      "iso_currency_code": "USD",
      "authorized_date": "2026-09-24",
      "date": "2026-09-25",
@@ -6490,7 +6490,7 @@
     {
      "transaction_id": "dUJ08S1OfrdJmSJvq2z0sCmUTgsHR2tkeo1Nf",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 24.77,
+     "amount": 32.69,
      "iso_currency_code": "USD",
      "authorized_date": "2026-09-24",
      "date": "2026-09-25",
@@ -6562,7 +6562,7 @@
     {
      "transaction_id": "1lit0ypHwwN9q5HL3msLAjczUHCIkNpKFjQ2w",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 17.9,
+     "amount": 23.62,
      "iso_currency_code": "USD",
      "authorized_date": "2026-10-01",
      "date": "2026-10-02",
@@ -6598,7 +6598,7 @@
     {
      "transaction_id": "8h5ySqicIkfsUh6WmigNsGq0CPCMJT21N9Imj",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 15.11,
+     "amount": 19.94,
      "iso_currency_code": "USD",
      "authorized_date": "2026-10-02",
      "date": "2026-10-05",
@@ -6616,7 +6616,7 @@
     {
      "transaction_id": "p5KZdF8Qrb8sJiNEouRospMtXkqp0gmKa0JUy",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 19.21,
+     "amount": 25.36,
      "iso_currency_code": "USD",
      "authorized_date": "2026-10-03",
      "date": "2026-10-05",
@@ -6634,7 +6634,7 @@
     {
      "transaction_id": "QVnsZpF2V2r2iY9Uot4wf3iCnEPor6SOvFbGw",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": -700.0,
+     "amount": -925.0,
      "iso_currency_code": "USD",
      "authorized_date": "2026-10-03",
      "date": "2026-10-03",
@@ -6652,7 +6652,7 @@
     {
      "transaction_id": "RHiHrjaEVoFX6VxRJ3zORAGYOY8Gy7HLhu4Tl",
      "account_id": "oHBvRPOIvGrv5iFlbCBFNOgmBjMtpsiaOclRz",
-     "amount": 19.94,
+     "amount": 26.32,
      "iso_currency_code": "USD",
      "authorized_date": "2026-10-03",
      "date": "2026-10-05",
@@ -6718,14 +6718,14 @@
      "mask": "8820",
      "type": "depository",
      "subtype": "checking",
-     "_sandbox_opening_balance": 2850.0
+     "_sandbox_opening_balance": 3760.0
     }
    ],
    "transactions": [
     {
      "transaction_id": "Zj1ATSNbylmpUdccrNgey59yvKqFSgqonVF08",
      "account_id": "3AwzKsbVRJN9wVGFYGW2WmQzCudiH7YFjS1on",
-     "amount": 1250.0,
+     "amount": 1650.0,
      "iso_currency_code": "USD",
      "authorized_date": "2026-03-03",
      "date": "2026-03-03",
@@ -6743,7 +6743,7 @@
     {
      "transaction_id": "rTOzMJBCPen2xEda4okMtsYfZPJpsA5w3x4Gx",
      "account_id": "3AwzKsbVRJN9wVGFYGW2WmQzCudiH7YFjS1on",
-     "amount": 700.0,
+     "amount": 925.0,
      "iso_currency_code": "USD",
      "authorized_date": "2026-03-03",
      "date": "2026-03-03",
@@ -6761,7 +6761,7 @@
     {
      "transaction_id": "lZXOIgfFwD3HJoKyrbmEYYmdhQj38AruHr4iw",
      "account_id": "3AwzKsbVRJN9wVGFYGW2WmQzCudiH7YFjS1on",
-     "amount": -1385.4,
+     "amount": -1828.73,
      "iso_currency_code": "USD",
      "authorized_date": "2026-03-06",
      "date": "2026-03-06",
@@ -6779,7 +6779,7 @@
     {
      "transaction_id": "RxpVHSbKdA9u4uQgwLg6G3oT1ogmMJXwKi9x7",
      "account_id": "3AwzKsbVRJN9wVGFYGW2WmQzCudiH7YFjS1on",
-     "amount": -1385.4,
+     "amount": -1828.73,
      "iso_currency_code": "USD",
      "authorized_date": "2026-03-20",
      "date": "2026-03-20",
@@ -6797,7 +6797,7 @@
     {
      "transaction_id": "v3ecQwP1oRxxhfoPRcEtSPRVU5iFIJOYsJtNE",
      "account_id": "3AwzKsbVRJN9wVGFYGW2WmQzCudiH7YFjS1on",
-     "amount": 1250.0,
+     "amount": 1650.0,
      "iso_currency_code": "USD",
      "authorized_date": "2026-04-02",
      "date": "2026-04-02",
@@ -6815,7 +6815,7 @@
     {
      "transaction_id": "h6AmUfBH7X41zTPDP4k8FFuf0EwixIIqe8jKQ",
      "account_id": "3AwzKsbVRJN9wVGFYGW2WmQzCudiH7YFjS1on",
-     "amount": -1385.4,
+     "amount": -1828.73,
      "iso_currency_code": "USD",
      "authorized_date": "2026-04-03",
      "date": "2026-04-03",
@@ -6833,7 +6833,7 @@
     {
      "transaction_id": "aVidaDN1aY5xl8sB24wkYeA8WTwY2591aivvi",
      "account_id": "3AwzKsbVRJN9wVGFYGW2WmQzCudiH7YFjS1on",
-     "amount": 700.0,
+     "amount": 925.0,
      "iso_currency_code": "USD",
      "authorized_date": "2026-04-03",
      "date": "2026-04-03",
@@ -6851,7 +6851,7 @@
     {
      "transaction_id": "h3mb9N7iwusMtTZqpXc5hcHPOEVBljOlOAEto",
      "account_id": "3AwzKsbVRJN9wVGFYGW2WmQzCudiH7YFjS1on",
-     "amount": -1385.4,
+     "amount": -1828.73,
      "iso_currency_code": "USD",
      "authorized_date": "2026-04-17",
      "date": "2026-04-17",
@@ -6869,7 +6869,7 @@
     {
      "transaction_id": "DOE5C3VEgPRqfNiIu74kkePyezaMGGqbWbad3",
      "account_id": "3AwzKsbVRJN9wVGFYGW2WmQzCudiH7YFjS1on",
-     "amount": -1385.4,
+     "amount": -1828.73,
      "iso_currency_code": "USD",
      "authorized_date": "2026-05-01",
      "date": "2026-05-01",
@@ -6887,7 +6887,7 @@
     {
      "transaction_id": "DQYUNdUVw4YRw81aQ1FeBviD8WOpEx9pCwB8P",
      "account_id": "3AwzKsbVRJN9wVGFYGW2WmQzCudiH7YFjS1on",
-     "amount": 1250.0,
+     "amount": 1650.0,
      "iso_currency_code": "USD",
      "authorized_date": "2026-05-02",
      "date": "2026-05-02",
@@ -6905,7 +6905,7 @@
     {
      "transaction_id": "1BnJPIeqHk8NdsQxXKmm9vtHx0K9TGlB7Tkr6",
      "account_id": "3AwzKsbVRJN9wVGFYGW2WmQzCudiH7YFjS1on",
-     "amount": 700.0,
+     "amount": 925.0,
      "iso_currency_code": "USD",
      "authorized_date": "2026-05-03",
      "date": "2026-05-03",
@@ -6923,7 +6923,7 @@
     {
      "transaction_id": "uDrppGDZuVz3GPMMicIbLRdP37Ecz32jGDpi1",
      "account_id": "3AwzKsbVRJN9wVGFYGW2WmQzCudiH7YFjS1on",
-     "amount": -1385.4,
+     "amount": -1828.73,
      "iso_currency_code": "USD",
      "authorized_date": "2026-05-15",
      "date": "2026-05-15",
@@ -6941,7 +6941,7 @@
     {
      "transaction_id": "AF7w2PKafeN3Z5DKYAYQ7yydSbs9uyjqtfJMS",
      "account_id": "3AwzKsbVRJN9wVGFYGW2WmQzCudiH7YFjS1on",
-     "amount": -1385.4,
+     "amount": -1828.73,
      "iso_currency_code": "USD",
      "authorized_date": "2026-05-29",
      "date": "2026-05-29",
@@ -6959,7 +6959,7 @@
     {
      "transaction_id": "PwdknqYVBf2ULfNWzQVR4ms4RjAh8MFPuafjw",
      "account_id": "3AwzKsbVRJN9wVGFYGW2WmQzCudiH7YFjS1on",
-     "amount": 700.0,
+     "amount": 925.0,
      "iso_currency_code": "USD",
      "authorized_date": "2026-06-03",
      "date": "2026-06-03",
@@ -6977,7 +6977,7 @@
     {
      "transaction_id": "Gb9Xo51dtJbLuh9pRnz6ixedb0ulRU2P17FR4",
      "account_id": "3AwzKsbVRJN9wVGFYGW2WmQzCudiH7YFjS1on",
-     "amount": 1250.0,
+     "amount": 1650.0,
      "iso_currency_code": "USD",
      "authorized_date": "2026-06-05",
      "date": "2026-06-05",
@@ -6995,7 +6995,7 @@
     {
      "transaction_id": "N9DlviDvUDDleg62hKD9gF2LEmEr3PZH84kPl",
      "account_id": "3AwzKsbVRJN9wVGFYGW2WmQzCudiH7YFjS1on",
-     "amount": -1385.4,
+     "amount": -1828.73,
      "iso_currency_code": "USD",
      "authorized_date": "2026-06-12",
      "date": "2026-06-12",
@@ -7013,7 +7013,7 @@
     {
      "transaction_id": "mCnFaqlkhU7QNqtUPQZIqpTdU7w7EAdnkGEiN",
      "account_id": "3AwzKsbVRJN9wVGFYGW2WmQzCudiH7YFjS1on",
-     "amount": -1385.4,
+     "amount": -1828.73,
      "iso_currency_code": "USD",
      "authorized_date": "2026-06-26",
      "date": "2026-06-26",
@@ -7031,7 +7031,7 @@
     {
      "transaction_id": "Hvi8wsLMNveRulwhmSG1MSOXLTAtiIRCDjSs8",
      "account_id": "3AwzKsbVRJN9wVGFYGW2WmQzCudiH7YFjS1on",
-     "amount": 1250.0,
+     "amount": 1650.0,
      "iso_currency_code": "USD",
      "authorized_date": "2026-07-03",
      "date": "2026-07-03",
@@ -7049,7 +7049,7 @@
     {
      "transaction_id": "o3wfG3AkSeecVL9DQ83eH0EZfEkorDJJzk8TF",
      "account_id": "3AwzKsbVRJN9wVGFYGW2WmQzCudiH7YFjS1on",
-     "amount": 700.0,
+     "amount": 925.0,
      "iso_currency_code": "USD",
      "authorized_date": "2026-07-03",
      "date": "2026-07-03",
@@ -7067,7 +7067,7 @@
     {
      "transaction_id": "gQI7W4E4PXSKc1itTnzphAq0jT7qG84IQH4Gv",
      "account_id": "3AwzKsbVRJN9wVGFYGW2WmQzCudiH7YFjS1on",
-     "amount": -1385.4,
+     "amount": -1828.73,
      "iso_currency_code": "USD",
      "authorized_date": "2026-07-10",
      "date": "2026-07-10",
@@ -7085,7 +7085,7 @@
     {
      "transaction_id": "jJRSmNtVNro2QgfQ562DFob1RCAVxIoQKvcjt",
      "account_id": "3AwzKsbVRJN9wVGFYGW2WmQzCudiH7YFjS1on",
-     "amount": -1385.4,
+     "amount": -1828.73,
      "iso_currency_code": "USD",
      "authorized_date": "2026-07-24",
      "date": "2026-07-24",
@@ -7103,7 +7103,7 @@
     {
      "transaction_id": "LjEKAacsmeSCOStSs3dErO7Qyyolqz7MbHiOp",
      "account_id": "3AwzKsbVRJN9wVGFYGW2WmQzCudiH7YFjS1on",
-     "amount": 1250.0,
+     "amount": 1650.0,
      "iso_currency_code": "USD",
      "authorized_date": "2026-08-02",
      "date": "2026-08-02",
@@ -7121,7 +7121,7 @@
     {
      "transaction_id": "6R0JEDKyTmv0k6ScHdsTsZ8RgifcFmC4bvUmQ",
      "account_id": "3AwzKsbVRJN9wVGFYGW2WmQzCudiH7YFjS1on",
-     "amount": 700.0,
+     "amount": 925.0,
      "iso_currency_code": "USD",
      "authorized_date": "2026-08-03",
      "date": "2026-08-03",
@@ -7139,7 +7139,7 @@
     {
      "transaction_id": "bjAHE84s5JiC1XljJbICTX57y3C5WNrPqGWxj",
      "account_id": "3AwzKsbVRJN9wVGFYGW2WmQzCudiH7YFjS1on",
-     "amount": -1385.4,
+     "amount": -1828.73,
      "iso_currency_code": "USD",
      "authorized_date": "2026-08-07",
      "date": "2026-08-07",
@@ -7157,7 +7157,7 @@
     {
      "transaction_id": "43anvJ77P3KzzL4aBLv7Vy7azq3vzPRKysGY3",
      "account_id": "3AwzKsbVRJN9wVGFYGW2WmQzCudiH7YFjS1on",
-     "amount": -1385.4,
+     "amount": -1828.73,
      "iso_currency_code": "USD",
      "authorized_date": "2026-08-21",
      "date": "2026-08-21",
@@ -7175,7 +7175,7 @@
     {
      "transaction_id": "qG2KVasfSq8Z0wjCdFUQUHxZ3g0Aq3idaDMhX",
      "account_id": "3AwzKsbVRJN9wVGFYGW2WmQzCudiH7YFjS1on",
-     "amount": 1250.0,
+     "amount": 1650.0,
      "iso_currency_code": "USD",
      "authorized_date": "2026-09-03",
      "date": "2026-09-03",
@@ -7193,7 +7193,7 @@
     {
      "transaction_id": "wfocwDNRjI7Sc4sfHBomzPtKTjAjaFO16Hd8H",
      "account_id": "3AwzKsbVRJN9wVGFYGW2WmQzCudiH7YFjS1on",
-     "amount": 700.0,
+     "amount": 925.0,
      "iso_currency_code": "USD",
      "authorized_date": "2026-09-03",
      "date": "2026-09-03",
@@ -7211,7 +7211,7 @@
     {
      "transaction_id": "C2eOM06dWT0y3OOBqMZVR3E9xRWpgZr1iV8BH",
      "account_id": "3AwzKsbVRJN9wVGFYGW2WmQzCudiH7YFjS1on",
-     "amount": -1385.4,
+     "amount": -1828.73,
      "iso_currency_code": "USD",
      "authorized_date": "2026-09-04",
      "date": "2026-09-04",
@@ -7229,7 +7229,7 @@
     {
      "transaction_id": "4QLl9QCGmbWuyUbmgHY5kMQCtbAh7ziru8vvq",
      "account_id": "3AwzKsbVRJN9wVGFYGW2WmQzCudiH7YFjS1on",
-     "amount": -1385.4,
+     "amount": -1828.73,
      "iso_currency_code": "USD",
      "authorized_date": "2026-09-18",
      "date": "2026-09-18",
@@ -7247,7 +7247,7 @@
     {
      "transaction_id": "MXbE8q6VnUq2Hu5TgTqaUZsSjIMaq8Yrv5Lnk",
      "account_id": "3AwzKsbVRJN9wVGFYGW2WmQzCudiH7YFjS1on",
-     "amount": -1385.4,
+     "amount": -1828.73,
      "iso_currency_code": "USD",
      "authorized_date": "2026-10-02",
      "date": "2026-10-02",
@@ -7265,7 +7265,7 @@
     {
      "transaction_id": "0ASuT1llqf3JcieWVjwiYd7U3MsPkYO2xaCUv",
      "account_id": "3AwzKsbVRJN9wVGFYGW2WmQzCudiH7YFjS1on",
-     "amount": 1250.0,
+     "amount": 1650.0,
      "iso_currency_code": "USD",
      "authorized_date": "2026-10-03",
      "date": "2026-10-03",
@@ -7283,7 +7283,7 @@
     {
      "transaction_id": "t6zYYqy0pJf9CIg9lV3G32cGh6dAuJa3pJEey",
      "account_id": "3AwzKsbVRJN9wVGFYGW2WmQzCudiH7YFjS1on",
-     "amount": 700.0,
+     "amount": 925.0,
      "iso_currency_code": "USD",
      "authorized_date": "2026-10-03",
      "date": "2026-10-03",
